@@ -1,4 +1,4 @@
-#include "TheStrongestgoblin.h"
+#include "TheStrongestGoblin.h"
 
 TheStrongestGoblin::TheStrongestGoblin() : Monster("The Strongest Goblin", 15, 5, 800) {}
 
