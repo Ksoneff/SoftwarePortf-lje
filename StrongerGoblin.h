@@ -5,7 +5,7 @@
 
 class StrongerGoblin : public Monster {
 public:
-	StrongerGoblin();
+	StrongerGoblin(string name, int hp, int damage, int xp);
 	~StrongerGoblin();
 };
 

@@ -1,5 +1,5 @@
 #include "StrongerGoblin.h"
 
-StrongerGoblin::StrongerGoblin() : Monster("Stronger Goblin", 10, 4, 500) {}
+StrongerGoblin::StrongerGoblin(string name, int hp, int damage, int xp) : Monster(name, hp, damage, xp) {}
 
 StrongerGoblin::~StrongerGoblin() {}

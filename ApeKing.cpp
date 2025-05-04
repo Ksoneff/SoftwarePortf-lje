@@ -1,5 +1,5 @@
 #include "ApeKing.h"
 
-ApeKing::ApeKing() : Monster("Ape King", 30, 5, 1000) {}
+ApeKing::ApeKing(string name, int hp, int damage, int xp) : Monster(name, hp, damage, xp) {}
 
 ApeKing::~ApeKing() {}

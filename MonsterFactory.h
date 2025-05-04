@@ -2,17 +2,10 @@
 #define MONSTERFACTORY_H
 
 #include <string>
-#include "Hest.h"
+#include "MonsterType.h"
 #include "Monster.h"
-#include "WeakGoblin.h"
-#include "StrongGoblin.h"
-#include "StrongerGoblin.h"
-#include "TheStrongestGoblin.h"
-#include "ApeKing.h"
-#include "Unicorn.h"
-#include "Dragon.h"
 
-enum Type { HEST, WEAKGOBLIN, STRONGGOBLIN, STRONGERGOBLIN, THESTRONGESTGOBLIN, APEKING, UNICORN, DRAGON };
+using namespace std;
 
 class MonsterFactory
 {
@@ -21,3 +14,4 @@ public:
 };
 
 #endif
+

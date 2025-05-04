@@ -1,5 +1,5 @@
 #include "Dragon.h"
 
-Dragon::Dragon() : Monster("Dragon", 100, 10, 3000) {}
+Dragon::Dragon(string name, int hp, int damage, int xp) : Monster(name, hp, damage, xp) {}
 
 Dragon::~Dragon() {}

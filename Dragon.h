@@ -5,7 +5,7 @@
 
 class Dragon : public Monster {
 public:
-	Dragon();
+	Dragon(string name, int hp, int damage, int xp);
 	~Dragon();
 };
 

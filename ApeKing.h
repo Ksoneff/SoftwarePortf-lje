@@ -5,7 +5,7 @@
 
 class ApeKing : public Monster {
 public:
-	ApeKing();
+	ApeKing(string name, int hp, int damage, int xp);
 	~ApeKing();
 };
 

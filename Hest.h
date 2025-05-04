@@ -5,7 +5,7 @@
 
 class Hest : public Monster {
 public:
-    Hest();
+    Hest(string name, int hp, int damage, int xp);
     ~Hest();
 };
 

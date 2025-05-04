@@ -5,7 +5,7 @@
 
 class Unicorn : public Monster {
 public:
-	Unicorn();
+	Unicorn(string name, int hp, int damage, int xp);
 	~Unicorn();
 };
 

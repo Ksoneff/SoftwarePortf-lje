@@ -1,5 +1,5 @@
 #include "WeakGoblin.h"
 
-WeakGoblin::WeakGoblin() : Monster("Weak Goblin", 4, 2, 200) {}
+WeakGoblin::WeakGoblin(string name, int hp, int damage, int xp) : Monster(name, hp, damage, xp) {}
 
 WeakGoblin::~WeakGoblin() {}
