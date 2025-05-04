@@ -21,14 +21,14 @@ Controller::Controller(string n) {
 
 	// Objects of hero and all enemies
 	Hero h;
-	Hest hest;
-	WeakGoblin g1;
-	StrongGoblin g2;
-	StrongerGoblin g3;
-	TheStrongestGoblin g4;
-	ApeKing a;
-	Unicorn u;
-	Dragon d;
+	Hest hest("Hest", 5, 1, 100);
+	WeakGoblin g1("Weak Goblin", 4, 2, 200);
+	StrongGoblin g2("Strong Goblin", 8, 3, 400);
+	StrongerGoblin g3("Stronger Goblin", 10, 4, 500);
+	TheStrongestGoblin g4("The Strongest Goblin", 15, 5, 800);
+	ApeKing a("Ape King", 30, 5, 1000);
+	Unicorn u("Unicorn", 5, 8, 1500);
+	Dragon d("Dragon", 100, 10, 3000);
 
 	// Vector with different monsters
 	vector<Monster*> enemies;
