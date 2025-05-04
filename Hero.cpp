@@ -2,12 +2,13 @@
 
 Hero::Hero(){}
 
-Hero::Hero(string n, int hp, int lvl, int xp, int d) {
+Hero::Hero(string n, int hp, int lvl, int xp, int d, int g) {
 	name = n;
 	HP = hp;
 	Level = lvl;
 	XP = xp;
 	damage = d;
+	gold = g;
 }
 
 string Hero::getName() {
@@ -30,4 +31,9 @@ int Hero::getDamage() {
 	return damage;
 }
 
+int Hero::getGold() {
+	return gold;
+}
+
 Hero::~Hero(){}
+

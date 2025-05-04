@@ -9,12 +9,13 @@ class Hero
 {
 public:
 	Hero();
-	Hero(string, int, int, int, int);
+	Hero(string, int, int, int, int, int);
 	string getName();
 	int getLevel();
 	int getXP();
 	int getHP();
 	int getDamage();
+	int getGold();
 	~Hero();
 private:
 	string name;
@@ -22,7 +23,9 @@ private:
 	int HP;
 	int Level;
 	int XP;
+	int gold;
 };
 
 #endif
+
 
