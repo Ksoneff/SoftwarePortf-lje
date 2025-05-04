@@ -1,0 +1,15 @@
+#ifndef MONSTERTYPE_H
+#define MONSTERTYPE_H
+
+enum Type {
+    HEST,
+    WEAKGOBLIN,
+    STRONGGOBLIN,
+    STRONGERGOBLIN,
+    THESTRONGESTGOBLIN,
+    APEKING,
+    UNICORN,
+    DRAGON
+};
+
+#endif
