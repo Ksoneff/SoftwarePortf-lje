@@ -21,41 +21,93 @@
 Controller::Controller(){}
 
 Controller::Controller(string n) {
+Hero h;
+Hero Ironman;
+Hero Spiderman;
+Hero Deadpool;
+Hero Batman;
+char newGame;
+char action;
+string newHero;
+string oldHero;
+bool correctInput = false;
 
-	Hero h;
-	char newGame;
-	char action;
-	string newHero;
-	string oldHero;
-	bool correctInput = false;
+// The flow of the game starts here
+cout << "(1) New Game (0) Load Game (2) Load Premade Hero: " << endl;
 
-	// The flow of the game starts here
-	cout << "(1) New Game (0) Load Game: " << endl;
+while (!correctInput) { // While loop checking for icorrect user input
+	cin >> newGame;
+	if (newGame == '0' || newGame == '1' || newGame == '2') {
+		correctInput = true;
+	}
+	else {
+		cout << "Error incorrect user input, please enter either 0 or 1" << endl;
+		correctInput = false;
+	}
+}
 
-	while (!correctInput) { // While loop checking for icorrect user input
-		cin >> newGame;
-		if (newGame == '0' || newGame == '1') {
-			correctInput = true;
-		}
-		else {
-			cout << "Error incorrect user input, please enter either 0 or 1" << endl;
+if (newGame == '1') {
+	cout << "Create new hero, enter name without any spaces: " << endl;
+	cin >> newHero;
+	h = Hero(newHero, 10, 1, 0, 2, 0);
+}
+
+while (correctInput) {
+	if (newGame == '2') {
+		string heroChoice;
+		cout << " " << endl;
+		cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
+		cout << "Load one of the following heroes: " << endl;
+		Ironman = Hero("Ironman", 8, 1, 0, 6, 0);
+		cout << " " << endl;
+		cout << "Ironman: Strengths - Has cool tricks and can damage other oppenents heavily, Weakness - Has low HP " << endl;
+		cout << "HP: " << Ironman.getHP() << "  Level: " << Ironman.getLevel() << "  XP: " << Ironman.getXP() << "  Damage: " << Ironman.getDamage() << "  Gold: " << Ironman.getGold() << endl;
+		cout << " " << endl;
+		Spiderman = Hero("Spiderman", 12, 1, 0, 3, 0);
+		cout << " " << endl;
+		cout << "Spiderman: This is a pretty average choice, no real strengths or weaknesses, just your friendly neighboorhod spiderman " << endl;
+		cout << "HP: " << Spiderman.getHP() << "  Level: " << Spiderman.getLevel() << "  XP: " << Spiderman.getXP() << "  Damage: " << Spiderman.getDamage() << "  Gold: " << Spiderman.getGold() << endl;
+		cout << " " << endl;
+		Deadpool = Hero("Deadpool", 20, 1, 0, 1, 0);
+		cout << " " << endl;
+		cout << "Deadpool: Strength - Regenerates so starts out with double HP, Weakness - doesnt really damage too much " << endl;
+		cout << "HP: " << Deadpool.getHP() << "  Level: " << Deadpool.getLevel() << "  XP: " << Deadpool.getXP() << "  Damage: " << Deadpool.getDamage() << "  Gold: " << Deadpool.getGold() << endl;
+		cout << " " << endl;
+		Batman = Hero("Batman", 10, 1, 0, 2, 500);
+		cout << " " << endl;
+		cout << "Batman: Strength - HE IS RICH, so you start the game with 500 gold " << endl;
+		cout << "HP: " << Batman.getHP() << "  Level: " << Batman.getLevel() << "  XP: " << Batman.getXP() << "  Damage: " << Batman.getDamage() << "  Gold: " << Batman.getGold() << endl;
+		cout << " " << endl;
+		cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
+		cin >> heroChoice;
+		if (heroChoice == Ironman.getName()) {
+			h = Ironman;
 			correctInput = false;
 		}
+		else if (heroChoice == Spiderman.getName()) {
+			h = Spiderman;
+			correctInput = false;
+		}
+		else if (heroChoice == Deadpool.getName()) {
+			h = Deadpool;
+			correctInput = false;
+		}
+		else if (heroChoice == Batman.getName()) {
+			h = Batman;
+			correctInput = false;
+		}
+		else {
+			cout << "Incorrect user input, please choose a hero by writing the correct name: " << endl;
+		}
 	}
+}
 
-	if (newGame == '1') {
-		cout << "Create new hero, enter name without any spaces: " << endl;
-		cin >> newHero;
-		h = Hero(newHero, 10, 1, 0, 2, 0);
-	}
-
-	else {
-		cout << "Enter hero name to load: " << endl;
-		cout << showHeroes() << endl;
-		cin >> oldHero;
-		h = loadGame(oldHero);
-	}
-
+if (newGame == '0') {
+	cout << "Enter hero name to load: " << endl;
+	cout << showHeroes() << endl;
+	cin >> oldHero;
+	h = loadGame(oldHero);
+}
 
 	// Uses showRules() function to show rules
 	showRules();
