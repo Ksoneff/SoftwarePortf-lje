@@ -27,6 +27,7 @@ public:
 	Hero loadGame(string);
 	Hero fightMonster(char, Hero, vector<Monster*>);
 	Hero updateLevel(int, Hero);
+	Hero battleCave(int heroLvl, Hero h, vector<Monster*> caveMonsters);
 	~Controller();
 
 private:
@@ -36,3 +37,5 @@ private:
 };
 
 #endif
+
+

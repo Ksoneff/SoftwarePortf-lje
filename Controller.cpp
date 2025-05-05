@@ -9,38 +9,20 @@
 #include "ApeKing.h"
 #include "Unicorn.h"
 #include "Dragon.h"
+#include "CaveFactory.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <chrono>
 #include <thread>
+#include <ctime> // needed for time()
+#include <cstdlib> // needed for srand() and rand()
 
 Controller::Controller(){}
 
 Controller::Controller(string n) {
 
-	// Objects of hero and all enemies
 	Hero h;
-	Hest hest("Hest", 5, 1, 100);
-	WeakGoblin g1("Weak Goblin", 4, 2, 200);
-	StrongGoblin g2("Strong Goblin", 8, 3, 400);
-	StrongerGoblin g3("Stronger Goblin", 10, 4, 500);
-	TheStrongestGoblin g4("The Strongest Goblin", 15, 5, 800);
-	ApeKing a("Ape King", 30, 5, 1000);
-	Unicorn u("Unicorn", 5, 8, 1500);
-	Dragon d("Dragon", 100, 10, 3000);
-
-	// Vector with different monsters
-	vector<Monster*> enemies;
-	enemies.push_back(&hest); 
-	enemies.push_back(&g1);    
-	enemies.push_back(&g2);    
-	enemies.push_back(&g3);    
-	enemies.push_back(&g4);   
-	enemies.push_back(&a);     
-	enemies.push_back(&u);     
-	enemies.push_back(&d);     
-
 	char newGame;
 	char action;
 	string newHero;
@@ -64,7 +46,7 @@ Controller::Controller(string n) {
 	if (newGame == '1') {
 		cout << "Create new hero, enter name without any spaces: " << endl;
 		cin >> newHero;
-		h = Hero(newHero, 10, 1, 0, 2);
+		h = Hero(newHero, 10, 1, 0, 2, 0);
 	}
 
 	else {
@@ -74,86 +56,159 @@ Controller::Controller(string n) {
 		h = loadGame(oldHero);
 	}
 
+
 	// Uses showRules() function to show rules
 	showRules();
-
-	this_thread::sleep_for(chrono::seconds(40)); // For pausing to read rules, taken from chatGBT :)
-
-	bool quitGame = false;
+	this_thread::sleep_for(chrono::seconds(1)); // For pausing to read rules, taken from chatGBT, i mean found chrono and stuff there:)
 
 	cout << "" << endl;
 	cout << "" << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 	cout << "Current hero stats are: " << endl;
-	cout << "HP: " << h.getHP() << "  Level: " << h.getLevel() << "  XP: " << h.getXP() << "  Damage: " << h.getDamage() << endl;
+	cout << "HP: " << h.getHP() << "  Level: " << h.getLevel() << "  XP: " << h.getXP() << "  Damage: " << h.getDamage() << "  Gold: " << h.getGold() << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 
 	this_thread::sleep_for(chrono::seconds(5));
 
-	cout << "Monster stats are: " << endl;
-	cout << "1. Hest:                 5. The Strongest Goblin:" << endl;
-	cout << "HP: " << hest.getHP() << "  Damage: " << hest.getDamage() << "  XP: " << hest.getXP();
-	cout << "     HP: " << g4.getHP() << "  Damage: " << g4.getDamage() << "  XP: " << g4.getXP() << endl << endl;
-
-	cout << "2. Weak Goblin:          6. Ape King:" << endl;
-	cout << "HP: " << g1.getHP() << "  Damage: " << g1.getDamage() << "  XP: " << g1.getXP();
-	cout << "     HP: " << a.getHP() << "  Damage: " << a.getDamage() << "  XP: " << a.getXP() << endl << endl;
-
-	cout << "3. Strong Goblin:        7. Unicorn:" << endl;
-	cout << "HP: " << g2.getHP() << "  Damage: " << g2.getDamage() << "  XP: " << g2.getXP();
-	cout << "     HP: " << u.getHP() << "  Damage: " << u.getDamage() << "  XP: " << u.getXP() << endl << endl;
-
-	cout << "4. Stronger Goblin:      8. ALMIGHTY DRAGON:" << endl;
-	cout << "HP: " << g3.getHP() << "  Damage: " << g3.getDamage() << "  XP: " << g3.getXP();
-	cout << "     HP: " << d.getHP() << "  Damage: " << d.getDamage() << "  XP: " << d.getXP() << endl << endl;
-
-	this_thread::sleep_for(chrono::seconds(5));
+	bool quitGame = false;
 
 	// While loop that runs indefinetly so that the player can battle as many foes as they want, ends when player writes 0 (to quit)
 	while (!quitGame) {
-		cout << "Choose monster to fight (by index number), or type: '0' to save and exit: ";
+		cout << " " << endl;
+		cout << "Either choose to fight a wild monster (W), you may also inspect nearby caves (C), or save and exit (0): ";
 
-		correctInput = false;
+		CaveFactory cave1;
+		CaveFactory cave2;
+		vector<Monster*> cave1Monsters;
+		vector<Monster*> cave2Monsters;
 
 		cin >> action;
 
-		while (!correctInput) {
-
-			if (action != '0' && action != '1' && action != '2' && action != '3' && action != '4' && action != '5' && action != '6' && action != '7' && action != '8') {
-				cout << "No monster has this index, please enter either 0 to quit or number 1-8 to choose monster" << endl;
-				cin >> action;
+		if (action == 'C' && h.getLevel() >= 5) {
+			cout << " " << endl;
+			cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl;
+			cout << "You have chosen to search the area for nearby caves " << endl;
+			cout << "Loading terrain";
+			this_thread::sleep_for(chrono::seconds(1));
+			cout << ".";
+			this_thread::sleep_for(chrono::seconds(1));
+			cout << ".";
+			this_thread::sleep_for(chrono::seconds(1));
+			cout << ".";
+			this_thread::sleep_for(chrono::seconds(1));
+			cout << ".";
+			this_thread::sleep_for(chrono::seconds(1));
+			cout << ".";
+			this_thread::sleep_for(chrono::seconds(1));
+			cout << "Your hero found two caves" << endl;
+			cout << " " << endl;
+			cout << "Cave 1: " << endl;
+			cout << " " << endl;
+			cave1Monsters = cave1.createCave(h.getLevel());
+			cave1.printCaveMonsters(cave1Monsters);
+			cout << "Cave 2: " << endl;
+			cout << " " << endl;
+			cave2Monsters = cave2.createCave(h.getLevel());
+			cave2.printCaveMonsters(cave2Monsters);
+			cout << " " << endl;
+			cout << "Now you can choose between three options: " << endl;
+			cout << "1. Choose to battle cave 1 " << endl;
+			cout << "2. Choose to battle cave 2 " << endl;
+			cout << "3. Choose to abandon caves and roam the lands until you encounter a wild monster instead " << endl;
+			cin >> action;
+			cout << " " << endl;
+			cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl;
+			cout << " " << endl;
+			if (action == '1') {
+				h = battleCave(h.getLevel(), h, cave1Monsters);
 			}
-
-			else if (action == '0') {
-				cout << "Thank you for playing!" << endl;
-				cout << "Game saving..." << endl;
-				saveGame(h); // Uses save game function to save game to save.txt file
-				cout << "Game saved succesfully!" << endl;
-				exit(0); // exits program instantly
+			else if (action == '2') {
+				h = battleCave(h.getLevel(), h, cave2Monsters);
 			}
-
-			else {
-				correctInput = true;
+			else if (action == '3') {
 			}
 		}
 
-		h = fightMonster(action, h, enemies);
+		else if (action == 'C' && h.getLevel() < 5) {
+			cout << " " << endl;
+			cout << "ERROR: Your hero level is too low to explore caves. Fight more wild monsters to level up and unlock caves" << endl;
+			cout << " " << endl;
+		}
 
-		this_thread::sleep_for(chrono::seconds(2));
+		else if (action == 'W') {
 
-		cout << "" << endl;
-		cout << "--------------------------------------------------------------------" << endl;
-		cout << "The battle is over, and your heros stats now are: " << endl;
-		cout << "--------------------------------------------------------------------" << endl;
-		cout << "" << endl;
-		cout << "Name:     " << h.getName() << endl;
-		cout << "HP:       " << h.getHP() << endl;
-		cout << "Level:    " << h.getLevel() << endl;
-		cout << "XP:       " << h.getXP() << endl;
-		cout << "Damage:   " << h.getDamage() << endl;
-		cout << "" << endl;
+			char monsterChoice;
+
+			// Objects of hero and all enemies
+			Hest hest("Hest", 5, 1, 100);
+			WeakGoblin g1("Weak Goblin", 4, 2, 200);
+			StrongGoblin g2("Strong Goblin", 8, 3, 400);
+			StrongerGoblin g3("Stronger Goblin", 10, 4, 500);
+			TheStrongestGoblin g4("The Strongest Goblin", 15, 5, 800);
+			ApeKing a("Ape King", 30, 5, 1000);
+			Unicorn u("Unicorn", 5, 8, 1500);
+			Dragon d("Dragon", 100, 10, 3000);
+
+			// Vector with different monsters
+			vector<Monster*> enemies;
+			enemies.push_back(&hest);
+			enemies.push_back(&g1);
+			enemies.push_back(&g2);
+			enemies.push_back(&g3);
+			enemies.push_back(&g4);
+			enemies.push_back(&a);
+			enemies.push_back(&u);
+			enemies.push_back(&d);
+
+			cout << " " << endl;
+			cout << "Monster stats are: " << endl;
+			cout << "1. Hest:                 5. The Strongest Goblin:" << endl;
+			cout << "HP: " << hest.getHP() << "  Damage: " << hest.getDamage() << "  XP: " << hest.getXP();
+			cout << "     HP: " << g4.getHP() << "  Damage: " << g4.getDamage() << "  XP: " << g4.getXP() << endl << endl;
+
+			cout << "2. Weak Goblin:          6. Ape King:" << endl;
+			cout << "HP: " << g1.getHP() << "  Damage: " << g1.getDamage() << "  XP: " << g1.getXP();
+			cout << "     HP: " << a.getHP() << "  Damage: " << a.getDamage() << "  XP: " << a.getXP() << endl << endl;
+
+			cout << "3. Strong Goblin:        7. Unicorn:" << endl;
+			cout << "HP: " << g2.getHP() << "  Damage: " << g2.getDamage() << "  XP: " << g2.getXP();
+			cout << "     HP: " << u.getHP() << "  Damage: " << u.getDamage() << "  XP: " << u.getXP() << endl << endl;
+
+			cout << "4. Stronger Goblin:      8. ALMIGHTY DRAGON:" << endl;
+			cout << "HP: " << g3.getHP() << "  Damage: " << g3.getDamage() << "  XP: " << g3.getXP();
+			cout << "     HP: " << d.getHP() << "  Damage: " << d.getDamage() << "  XP: " << d.getXP() << endl << endl;
+			cout << " " << endl;
+			cout << "Choose a monster to fight by index: " << endl;
+			cin >> monsterChoice;
+			
+			h = fightMonster(monsterChoice, h, enemies);
+			this_thread::sleep_for(chrono::seconds(2));
+
+			cout << "" << endl;
+			cout << "--------------------------------------------------------------------" << endl;
+			cout << "The battle is over, and your heros stats now are: " << endl;
+			cout << "--------------------------------------------------------------------" << endl;
+			cout << "" << endl;
+			cout << "Name:     " << h.getName() << endl;
+			cout << "HP:       " << h.getHP() << endl;
+			cout << "Level:    " << h.getLevel() << endl;
+			cout << "XP:       " << h.getXP() << endl;
+			cout << "Damage:   " << h.getDamage() << endl;
+			cout << "Gold:     " << h.getGold() << endl;
+			cout << "" << endl;
+		}
+
+		else if (action == '0') {
+			cout << "Thank you for playing!" << endl;
+			cout << "Game saving..." << endl;
+			saveGame(h); // Uses save game function to save game to save.txt file
+			cout << "Game saved succesfully!" << endl;
+			quitGame = true;
+		}
+		else {
+			cout << "ERROR: please enter valid input" << endl;
+		}
 	}
-
 }
 
 // This function shows the rules of the game
@@ -183,10 +238,10 @@ string Controller::showHeroes() {
 	ifstream file("save.txt");
 
 	string name;
-	int level, xp, hp, damage;
+	int level, xp, hp, damage, gold;
 	string allNames;
 
-	while (file >> name >> level >> xp >> hp >> damage) {
+	while (file >> name >> level >> xp >> hp >> damage >> gold) {
 		allNames += name + "\n";
 	}
 
@@ -197,6 +252,9 @@ string Controller::showHeroes() {
 // saveGame function saves the game when user quits
 void Controller::saveGame(Hero h) {
 
+	string name;
+	int hp, level, xp, damage, gold;
+
 	// Opens function, writes all hero stats to save.txt and closes file
 	ofstream file("save.txt", ios::app);
 
@@ -204,7 +262,8 @@ void Controller::saveGame(Hero h) {
 		<< h.getHP() << " "
 		<< h.getLevel() << " "
 		<< h.getXP() << " "
-		<< h.getDamage() << "\n";
+		<< h.getDamage() << " "
+		<< h.getGold() << "\n";
 
 	file.close();
 }
@@ -214,15 +273,15 @@ Hero Controller::loadGame(string nameToFind) {
 	ifstream file("save.txt");
 
 	string name;
-	int level, xp, hp, damage;
+	int level, xp, hp, damage, gold;
 
-	while (file >> name >> hp >> level >> xp >> damage) {
+	while (file >> name >> hp >> level >> xp >> damage >> gold) {
 		if (name == nameToFind) {
-			return Hero(name, hp, level, xp, damage);
+			return Hero(name, hp, level, xp, damage, gold);
 		}
 		else { // For handling incorrect load
 			cout << "Error: Hero was not found, you have been given default hero" << endl; 
-			return Hero("NoobMaster69", 10, 1, 0, 2);
+			return Hero("NoobMaster69", 10, 1, 0, 2, 0);
 		}
 	}
 
@@ -235,6 +294,8 @@ Hero Controller::fightMonster(char n, Hero h, vector<Monster*> monsters) {
 	for (int i = 0; i < monsters.size(); i++) {
 
 		int monsterHealth = monsters[i]->getHP();
+		string monsterName = monsters[i]->getName();
+		int monsterXP = monsters[i]->getXP();
 		int heroHealth = h.getHP();
 		Hero updatedHero;
 
@@ -246,8 +307,8 @@ Hero Controller::fightMonster(char n, Hero h, vector<Monster*> monsters) {
 				cout << "Monster health: " << monsterHealth << endl;
 			}
 			if (monsterHealth <= 0) {
-				cout << "You have defeated hest, you recieve 100 XP points! " << endl;
-				updatedHero = updateLevel(monsters[i]->getXP(), h);
+				cout << "You have defeated: " << monsterName << " you recieve " << monsterXP << " XP points " << endl;
+				updatedHero = updateLevel(monsterXP, h);
 				return updatedHero;
 			}
 			else {
@@ -268,6 +329,7 @@ Hero Controller::updateLevel(int xp, Hero h) {
 	int heroXP = h.getXP();
 	int heroDamage = h.getDamage();
 	int heroHP = h.getHP();
+	int gold = h.getGold();
 
 	heroXP += xp;
 
@@ -280,8 +342,81 @@ Hero Controller::updateLevel(int xp, Hero h) {
 		heroHP += 2;
 	}
 
-	Hero updatedHero(h.getName(), heroHP, heroLevel, heroXP, heroDamage);
+	Hero updatedHero(h.getName(), heroHP, heroLevel, heroXP, heroDamage, gold);
 	return updatedHero;
 }
 
+Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonsters) {
+
+	CaveFactory c;
+	Hero updatedHero;
+	int heroGold;
+
+	srand(static_cast<unsigned>(time(0)));
+
+	cout << "You have chosen to battle your way through this cave" << endl;
+	cout << " " << endl;
+	c.printCaveMonsters(caveMonsters);
+
+	int index = 0;
+	char action;
+
+	for (Monster* monster : caveMonsters) {
+		cout << "\nNext monster appears: " << monster->getName() << endl;
+		cout << "Press 1 to fight or 0 to save and exit: " << endl;
+		cin >> action;
+		if (action == 0) {
+			saveGame(hero);
+		}
+		else {
+			vector<Monster*> singleMonster = { monster };
+			updatedHero = fightMonster('1', hero, singleMonster);
+			cout << "You have defeated " << monster->getName() << ", and receive XP: " << monster->getXP() << endl;
+			++index;
+		}
+	}
+
+	if (updatedHero.getLevel() < 5) {
+		int heroGold = updatedHero.getGold() + 100;
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold);
+		cout << "Congrats you have defeated the cave and receive 100 gold" << endl;
+		return h;
+	}
+
+	else if (updatedHero.getLevel() < 7) {
+		int heroGold = updatedHero.getGold() + 250;
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold);
+		cout << "Congrats you have defeated the cave and receive 250 gold" << endl;
+		return h;
+	}
+
+	else if (updatedHero.getLevel() < 9) {
+		int heroGold = updatedHero.getGold() + 500;
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold);
+		cout << "Congrats you have defeated the cave and receive 500 gold" << endl;
+		return h;
+	}
+
+	else if (updatedHero.getLevel() < 11) {
+		int heroGold = updatedHero.getGold() + 1000;
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold);
+		cout << "Congrats you have defeated the cave and receive 1000 gold" << endl;
+		return h;
+	}
+
+	else if (updatedHero.getLevel() < 15) {
+		int heroGold = updatedHero.getGold() + 2000;
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold);
+		cout << "Congrats you have defeated the cave and receive 2000 gold" << endl;
+		return h;
+	}
+	else {
+		int heroGold = updatedHero.getGold() + 10000;
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold);
+		cout << "Congrats you have defeated the cave and receive 10000 gold" << endl;
+		return h;
+	}
+}
+
 Controller::~Controller(){}
+
