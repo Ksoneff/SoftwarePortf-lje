@@ -21,93 +21,108 @@
 Controller::Controller(){}
 
 Controller::Controller(string n) {
-Hero h;
-Hero Ironman;
-Hero Spiderman;
-Hero Deadpool;
-Hero Batman;
-char newGame;
-char action;
-string newHero;
-string oldHero;
-bool correctInput = false;
 
-// The flow of the game starts here
-cout << "(1) New Game (0) Load Game (2) Load Premade Hero: " << endl;
+	Hero h;
+	Hero Ironman;
+	Hero Spiderman;
+	Hero Deadpool;
+	Hero Batman;
+	Hero Level5;
+	char newGame;
+	char action;
+	string newHero;
+	string oldHero;
+	bool correctInput = false;
 
-while (!correctInput) { // While loop checking for icorrect user input
-	cin >> newGame;
-	if (newGame == '0' || newGame == '1' || newGame == '2') {
-		correctInput = true;
-	}
-	else {
-		cout << "Error incorrect user input, please enter either 0 or 1" << endl;
-		correctInput = false;
-	}
-}
+	// The flow of the game starts here
+	cout << "(1) New Game (0) Load Game (2) Load Premade Hero: " << endl;
 
-if (newGame == '1') {
-	cout << "Create new hero, enter name without any spaces: " << endl;
-	cin >> newHero;
-	h = Hero(newHero, 10, 1, 0, 2, 0);
-}
-
-while (correctInput) {
-	if (newGame == '2') {
-		string heroChoice;
-		cout << " " << endl;
-		cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
-		cout << "Load one of the following heroes: " << endl;
-		Ironman = Hero("Ironman", 8, 1, 0, 6, 0);
-		cout << " " << endl;
-		cout << "Ironman: Strengths - Has cool tricks and can damage other oppenents heavily, Weakness - Has low HP " << endl;
-		cout << "HP: " << Ironman.getHP() << "  Level: " << Ironman.getLevel() << "  XP: " << Ironman.getXP() << "  Damage: " << Ironman.getDamage() << "  Gold: " << Ironman.getGold() << endl;
-		cout << " " << endl;
-		Spiderman = Hero("Spiderman", 12, 1, 0, 3, 0);
-		cout << " " << endl;
-		cout << "Spiderman: This is a pretty average choice, no real strengths or weaknesses, just your friendly neighboorhod spiderman " << endl;
-		cout << "HP: " << Spiderman.getHP() << "  Level: " << Spiderman.getLevel() << "  XP: " << Spiderman.getXP() << "  Damage: " << Spiderman.getDamage() << "  Gold: " << Spiderman.getGold() << endl;
-		cout << " " << endl;
-		Deadpool = Hero("Deadpool", 20, 1, 0, 1, 0);
-		cout << " " << endl;
-		cout << "Deadpool: Strength - Regenerates so starts out with double HP, Weakness - doesnt really damage too much " << endl;
-		cout << "HP: " << Deadpool.getHP() << "  Level: " << Deadpool.getLevel() << "  XP: " << Deadpool.getXP() << "  Damage: " << Deadpool.getDamage() << "  Gold: " << Deadpool.getGold() << endl;
-		cout << " " << endl;
-		Batman = Hero("Batman", 10, 1, 0, 2, 500);
-		cout << " " << endl;
-		cout << "Batman: Strength - HE IS RICH, so you start the game with 500 gold " << endl;
-		cout << "HP: " << Batman.getHP() << "  Level: " << Batman.getLevel() << "  XP: " << Batman.getXP() << "  Damage: " << Batman.getDamage() << "  Gold: " << Batman.getGold() << endl;
-		cout << " " << endl;
-		cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
-		cin >> heroChoice;
-		if (heroChoice == Ironman.getName()) {
-			h = Ironman;
-			correctInput = false;
-		}
-		else if (heroChoice == Spiderman.getName()) {
-			h = Spiderman;
-			correctInput = false;
-		}
-		else if (heroChoice == Deadpool.getName()) {
-			h = Deadpool;
-			correctInput = false;
-		}
-		else if (heroChoice == Batman.getName()) {
-			h = Batman;
-			correctInput = false;
+	while (!correctInput) { // While loop checking for icorrect user input
+		cin >> newGame;
+		if (newGame == '0' || newGame == '1' || newGame == '2') {
+			correctInput = true;
 		}
 		else {
-			cout << "Incorrect user input, please choose a hero by writing the correct name: " << endl;
+			cout << "Error incorrect user input, please enter either 0, 1 or 2" << endl;
+			correctInput = false;
 		}
 	}
-}
 
-if (newGame == '0') {
-	cout << "Enter hero name to load: " << endl;
-	cout << showHeroes() << endl;
-	cin >> oldHero;
-	h = loadGame(oldHero);
-}
+	if (newGame == '1') {
+		cout << "Create new hero, enter name without any spaces: " << endl;
+		cin >> newHero;
+		h = Hero(newHero, 10, 1, 0, 2, 0);
+	}
+
+	if (newGame == '0') {
+		cout << "Enter hero name to load: " << endl;
+		cout << showHeroes() << endl;
+		cin >> oldHero;
+		h = loadGame(oldHero);
+	}
+
+	if (newGame != '0' && newGame != '1') {
+		correctInput = false;
+		while (!correctInput) {
+			if (newGame == '2') {
+				string heroChoice;
+				cout << " " << endl;
+				cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
+				cout << "Load one of the following heroes: " << endl;
+				Ironman = Hero("Ironman", 8, 1, 0, 6, 0);
+				cout << " " << endl;
+				cout << "Ironman: Strengths - Has cool tricks and can damage other oppenents heavily, Weakness - Has low HP " << endl;
+				cout << "HP: " << Ironman.getHP() << "  Level: " << Ironman.getLevel() << "  XP: " << Ironman.getXP() << "  Damage: " << Ironman.getDamage() << "  Gold: " << Ironman.getGold() << endl;
+				cout << " " << endl;
+				Spiderman = Hero("Spiderman", 12, 1, 0, 3, 0);
+				cout << " " << endl;
+				cout << "Spiderman: This is a pretty average choice, no real strengths or weaknesses, just your friendly neighboorhod spiderman " << endl;
+				cout << "HP: " << Spiderman.getHP() << "  Level: " << Spiderman.getLevel() << "  XP: " << Spiderman.getXP() << "  Damage: " << Spiderman.getDamage() << "  Gold: " << Spiderman.getGold() << endl;
+				cout << " " << endl;
+				Deadpool = Hero("Deadpool", 20, 1, 0, 1, 0);
+				cout << " " << endl;
+				cout << "Deadpool: Strength - Regenerates so starts out with double HP, Weakness - doesnt really damage too much " << endl;
+				cout << "HP: " << Deadpool.getHP() << "  Level: " << Deadpool.getLevel() << "  XP: " << Deadpool.getXP() << "  Damage: " << Deadpool.getDamage() << "  Gold: " << Deadpool.getGold() << endl;
+				cout << " " << endl;
+				Batman = Hero("Batman", 10, 1, 0, 2, 500);
+				cout << " " << endl;
+				cout << "Batman: Strength - HE IS RICH, so you start the game with 500 gold " << endl;
+				cout << "HP: " << Batman.getHP() << "  Level: " << Batman.getLevel() << "  XP: " << Batman.getXP() << "  Damage: " << Batman.getDamage() << "  Gold: " << Batman.getGold() << endl;
+				cout << " " << endl;
+				Level5 = Hero("Level5", 20, 5, 0, 6, 0);
+				cout << " " << endl;
+				cout << "Level5: This hero is mainly for testing, start at level 5, too instantly explore caves " << endl;
+				cout << "HP: " << Level5.getHP() << "  Level: " << Level5.getLevel() << "  XP: " << Level5.getXP() << "  Damage: " << Level5.getDamage() << "  Gold: " << Level5.getGold() << endl;
+				cout << " " << endl;
+				cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
+				cin >> heroChoice;
+				if (heroChoice == Ironman.getName()) {
+					h = Ironman;
+					correctInput = true;
+				}
+				else if (heroChoice == Spiderman.getName()) {
+					h = Spiderman;
+					correctInput = true;
+				}
+				else if (heroChoice == Deadpool.getName()) {
+					h = Deadpool;
+					correctInput = true;
+				}
+				else if (heroChoice == Batman.getName()) {
+					h = Batman;
+					correctInput = true;
+				}
+				else if (heroChoice == Level5.getName()) {
+					h = Level5;
+					correctInput = true;
+				}
+				else {
+					cout << "Incorrect user input, please choose a hero by writing the correct name: " << endl;
+				}
+			}
+		}
+	}
+
 
 	// Uses showRules() function to show rules
 	showRules();
@@ -416,15 +431,23 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 	for (Monster* monster : caveMonsters) {
 		cout << "\nNext monster appears: " << monster->getName() << endl;
 		cout << "Press 1 to fight or 0 to save and exit: " << endl;
-		cin >> action;
-		if (action == 0) {
-			saveGame(hero);
-		}
-		else {
-			vector<Monster*> singleMonster = { monster };
-			updatedHero = fightMonster('1', hero, singleMonster);
-			cout << "You have defeated " << monster->getName() << ", and receive XP: " << monster->getXP() << endl;
-			++index;
+		bool correctInput = false;
+		while (!correctInput) {
+			cin >> action;
+			if (action == '0') {
+				saveGame(hero);
+				correctInput = true;
+			}
+			else if (action == '1') {
+				vector<Monster*> singleMonster = { monster };
+				updatedHero = fightMonster('1', hero, singleMonster);
+				cout << "You have defeated " << monster->getName() << ", and receive XP: " << monster->getXP() << endl;
+				++index;
+				correctInput = true;
+			}
+			else {
+				cout << "ERROR: Incorrect user input, please enter either 1 or 0 " << endl;
+			}
 		}
 	}
 
@@ -471,4 +494,3 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 }
 
 Controller::~Controller(){}
-
