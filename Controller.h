@@ -31,7 +31,6 @@ public:
 	~Controller();
 
 private:
-	vector<Hero> heroes;
 	string hero;
 	string monster;
 };
