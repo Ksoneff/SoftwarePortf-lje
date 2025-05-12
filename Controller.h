@@ -11,6 +11,7 @@
 #include "ApeKing.h"
 #include "Unicorn.h"
 #include "Dragon.h"
+#include "Weapons.h"
 #include <string>
 #include <vector>
 
@@ -28,6 +29,9 @@ public:
 	Hero fightMonster(char, Hero, vector<Monster*>);
 	Hero updateLevel(int, Hero);
 	Hero battleCave(int heroLvl, Hero h, vector<Monster*> caveMonsters);
+	vector<Weapons*> createArmory();
+	void seeWeaponsInArmory(vector<Weapons*> weapons);
+	void buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons, Hero& h);
 	~Controller();
 
 private:
@@ -36,5 +40,4 @@ private:
 };
 
 #endif
-
 
