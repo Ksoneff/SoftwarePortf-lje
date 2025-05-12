@@ -3,7 +3,7 @@
 
 Hero::Hero(){}
 
-Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is) {
+Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, Weapons* equipedWeapon) {
 	name = n;
 	HP = hp;
 	Level = lvl;
@@ -11,6 +11,7 @@ Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is) {
 	damage = d;
 	gold = g;
 	inventorySpace = is;
+	selectedWeapon = equipedWeapon;
 }
 
 string Hero::getName() {
@@ -45,12 +46,18 @@ int Hero::getRemainingInventorySpace() {
 	return inventorySpace - heroWeapons.size();
 }
 
+
 void Hero::showInventory() {
-	for (size_t i = 0; i < heroWeapons.size(); ++i) 
-	{
-		cout << "Weapon at inventory index: " << i << " is:  " << heroWeapons[i]->getName() << endl;
+	for (size_t i = 0; i < heroWeapons.size(); ++i) {
+		if (heroWeapons[i] != nullptr) {
+			cout << "Weapon at inventory index: " << i << " is: " << heroWeapons[i]->getName() << endl;
+		}
+		else {
+			cout << "Weapon at inventory index: " << i << " is: nullptr (invalid pointer)" << endl;
+		}
 	}
 }
+
 
 void Hero::deleteInventorySlot(int choice) {
 	if (choice >= 0 && choice < heroWeapons.size()) {
@@ -67,7 +74,8 @@ void Hero::deleteInventorySlot(int choice) {
 
 void Hero::addWeaponToInventory(Weapons* weapon) {
 	if (heroWeapons.size() < inventorySpace) {
-		heroWeapons.push_back(weapon);
+		Weapons* newWeapon = new Weapons(*weapon);
+		heroWeapons.push_back(newWeapon);
 	}
 	else {
 		cout << "Inventory is full. Cannot add " << weapon->getName() << "." << endl;
@@ -77,5 +85,28 @@ void Hero::addWeaponToInventory(Weapons* weapon) {
 vector<Weapons*>& Hero::getWeapons() {
 	return heroWeapons;
 }
+
+void Hero::equipWeapon(int weaponChoice) {
+	if (selectedWeapon != nullptr) {
+		unequipWeapon();
+	}
+
+	selectedWeapon = heroWeapons[weaponChoice];
+	equippedBonusDamage = selectedWeapon->getSkade() + (selectedWeapon->getStyrkemodifier() * damage);
+	damage += equippedBonusDamage;
+
+	cout << "Equipped weapon: " << selectedWeapon->getName() << endl;
+	cout << "New hero damage: " << damage << " (+" << equippedBonusDamage << " from weapon)" << endl;
+}
+
+
+void Hero::unequipWeapon() {
+	cout << "Unequipping weapon: " << selectedWeapon->getName() << endl;
+	cout << "Removing bonus damage: " << equippedBonusDamage << endl;
+	damage -= equippedBonusDamage;
+	equippedBonusDamage = 0;
+	selectedWeapon = nullptr;
+}
+
 
 Hero::~Hero(){}
