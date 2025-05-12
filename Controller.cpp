@@ -146,7 +146,8 @@ Controller::Controller(string n) {
 		cout << "1. To fight a wild monster (W)" << endl;
 		cout << "	2. To search nearby terrain for caves (C)" << endl;
 		cout << "		3. To enter the armory (A)" << endl;
-		cout << "			4. To save and exit (0) " << endl;
+		cout << "			4. To manage equiped weapons (E) " << endl;
+		cout << "				5. To save and exit (0) " << endl;
 
 		CaveFactory cave1;
 		CaveFactory cave2;
@@ -297,6 +298,30 @@ Controller::Controller(string n) {
 			cout << "The battle is over, and your heros stats now are: " << endl;
 			cout << "--------------------------------------------------------------------" << endl;
 			cout << "" << endl;
+			cout << "Name:     " << h.getName() << endl;
+			cout << "HP:       " << h.getHP() << endl;
+			cout << "Level:    " << h.getLevel() << endl;
+			cout << "XP:       " << h.getXP() << endl;
+			cout << "Damage:   " << h.getDamage() << endl;
+			cout << "Gold:     " << h.getGold() << endl;
+			cout << "Inventory:" << h.getRemainingInventorySpace() << endl;
+			cout << "" << endl;
+		}
+
+		else if (action == 'E') {
+			int weaponChoice;
+			cout << " " << endl;
+			cout << "????????????????????????????????????????????????????????????????????" << endl;
+			cout << "Here you may equip/unequip purchased weapons." << endl;
+			cout << "By equiping a weapon your heroes damage will be affected." << endl;
+			cout << "When equiping a weapon, the previously equiped weapon will be unequiped" << endl;
+			cout << " " << endl;
+			cout << "Choose by index which of your weapons you wish to equip: " << endl;
+			h.showInventory();
+			cin >> weaponChoice;
+			h.equipWeapon(weaponChoice);
+			cout << " " << endl;
+			cout << "Your hero stats now are: " << endl;
 			cout << "Name:     " << h.getName() << endl;
 			cout << "HP:       " << h.getHP() << endl;
 			cout << "Level:    " << h.getLevel() << endl;
