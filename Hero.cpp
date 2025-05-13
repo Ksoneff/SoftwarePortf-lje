@@ -3,7 +3,7 @@
 
 Hero::Hero(){}
 
-Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, Weapons* equipedWeapon) {
+Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, int equippedBonusD, vector<Weapons*> heroweapons, Weapons* equipedWeapon) {
 	name = n;
 	HP = hp;
 	Level = lvl;
@@ -12,6 +12,8 @@ Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, Weapons* equ
 	gold = g;
 	inventorySpace = is;
 	selectedWeapon = equipedWeapon;
+	heroWeapons = heroweapons;
+	equippedBonusDamage = equippedBonusD;
 }
 
 string Hero::getName() {
@@ -107,6 +109,47 @@ void Hero::unequipWeapon() {
 	equippedBonusDamage = 0;
 	selectedWeapon = nullptr;
 }
+
+bool Hero::hasWeaponEquipped() {
+	return equippedBonusDamage != 0;
+}
+
+void Hero::removeWeaponDurability() {
+	int holdbarhed = selectedWeapon->getHoldbarhed() - 2;
+	if (holdbarhed < 0) holdbarhed = 0; // Avoid negative durability
+
+	if (holdbarhed == 0) {
+		cout << " " << endl;
+		cout << "You weapon durability is = 0, and it has broken" << endl;
+		cout << " " << endl;
+		deleteEquippedWeapon();
+		unequipWeapon();
+		return;
+	}
+	selectedWeapon->setHoldbarhed(holdbarhed);
+}
+
+void Hero::deleteEquippedWeapon() {
+	int index = 0;
+	for (size_t i = 0; i < heroWeapons.size(); ++i) 
+	{
+		if (selectedWeapon->getName() == heroWeapons[i]->getName())
+		{
+			break;
+		}
+		index++;
+	}
+	heroWeapons.erase(heroWeapons.begin() + index);
+}
+
+int Hero::getEquippedBonusDamage() {
+	return equippedBonusDamage;
+}
+
+Weapons* Hero::getSelectedWeapon() {
+	return selectedWeapon;
+}
+
 
 
 Hero::~Hero(){}

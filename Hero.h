@@ -11,7 +11,7 @@ class Hero
 {
 public:
 	Hero();
-	Hero(string, int, int, int, int, int, int, Weapons* equipedWeapon = nullptr);
+	Hero(string, int, int, int, int, int, int, int equippedBonusDamage, vector<Weapons*> heroWeapons = {}, Weapons* equipedWeapon = nullptr);
 	string getName();
 	int getLevel();
 	int getXP();
@@ -25,6 +25,11 @@ public:
 	void addWeaponToInventory(Weapons* weapon);
 	void equipWeapon(int weaponChoice);
 	void unequipWeapon();
+	bool hasWeaponEquipped();
+	void removeWeaponDurability();
+	void deleteEquippedWeapon();
+	int getEquippedBonusDamage();
+	Weapons* getSelectedWeapon();
 	vector<Weapons*>& getWeapons();
 	~Hero();
 private:
@@ -42,3 +47,4 @@ private:
 };
 
 #endif
+
