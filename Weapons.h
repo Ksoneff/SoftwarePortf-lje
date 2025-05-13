@@ -16,7 +16,7 @@ public:
 	int getStyrkemodifier();
 	int getHoldbarhed();
 	int getPrice();
-
+	void setHoldbarhed(int newHoldbarhed);
 private:
 	string name;
 	int skade;

@@ -28,4 +28,8 @@ int Weapons::getPrice() {
 	return price;
 }
 
+void Weapons::setHoldbarhed(int newHoldbarhed) {
+	holdbarhed = newHoldbarhed;
+}
+
 Weapons::~Weapons() {}
