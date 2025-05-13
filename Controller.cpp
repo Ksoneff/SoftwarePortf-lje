@@ -369,7 +369,11 @@ void Controller::showRules() {
 	cout << "When you defeat a monster you will recieve XP, collect enough XP to level up." << endl;
 	cout << "Each level up grants 2 additional hitpoints for your hero. In addition you heroes damage increases by 1 " << endl;
 	cout << "Leveling up and improving your heroes stats will let you battle tougher and tougher enemies. " << endl;
-	cout << "BUT BE CAREFUL if you accidently battle an enemy before you are ready and lose," << endl;
+	cout << "Along your road you may encounter caves. Caves hold great treasure which you must discover on your own." << endl;
+	cout << "However be careful as you venture deep in to the caves, monsters become stronger and stronger." << endl;
+	cout << "The risk of caves might be worth it because with gold you can visit the armory and buy awesome weapons." << endl;
+	cout << "Remember even with all powerfull weapons you need to be very CAREFUL." << endl;
+	cout << "If you accidently battle an enemy before you are ready and lose," << endl;
 	cout << "your hero will die and you must start over..." << endl;
 	cout << "Now you are ready to play, in order to win you must slay the almighty dragon and free the villagers" << endl;
 	cout << "from its tyrani, may the force be with you." << endl;
