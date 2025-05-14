@@ -1,14 +1,6 @@
 #include "Controller.h"
 #include "Hero.h"
-#include "Hest.h"
 #include "Monster.h"
-#include "WeakGoblin.h"
-#include "StrongGoblin.h"
-#include "StrongerGoblin.h"
-#include "TheStrongestGoblin.h"
-#include "ApeKing.h"
-#include "Unicorn.h"
-#include "Dragon.h"
 #include "CaveFactory.h"
 #include <iostream>
 #include <fstream>
@@ -27,7 +19,7 @@ Controller::Controller(string n) {
 	Hero Spiderman;
 	Hero Deadpool;
 	Hero Batman;
-	Hero Level5;
+	Hero Tester;
 	char newGame;
 	char action;
 	string newHero;
@@ -89,10 +81,10 @@ Controller::Controller(string n) {
 				cout << "Batman: Strength - HE IS RICH, so you start the game with 500 gold. And like ironman he has room for extra gadgets " << endl;
 				cout << "HP: " << Batman.getHP() << "  Level: " << Batman.getLevel() << "  XP: " << Batman.getXP() << "  Damage: " << Batman.getDamage() << "  Gold: " << Batman.getGold() << "  Inventory Space: " << Batman.getRemainingInventorySpace() << endl;
 				cout << " " << endl;
-				Level5 = Hero("Level5", 20, 5, 0, 6, 10000, 5, 0);
+				Tester = Hero("Level5", 20, 5, 0, 6, 10000, 5, 0);
 				cout << " " << endl;
-				cout << "Level5: This hero is mainly for testing, start at level 5, too instantly explore caves " << endl;
-				cout << "HP: " << Level5.getHP() << "  Level: " << Level5.getLevel() << "  XP: " << Level5.getXP() << "  Damage: " << Level5.getDamage() << "  Gold: " << Level5.getGold() << "  Inventory Space: " << Level5.getRemainingInventorySpace() << endl;
+				cout << "Tester: This hero is mainly for testing, start at level 5, too instantly explore caves, 10000 gold to buy weapons" << endl;
+				cout << "HP: " << Tester.getHP() << "  Level: " << Tester.getLevel() << "  XP: " << Tester.getXP() << "  Damage: " << Tester.getDamage() << "  Gold: " << Tester.getGold() << "  Inventory Space: " << Tester.getRemainingInventorySpace() << endl;
 				cout << " " << endl;
 				cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
 				cin >> heroChoice;
@@ -112,8 +104,8 @@ Controller::Controller(string n) {
 					h = Batman;
 					correctInput = true;
 				}
-				else if (heroChoice == Level5.getName()) {
-					h = Level5;
+				else if (heroChoice == Tester.getName()) {
+					h = Tester;
 					correctInput = true;
 				}
 				else {
@@ -249,14 +241,14 @@ Controller::Controller(string n) {
 			char monsterChoice;
 
 			// Objects of hero and all enemies
-			Hest hest("Hest", 5, 1, 100);
-			WeakGoblin g1("Weak Goblin", 4, 2, 200);
-			StrongGoblin g2("Strong Goblin", 8, 3, 400);
-			StrongerGoblin g3("Stronger Goblin", 10, 4, 500);
-			TheStrongestGoblin g4("The Strongest Goblin", 15, 5, 800);
-			ApeKing a("Ape King", 30, 5, 1000);
-			Unicorn u("Unicorn", 5, 8, 1500);
-			Dragon d("Dragon", 100, 10, 3000);
+			Monster hest("Hest", 5, 1, 100);
+			Monster g1("Weak Goblin", 4, 2, 200);
+			Monster g2("Strong Goblin", 8, 3, 400);
+			Monster g3("Stronger Goblin", 10, 4, 500);
+			Monster g4("The Strongest Goblin", 15, 5, 800);
+			Monster a("Ape King", 30, 5, 1000);
+			Monster u("Unicorn", 5, 8, 1500);
+			Monster d("Dragon", 100, 10, 3000);
 
 			// Vector with different monsters
 			vector<Monster*> enemies;
@@ -528,7 +520,6 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 				if (hero.hasWeaponEquipped()) {
 					hero.removeWeaponDurability();
 				}
-				cout << "You have defeated " << monster->getName() << ", and receive XP: " << monster->getXP() << endl;
 				++index;
 				correctInput = true;
 			}
