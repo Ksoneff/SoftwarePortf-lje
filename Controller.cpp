@@ -9,11 +9,12 @@
 #include <thread>
 #include <ctime> // needed for time()
 #include <cstdlib> // needed for srand() and rand()
+#include "DatabaseCommunication.h"
 
 Controller::Controller(){}
 
 Controller::Controller(string n) {
-
+	dbc.open();
 	Hero h;
 	Hero Ironman;
 	Hero Spiderman;
@@ -47,10 +48,10 @@ Controller::Controller(string n) {
 	}
 
 	if (newGame == '0') {
+		int hero_id;
 		cout << "Enter hero name to load: " << endl;
-		cout << showHeroes() << endl;
-		cin >> oldHero;
-		h = loadGame(oldHero);
+		cin >> hero_id;
+		h = loadGame(hero_id);
 	}
 
 	if (newGame != '0' && newGame != '1') {
@@ -404,59 +405,16 @@ void Controller::showRules() {
 	cout << "//////////////////////////////////////////////////////////////////////////////////////" << endl;
 }
 
-// showHeroes function return a list of all previously used and saved heroes
-string Controller::showHeroes() {
-
-	ifstream file("save.txt");
-
-	string name;
-	int level, xp, hp, damage, gold, inventorySpace, equippedBonusDamage;
-	string allNames;
-
-	while (file >> name >> level >> xp >> hp >> damage >> gold >> inventorySpace >> equippedBonusDamage) {
-		allNames += name + "\n";
-	}
-
-	file.close();
-	return allNames;
-}
-
 // saveGame function saves the game when user quits
 void Controller::saveGame(Hero h) {
-
-	// Opens function, writes all hero stats to save.txt and closes file
-	ofstream file("save.txt", ios::app);
-
-	file << h.getName() << " "
-		<< h.getHP() << " "
-		<< h.getLevel() << " "
-		<< h.getXP() << " "
-		<< h.getDamage() << " "
-		<< h.getGold() << " "
-		<< h.getRemainingInventorySpace() << " "
-		<< h.getEquippedBonusDamage() << "\n";
-
-	file.close();
+	dbc.insertHero(h);
+	dbc.close();
 }
 
 // loadGame function used to load previously saved heroes, to continue quest
-Hero Controller::loadGame(string nameToFind) {
-	ifstream file("save.txt");
-
-	string name;
-	int level, xp, hp, damage, gold, inventorySpace, equippedBonusDamage;
-
-	while (file >> name >> hp >> level >> xp >> damage >> gold >> inventorySpace >> equippedBonusDamage) {
-		if (name == nameToFind) {
-			return Hero(name, hp, level, xp, damage, gold, inventorySpace, equippedBonusDamage);
-		}
-		else { // For handling incorrect load
-			cout << "Error: Hero was not found, you have been given default hero" << endl; 
-			return Hero("NoobMaster69", 10, 1, 0, 2, 0, 5, 0);
-		}
-	}
-
-	file.close();
+Hero Controller::loadGame(int hero_id) {
+	dbc.loadHero(hero_id);
+	dbc.close();
 }
 
 // fightMonster function, handles hero vs monster battles
@@ -607,14 +565,14 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 vector<Weapons*> Controller::createArmory() {
 	vector<Weapons*> weapons;
 
-	weapons.push_back(new Weapons("Wooden Sword", 2, 0, 10, 100));
-	weapons.push_back(new Weapons("Bronze Sword", 2, 2, 10, 200));
-	weapons.push_back(new Weapons("Iron Sword", 4, 2, 15, 500));
-	weapons.push_back(new Weapons("Gold Sword", 8, 2, 6, 750));
-	weapons.push_back(new Weapons("Emerald Sword", 5, 2, 20, 1000));
-	weapons.push_back(new Weapons("Diamond Sword", 5, 3, 20, 5000));
-	weapons.push_back(new Weapons("Netherite Sword", 6, 3, 30, 10000));
-	weapons.push_back(new Weapons("The Almighty God Slayer", 20, 5, 100, 50000));
+	weapons.push_back(new Weapons(12345, "Wooden Sword", 2, 0, 10, 100, 0));
+	weapons.push_back(new Weapons(23456, "Bronze Sword", 2, 2, 10, 200, 0));
+	weapons.push_back(new Weapons(34567, "Iron Sword", 4, 2, 15, 500, 0));
+	weapons.push_back(new Weapons(45678, "Gold Sword", 8, 2, 6, 750, 0));
+	weapons.push_back(new Weapons(56789, "Emerald Sword", 5, 2, 20, 1000, 0));
+	weapons.push_back(new Weapons(67890, "Diamond Sword", 5, 3, 20, 5000, 0));
+	weapons.push_back(new Weapons(78901, "Netherite Sword", 6, 3, 30, 10000, 0));
+	weapons.push_back(new Weapons(89012, "The Almighty God Slayer", 20, 5, 100, 50000, 0));
 
 	return weapons;
 }

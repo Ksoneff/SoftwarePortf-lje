@@ -3,15 +3,8 @@
 
 #include "Hero.h"
 #include "Monster.h"
-#include "WeakGoblin.h"
-#include "StrongGoblin.h"
-#include "Hest.h"
-#include "StrongerGoblin.h"
-#include "TheStrongestGoblin.h"
-#include "ApeKing.h"
-#include "Unicorn.h"
-#include "Dragon.h"
 #include "Weapons.h"
+#include "DatabaseCommunication.h"
 #include <string>
 #include <vector>
 
@@ -23,9 +16,8 @@ public:
 	Controller();
 	Controller(string n);
 	void showRules();
-	string showHeroes();
 	void saveGame(Hero);
-	Hero loadGame(string);
+	Hero loadGame(int);
 	Hero fightMonster(char, Hero, vector<Monster*>);
 	Hero updateLevel(int, Hero);
 	Hero battleCave(int heroLvl, Hero h, vector<Monster*> caveMonsters);
@@ -37,6 +29,8 @@ public:
 private:
 	string hero;
 	string monster;
+	DatabaseCommunication dbc = DatabaseCommunication("/home/sammy/SoftwarePortf-lje/game.db"); // set path here
+
 };
 
 #endif

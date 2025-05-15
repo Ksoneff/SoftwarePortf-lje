@@ -56,7 +56,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
     query.bindValue(":kills", 0);
 
     int weaponId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
-                   ? hero.getSelectedWeapon()->getId()
+                   ? hero.getSelectedWeapon()->getWeapon_id()
                    : -1;
     if (weaponId == -1)
         query.bindValue(":weapon_id", QVariant(QVariant::Int));  // NULL
@@ -78,7 +78,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
             VALUES (:hero_id, :weapon_id, :slot)
         )");
         invQuery.bindValue(":hero_id", heroId);
-        invQuery.bindValue(":weapon_id", weapons[i]->getId());
+        invQuery.bindValue(":weapon_id", weapons[i]->getWeapon_id());
         invQuery.bindValue(":slot", i);
         invQuery.exec();
     }
@@ -154,11 +154,11 @@ void DatabaseCommunication::insertWeapon(Weapons& weapon) {
 
     QSqlQuery query;
     query.prepare("INSERT INTO Weapon (weapon_id, name, skade, styrkemodifier, holbarhed, price, kills) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    query.addBindValue(weapon.getId());
+    query.addBindValue(weapon.getWeapon_id());
     query.addBindValue(QString::fromStdString(weapon.getName()));
-    query.addBindValue(weapon.getDamage());
-    query.addBindValue(weapon.getStrengthModifier());
-    query.addBindValue(weapon.getDurability());
+    query.addBindValue(weapon.getSkade());
+    query.addBindValue(weapon.getStyrkemodifier());
+    query.addBindValue(weapon.getHoldbarhed());
     query.addBindValue(weapon.getPrice());
     query.addBindValue(0);
     query.exec();
