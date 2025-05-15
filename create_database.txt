@@ -1,6 +1,13 @@
 create table hero (
   hero_id int not null,
   name char(25) not null,
+  hp int not null,
+  lvl int not null,
+  xp int default 0,
+  damage int not null,
+  gold int default 0,
+  inventoryspace int,
+  equippedbonusdamage int default 0,
   kills int default 0,
   weapon_id int not null,
   primary key (hero_id),
@@ -10,6 +17,19 @@ create table hero (
 create table weapon (
   weapon_id int not null,
   name char(25) not null,
+  skade int not null,
+  styrkemodifier int default 0,
+  holbarhed int not null,
+  price int not null,
   kills int default 0,
   primary key (weapon_id)
+);
+
+create table Inventory (
+  hero_id int not null,
+  weapon_id int not null,
+  slot int,
+  primary key (hero_id, weapon_id),
+  foreign key (hero_id) references Hero(hero_id),
+  foreign key (weapon_id) references Weapon(weapon_id)
 );
