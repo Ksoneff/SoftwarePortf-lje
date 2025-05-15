@@ -81,7 +81,7 @@ Controller::Controller(string n) {
 				cout << "Batman: Strength - HE IS RICH, so you start the game with 500 gold. And like ironman he has room for extra gadgets " << endl;
 				cout << "HP: " << Batman.getHP() << "  Level: " << Batman.getLevel() << "  XP: " << Batman.getXP() << "  Damage: " << Batman.getDamage() << "  Gold: " << Batman.getGold() << "  Inventory Space: " << Batman.getRemainingInventorySpace() << endl;
 				cout << " " << endl;
-				Tester = Hero("Level5", 20, 5, 0, 6, 10000, 5, 0);
+				Tester = Hero("Tester", 20, 5, 0, 6, 10000, 5, 0);
 				cout << " " << endl;
 				cout << "Tester: This hero is mainly for testing, start at level 5, too instantly explore caves, 10000 gold to buy weapons" << endl;
 				cout << "HP: " << Tester.getHP() << "  Level: " << Tester.getLevel() << "  XP: " << Tester.getXP() << "  Damage: " << Tester.getDamage() << "  Gold: " << Tester.getGold() << "  Inventory Space: " << Tester.getRemainingInventorySpace() << endl;
@@ -179,17 +179,33 @@ Controller::Controller(string n) {
 			cout << "1. Choose to battle cave 1 " << endl;
 			cout << "2. Choose to battle cave 2 " << endl;
 			cout << "3. Choose to abandon caves and roam the lands until you encounter a wild monster instead " << endl;
-			cin >> action;
 			cout << " " << endl;
 			cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl;
 			cout << " " << endl;
-			if (action == '1') {
-				h = battleCave(h.getLevel(), h, cave1Monsters);
-			}
-			else if (action == '2') {
-				h = battleCave(h.getLevel(), h, cave2Monsters);
-			}
-			else if (action == '3') {
+
+			bool inputOK = false;
+			while (!inputOK)
+			{
+				cin >> action;
+				if (action != '1' && action != '2' && action != '3')
+				{
+					cout << "ERROR: incorrect user input" << endl;
+				}
+
+				else if (action == '1')
+				{
+					h = battleCave(h.getLevel(), h, cave1Monsters);
+					inputOK = true;
+				}
+				else if (action == '2')
+				{
+					h = battleCave(h.getLevel(), h, cave2Monsters);
+					inputOK = true;
+				}
+				else if (action == '3')
+				{
+					inputOK = true;
+				}
 			}
 		}
 
@@ -200,7 +216,7 @@ Controller::Controller(string n) {
 		}
 
 		else if (action == 'A') {
-			int weaponChoice;
+			char weaponChoice;
 			cout << " " << endl;
 			cout << "x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>" << endl;
 			cout << "Welcome to the armory, here you can buy various weapons, which will help you on your quest" << endl;
@@ -210,25 +226,27 @@ Controller::Controller(string n) {
 			seeWeaponsInArmory(weaponsInArmory);
 			cout << " " << endl;
 			bool inArmory = true;
+
 			while (inArmory) 
 			{
-				cout << "Choose weapon to buy by index, or press -1 to exit: " << "        Hero Gold : " << h.getGold() << endl;
-				cin >> weaponChoice;
-				if (weaponChoice >= 0 && weaponChoice < weaponsInArmory.size())
-				{
-					buyWeapon(weaponChoice, h.getGold(), weaponsInArmory, h);
-				}
+				cout << "Choose weapon to buy by index (e.g., 0, 1, 2), or press - to exit: "
+					<< "        Hero Gold : " << h.getGold() << endl;
 
-				else if (weaponChoice == -1)
-				{
+				cin >> weaponChoice;
+
+				if (weaponChoice == '-') {
 					cout << "You have chosen to exit the armory, hope to see you again soon :)" << endl;
 					inArmory = false;
 				}
-				else
-				{
-					cout << "ERROR: Invalid index, please write a correct input" << endl;
+				else if (weaponChoice >= '0' && weaponChoice < '0' + weaponsInArmory.size()) {
+					int index = weaponChoice - '0';
+					buyWeapon(index, h.getGold(), weaponsInArmory, h);
+				}
+				else {
+					cout << "ERROR: Invalid input. Please enter a valid index digit or '-' to exit." << endl;
 				}
 			}
+
 			for (Weapons* w : weaponsInArmory)
 			{
 				delete w;
@@ -286,6 +304,7 @@ Controller::Controller(string n) {
 			if (h.hasWeaponEquipped()) {
 				h.removeWeaponDurability();
 			}
+
 			this_thread::sleep_for(chrono::seconds(2));
 
 			cout << "" << endl;
@@ -304,24 +323,37 @@ Controller::Controller(string n) {
 		}
 
 		else if (action == 'E') {
-			int weaponChoice;
+			char weaponChoice;
+			bool correctWeaponChoice = false;
 			cout << " " << endl;
 			cout << "????????????????????????????????????????????????????????????????????" << endl;
 			cout << "Here you may equip/unequip purchased weapons." << endl;
 			cout << "By equiping a weapon your heroes damage will be affected." << endl;
 			cout << "When equiping a weapon, the previously equiped weapon will be unequiped" << endl;
 			cout << " " << endl;
-			cout << "Choose by index which of your weapons you wish to equip or choose -1 to unequip current weapon: " << endl;
+			cout << "Choose by index which of your weapons you wish to equip or choose 'q to unequip current weapon: " << endl;
 			h.showInventory();
-			cin >> weaponChoice;
 
-			if (weaponChoice != -1) {
-				h.equipWeapon(weaponChoice);
+
+			while (!correctWeaponChoice) 
+			{
+				int herosWeaponsLength = h.getWeapons().size();
+				cin >> weaponChoice;
+
+				if (weaponChoice >= '0' && weaponChoice < '0' + herosWeaponsLength) {
+					int index = weaponChoice - '0';
+					h.equipWeapon(index);
+					correctWeaponChoice = true;
+				}
+				else if (weaponChoice == 'q') {
+					h.unequipWeapon();
+					correctWeaponChoice == true;
+				}
+				else {
+					cout << "ERROR: Invalid weapon choice" << endl;
+				}
 			}
 
-			else if (weaponChoice == -1) {
-				h.unequipWeapon();
-			}
 			cout << " " << endl;
 			cout << "Your hero stats now are: " << endl;
 			cout << "Name:     " << h.getName() << endl;
@@ -648,3 +680,4 @@ void Controller::buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons,
 
 
 Controller::~Controller(){}
+

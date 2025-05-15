@@ -103,6 +103,11 @@ void Hero::equipWeapon(int weaponChoice) {
 
 
 void Hero::unequipWeapon() {
+	if (selectedWeapon == nullptr) {
+		cout << "No weapon is currently equipped." << endl;
+		return;
+	}
+
 	cout << "Unequipping weapon: " << selectedWeapon->getName() << endl;
 	cout << "Removing bonus damage: " << equippedBonusDamage << endl;
 	damage -= equippedBonusDamage;
