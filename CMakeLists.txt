@@ -1,21 +1,39 @@
-cmake_minimum_required(VERSION 3.10)
-project(SoftwarePortfLje)
+cmake_minimum_required(VERSION 3.14)
+project(RPGGame)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Add all .cpp files manually
-add_executable(main_exec
+# Use Qt5 or Qt6 (adjust if needed)
+find_package(Qt5 REQUIRED COMPONENTS Core Sql)
+
+# If you use Qt signals/slots or Q_OBJECT macros, enable automoc
+set(CMAKE_AUTOMOC ON)
+
+# Add source files
+set(SOURCES
     main.cpp
-    ApeKing.cpp
     Controller.cpp
-    Dragon.cpp
+    CaveFactory.cpp
+    MonsterFactory.cpp
+    Weapons.cpp
     Hero.cpp
-    Hest.cpp
     Monster.cpp
-    StrongerGoblin.cpp
-    StrongGoblin.cpp
-    TheStrongestGoblin.cpp
-    Unicorn.cpp
-    WeakGoblin.cpp
+    DatabaseCommunication.cpp
 )
+
+set(HEADERS
+    Controller.h
+    CaveFactory.h
+    MonsterFactory.h
+    MonsterType.h
+    Weapons.h
+    Hero.h
+    Monster.h
+    DatabaseCommunication.h
+)
+
+add_executable(RPGGame ${SOURCES} ${HEADERS})
+
+# Link with Qt
+target_link_libraries(RPGGame Qt5::Core Qt5::Sql)
 

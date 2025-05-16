@@ -117,48 +117,61 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named main_exec
+# Target rules for targets named RPGGame
 
 # Build rule for target.
-main_exec: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main_exec
-.PHONY : main_exec
+RPGGame: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RPGGame
+.PHONY : RPGGame
 
 # fast build rule for target.
-main_exec/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/build
-.PHONY : main_exec/fast
+RPGGame/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/build
+.PHONY : RPGGame/fast
 
-ApeKing.o: ApeKing.cpp.o
-.PHONY : ApeKing.o
+#=============================================================================
+# Target rules for targets named RPGGame_autogen
+
+# Build rule for target.
+RPGGame_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RPGGame_autogen
+.PHONY : RPGGame_autogen
+
+# fast build rule for target.
+RPGGame_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame_autogen.dir/build.make CMakeFiles/RPGGame_autogen.dir/build
+.PHONY : RPGGame_autogen/fast
+
+CaveFactory.o: CaveFactory.cpp.o
+.PHONY : CaveFactory.o
 
 # target to build an object file
-ApeKing.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/ApeKing.cpp.o
-.PHONY : ApeKing.cpp.o
+CaveFactory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/CaveFactory.cpp.o
+.PHONY : CaveFactory.cpp.o
 
-ApeKing.i: ApeKing.cpp.i
-.PHONY : ApeKing.i
+CaveFactory.i: CaveFactory.cpp.i
+.PHONY : CaveFactory.i
 
 # target to preprocess a source file
-ApeKing.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/ApeKing.cpp.i
-.PHONY : ApeKing.cpp.i
+CaveFactory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/CaveFactory.cpp.i
+.PHONY : CaveFactory.cpp.i
 
-ApeKing.s: ApeKing.cpp.s
-.PHONY : ApeKing.s
+CaveFactory.s: CaveFactory.cpp.s
+.PHONY : CaveFactory.s
 
 # target to generate assembly for a file
-ApeKing.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/ApeKing.cpp.s
-.PHONY : ApeKing.cpp.s
+CaveFactory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/CaveFactory.cpp.s
+.PHONY : CaveFactory.cpp.s
 
 Controller.o: Controller.cpp.o
 .PHONY : Controller.o
 
 # target to build an object file
 Controller.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Controller.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Controller.cpp.o
 .PHONY : Controller.cpp.o
 
 Controller.i: Controller.cpp.i
@@ -166,7 +179,7 @@ Controller.i: Controller.cpp.i
 
 # target to preprocess a source file
 Controller.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Controller.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Controller.cpp.i
 .PHONY : Controller.cpp.i
 
 Controller.s: Controller.cpp.s
@@ -174,39 +187,39 @@ Controller.s: Controller.cpp.s
 
 # target to generate assembly for a file
 Controller.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Controller.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Controller.cpp.s
 .PHONY : Controller.cpp.s
 
-Dragon.o: Dragon.cpp.o
-.PHONY : Dragon.o
+DatabaseCommunication.o: DatabaseCommunication.cpp.o
+.PHONY : DatabaseCommunication.o
 
 # target to build an object file
-Dragon.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Dragon.cpp.o
-.PHONY : Dragon.cpp.o
+DatabaseCommunication.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o
+.PHONY : DatabaseCommunication.cpp.o
 
-Dragon.i: Dragon.cpp.i
-.PHONY : Dragon.i
+DatabaseCommunication.i: DatabaseCommunication.cpp.i
+.PHONY : DatabaseCommunication.i
 
 # target to preprocess a source file
-Dragon.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Dragon.cpp.i
-.PHONY : Dragon.cpp.i
+DatabaseCommunication.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.i
+.PHONY : DatabaseCommunication.cpp.i
 
-Dragon.s: Dragon.cpp.s
-.PHONY : Dragon.s
+DatabaseCommunication.s: DatabaseCommunication.cpp.s
+.PHONY : DatabaseCommunication.s
 
 # target to generate assembly for a file
-Dragon.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Dragon.cpp.s
-.PHONY : Dragon.cpp.s
+DatabaseCommunication.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.s
+.PHONY : DatabaseCommunication.cpp.s
 
 Hero.o: Hero.cpp.o
 .PHONY : Hero.o
 
 # target to build an object file
 Hero.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Hero.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Hero.cpp.o
 .PHONY : Hero.cpp.o
 
 Hero.i: Hero.cpp.i
@@ -214,7 +227,7 @@ Hero.i: Hero.cpp.i
 
 # target to preprocess a source file
 Hero.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Hero.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Hero.cpp.i
 .PHONY : Hero.cpp.i
 
 Hero.s: Hero.cpp.s
@@ -222,39 +235,15 @@ Hero.s: Hero.cpp.s
 
 # target to generate assembly for a file
 Hero.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Hero.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Hero.cpp.s
 .PHONY : Hero.cpp.s
-
-Hest.o: Hest.cpp.o
-.PHONY : Hest.o
-
-# target to build an object file
-Hest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Hest.cpp.o
-.PHONY : Hest.cpp.o
-
-Hest.i: Hest.cpp.i
-.PHONY : Hest.i
-
-# target to preprocess a source file
-Hest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Hest.cpp.i
-.PHONY : Hest.cpp.i
-
-Hest.s: Hest.cpp.s
-.PHONY : Hest.s
-
-# target to generate assembly for a file
-Hest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Hest.cpp.s
-.PHONY : Hest.cpp.s
 
 Monster.o: Monster.cpp.o
 .PHONY : Monster.o
 
 # target to build an object file
 Monster.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Monster.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Monster.cpp.o
 .PHONY : Monster.cpp.o
 
 Monster.i: Monster.cpp.i
@@ -262,7 +251,7 @@ Monster.i: Monster.cpp.i
 
 # target to preprocess a source file
 Monster.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Monster.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Monster.cpp.i
 .PHONY : Monster.cpp.i
 
 Monster.s: Monster.cpp.s
@@ -270,135 +259,87 @@ Monster.s: Monster.cpp.s
 
 # target to generate assembly for a file
 Monster.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Monster.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Monster.cpp.s
 .PHONY : Monster.cpp.s
 
-StrongGoblin.o: StrongGoblin.cpp.o
-.PHONY : StrongGoblin.o
+MonsterFactory.o: MonsterFactory.cpp.o
+.PHONY : MonsterFactory.o
 
 # target to build an object file
-StrongGoblin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/StrongGoblin.cpp.o
-.PHONY : StrongGoblin.cpp.o
+MonsterFactory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o
+.PHONY : MonsterFactory.cpp.o
 
-StrongGoblin.i: StrongGoblin.cpp.i
-.PHONY : StrongGoblin.i
+MonsterFactory.i: MonsterFactory.cpp.i
+.PHONY : MonsterFactory.i
 
 # target to preprocess a source file
-StrongGoblin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/StrongGoblin.cpp.i
-.PHONY : StrongGoblin.cpp.i
+MonsterFactory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/MonsterFactory.cpp.i
+.PHONY : MonsterFactory.cpp.i
 
-StrongGoblin.s: StrongGoblin.cpp.s
-.PHONY : StrongGoblin.s
+MonsterFactory.s: MonsterFactory.cpp.s
+.PHONY : MonsterFactory.s
 
 # target to generate assembly for a file
-StrongGoblin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/StrongGoblin.cpp.s
-.PHONY : StrongGoblin.cpp.s
+MonsterFactory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/MonsterFactory.cpp.s
+.PHONY : MonsterFactory.cpp.s
 
-StrongerGoblin.o: StrongerGoblin.cpp.o
-.PHONY : StrongerGoblin.o
+RPGGame_autogen/mocs_compilation.o: RPGGame_autogen/mocs_compilation.cpp.o
+.PHONY : RPGGame_autogen/mocs_compilation.o
 
 # target to build an object file
-StrongerGoblin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/StrongerGoblin.cpp.o
-.PHONY : StrongerGoblin.cpp.o
+RPGGame_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o
+.PHONY : RPGGame_autogen/mocs_compilation.cpp.o
 
-StrongerGoblin.i: StrongerGoblin.cpp.i
-.PHONY : StrongerGoblin.i
+RPGGame_autogen/mocs_compilation.i: RPGGame_autogen/mocs_compilation.cpp.i
+.PHONY : RPGGame_autogen/mocs_compilation.i
 
 # target to preprocess a source file
-StrongerGoblin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/StrongerGoblin.cpp.i
-.PHONY : StrongerGoblin.cpp.i
+RPGGame_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.i
+.PHONY : RPGGame_autogen/mocs_compilation.cpp.i
 
-StrongerGoblin.s: StrongerGoblin.cpp.s
-.PHONY : StrongerGoblin.s
+RPGGame_autogen/mocs_compilation.s: RPGGame_autogen/mocs_compilation.cpp.s
+.PHONY : RPGGame_autogen/mocs_compilation.s
 
 # target to generate assembly for a file
-StrongerGoblin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/StrongerGoblin.cpp.s
-.PHONY : StrongerGoblin.cpp.s
+RPGGame_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.s
+.PHONY : RPGGame_autogen/mocs_compilation.cpp.s
 
-TheStrongestGoblin.o: TheStrongestGoblin.cpp.o
-.PHONY : TheStrongestGoblin.o
+Weapons.o: Weapons.cpp.o
+.PHONY : Weapons.o
 
 # target to build an object file
-TheStrongestGoblin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/TheStrongestGoblin.cpp.o
-.PHONY : TheStrongestGoblin.cpp.o
+Weapons.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Weapons.cpp.o
+.PHONY : Weapons.cpp.o
 
-TheStrongestGoblin.i: TheStrongestGoblin.cpp.i
-.PHONY : TheStrongestGoblin.i
-
-# target to preprocess a source file
-TheStrongestGoblin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/TheStrongestGoblin.cpp.i
-.PHONY : TheStrongestGoblin.cpp.i
-
-TheStrongestGoblin.s: TheStrongestGoblin.cpp.s
-.PHONY : TheStrongestGoblin.s
-
-# target to generate assembly for a file
-TheStrongestGoblin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/TheStrongestGoblin.cpp.s
-.PHONY : TheStrongestGoblin.cpp.s
-
-Unicorn.o: Unicorn.cpp.o
-.PHONY : Unicorn.o
-
-# target to build an object file
-Unicorn.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Unicorn.cpp.o
-.PHONY : Unicorn.cpp.o
-
-Unicorn.i: Unicorn.cpp.i
-.PHONY : Unicorn.i
+Weapons.i: Weapons.cpp.i
+.PHONY : Weapons.i
 
 # target to preprocess a source file
-Unicorn.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Unicorn.cpp.i
-.PHONY : Unicorn.cpp.i
+Weapons.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Weapons.cpp.i
+.PHONY : Weapons.cpp.i
 
-Unicorn.s: Unicorn.cpp.s
-.PHONY : Unicorn.s
-
-# target to generate assembly for a file
-Unicorn.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/Unicorn.cpp.s
-.PHONY : Unicorn.cpp.s
-
-WeakGoblin.o: WeakGoblin.cpp.o
-.PHONY : WeakGoblin.o
-
-# target to build an object file
-WeakGoblin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/WeakGoblin.cpp.o
-.PHONY : WeakGoblin.cpp.o
-
-WeakGoblin.i: WeakGoblin.cpp.i
-.PHONY : WeakGoblin.i
-
-# target to preprocess a source file
-WeakGoblin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/WeakGoblin.cpp.i
-.PHONY : WeakGoblin.cpp.i
-
-WeakGoblin.s: WeakGoblin.cpp.s
-.PHONY : WeakGoblin.s
+Weapons.s: Weapons.cpp.s
+.PHONY : Weapons.s
 
 # target to generate assembly for a file
-WeakGoblin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/WeakGoblin.cpp.s
-.PHONY : WeakGoblin.cpp.s
+Weapons.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/Weapons.cpp.s
+.PHONY : Weapons.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -406,7 +347,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -414,7 +355,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_exec.dir/build.make CMakeFiles/main_exec.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPGGame.dir/build.make CMakeFiles/RPGGame.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -425,40 +366,32 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... main_exec"
-	@echo "... ApeKing.o"
-	@echo "... ApeKing.i"
-	@echo "... ApeKing.s"
+	@echo "... RPGGame_autogen"
+	@echo "... RPGGame"
+	@echo "... CaveFactory.o"
+	@echo "... CaveFactory.i"
+	@echo "... CaveFactory.s"
 	@echo "... Controller.o"
 	@echo "... Controller.i"
 	@echo "... Controller.s"
-	@echo "... Dragon.o"
-	@echo "... Dragon.i"
-	@echo "... Dragon.s"
+	@echo "... DatabaseCommunication.o"
+	@echo "... DatabaseCommunication.i"
+	@echo "... DatabaseCommunication.s"
 	@echo "... Hero.o"
 	@echo "... Hero.i"
 	@echo "... Hero.s"
-	@echo "... Hest.o"
-	@echo "... Hest.i"
-	@echo "... Hest.s"
 	@echo "... Monster.o"
 	@echo "... Monster.i"
 	@echo "... Monster.s"
-	@echo "... StrongGoblin.o"
-	@echo "... StrongGoblin.i"
-	@echo "... StrongGoblin.s"
-	@echo "... StrongerGoblin.o"
-	@echo "... StrongerGoblin.i"
-	@echo "... StrongerGoblin.s"
-	@echo "... TheStrongestGoblin.o"
-	@echo "... TheStrongestGoblin.i"
-	@echo "... TheStrongestGoblin.s"
-	@echo "... Unicorn.o"
-	@echo "... Unicorn.i"
-	@echo "... Unicorn.s"
-	@echo "... WeakGoblin.o"
-	@echo "... WeakGoblin.i"
-	@echo "... WeakGoblin.s"
+	@echo "... MonsterFactory.o"
+	@echo "... MonsterFactory.i"
+	@echo "... MonsterFactory.s"
+	@echo "... RPGGame_autogen/mocs_compilation.o"
+	@echo "... RPGGame_autogen/mocs_compilation.i"
+	@echo "... RPGGame_autogen/mocs_compilation.s"
+	@echo "... Weapons.o"
+	@echo "... Weapons.i"
+	@echo "... Weapons.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

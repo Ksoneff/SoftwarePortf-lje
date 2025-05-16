@@ -1,3 +1,4 @@
-/home/sammy/SoftwarePortf-lje/build/CMakeFiles/main_exec.dir
+/home/sammy/SoftwarePortf-lje/build/CMakeFiles/RPGGame.dir
 /home/sammy/SoftwarePortf-lje/build/CMakeFiles/edit_cache.dir
 /home/sammy/SoftwarePortf-lje/build/CMakeFiles/rebuild_cache.dir
+/home/sammy/SoftwarePortf-lje/build/CMakeFiles/RPGGame_autogen.dir
