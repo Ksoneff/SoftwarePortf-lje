@@ -11,7 +11,8 @@ class Hero
 {
 public:
 	Hero();
-	Hero(string, int, int, int, int, int, int, int equippedBonusDamage, vector<Weapons*> heroWeapons = {}, Weapons* equipedWeapon = nullptr);
+	Hero(string, int, int, int, int, int, int, int equippedBonusDamage, vector<Weapons*> heroWeapons = {}, Weapons* equipedWeapon = nullptr, int hero_id);
+	int getHeroID();
 	string getName();
 	int getLevel();
 	int getXP();
@@ -31,6 +32,7 @@ public:
 	int getEquippedBonusDamage();
 	Weapons* getSelectedWeapon();
 	vector<Weapons*>& getWeapons();
+	void setHeroID(int h_id);
 	~Hero();
 private:
 	string name;
@@ -42,6 +44,7 @@ private:
 	int inventorySpace = 6;
 	int equippedBonusDamage;
 	Weapons* selectedWeapon;
+	int hero_id = 0;
 
 	vector<Weapons*> heroWeapons;
 };

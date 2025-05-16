@@ -31,28 +31,33 @@ void DatabaseCommunication::close() {
 void DatabaseCommunication::insertHero(Hero& hero) {
     if (!db.isOpen()) return;
 
+    Hero h;
+    hero.setHeroID(rand());
+    int hero_id = hero.getHeroID();
+    h = Hero(hero.getName(), hero.getHP(), hero.getLevel(), hero.getXP(), hero.getDamage(), hero.getGold(), hero.getRemainingInventorySpace(), hero.getEquippedBonusDamage(), hero.getWeapons(), hero.getSelectedWeapon(), hero_id);
     QSqlQuery query;
     query.prepare(R"(
         INSERT INTO Hero (
-            name, hp, lvl, xp, damage, gold,
+            hero_id, name, hp, lvl, xp, damage, gold,
             inventoryspace, equippedbonusdamage,
             kills, weapon_id
         )
         VALUES (
-            :name, :hp, :lvl, :xp, :damage, :gold,
+            :hero_id, :name, :hp, :lvl, :xp, :damage, :gold,
             :inventoryspace, :equippedbonusdamage,
             :kills, :weapon_id
         )
     )");
 
-    query.bindValue(":name", QString::fromStdString(hero.getName()));
-    query.bindValue(":hp", hero.getHP());
-    query.bindValue(":lvl", hero.getLevel());
-    query.bindValue(":xp", hero.getXP());
-    query.bindValue(":damage", hero.getDamage());
-    query.bindValue(":gold", hero.getGold());
-    query.bindValue(":inventoryspace", hero.getRemainingInventorySpace());
-    query.bindValue(":equippedbonusdamage", hero.getEquippedBonusDamage());
+    query.bindValue(":hero_id", hero_id);
+    query.bindValue(":name", QString::fromStdString(h.getName()));
+    query.bindValue(":hp", h.getHP());
+    query.bindValue(":lvl", h.getLevel());
+    query.bindValue(":xp", h.getXP());
+    query.bindValue(":damage", h.getDamage());
+    query.bindValue(":gold", h.getGold());
+    query.bindValue(":inventoryspace", h.getRemainingInventorySpace());
+    query.bindValue(":equippedbonusdamage", h.getEquippedBonusDamage());
     query.bindValue(":kills", 0);
 
     int weaponId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
@@ -68,8 +73,6 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         return;
     }
 
-    int heroId = query.lastInsertId().toInt();
-
     const auto& weapons = hero.getWeapons();
     for (int i = 0; i < weapons.size(); ++i) {
         QSqlQuery invQuery;
@@ -77,7 +80,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
             INSERT INTO Inventory (hero_id, weapon_id, slot)
             VALUES (:hero_id, :weapon_id, :slot)
         )");
-        invQuery.bindValue(":hero_id", heroId);
+        invQuery.bindValue(":hero_id", hero_id);
         invQuery.bindValue(":weapon_id", weapons[i]->getWeapon_id());
         invQuery.bindValue(":slot", i);
         invQuery.exec();
@@ -88,11 +91,12 @@ Hero DatabaseCommunication::loadHero(int heroId) {
     if (!db.isOpen()) return Hero();
 
     QSqlQuery query;
-    query.prepare("SELECT name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero WHERE hero_id = :hero_id");
+    query.prepare("SELECT hero_id, name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero WHERE hero_id = :hero_id");
     query.bindValue(":hero_id", heroId);
 
     if (!query.exec() || !query.next()) return Hero();
 
+    int hero_id;
     QString name = query.value(0).toString();
     int hp = query.value(1).toInt();
     int lvl = query.value(2).toInt();

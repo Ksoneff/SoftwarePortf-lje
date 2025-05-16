@@ -3,7 +3,7 @@
 
 Hero::Hero(){}
 
-Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, int equippedBonusD, vector<Weapons*> heroweapons, Weapons* equipedWeapon) {
+Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, int equippedBonusD, vector<Weapons*> heroweapons, Weapons* equipedWeapon, int h_id) {
 	name = n;
 	HP = hp;
 	Level = lvl;
@@ -14,6 +14,11 @@ Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, int equipped
 	selectedWeapon = equipedWeapon;
 	heroWeapons = heroweapons;
 	equippedBonusDamage = equippedBonusD;
+	hero_id = h_id;
+}
+
+int Hero::getHeroID() {
+	return hero_id;
 }
 
 string Hero::getName() {
@@ -153,6 +158,10 @@ int Hero::getEquippedBonusDamage() {
 
 Weapons* Hero::getSelectedWeapon() {
 	return selectedWeapon;
+}
+
+void Hero::setHeroID(int h_id) {
+	hero_id = h_id;
 }
 
 
