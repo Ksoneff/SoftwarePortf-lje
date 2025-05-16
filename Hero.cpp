@@ -1,9 +1,9 @@
 #include "Hero.h"
 #include <iostream>
 
-Hero::Hero(){}
+Hero::Hero() {}
 
-Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, int equippedBonusD, vector<Weapons*> heroweapons, Weapons* equipedWeapon, int h_id) {
+Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, int equippedBonusD, vector<Weapons*> heroweapons, int k, Weapons* equipedWeapon, int h_id) {
 	name = n;
 	HP = hp;
 	Level = lvl;
@@ -13,6 +13,7 @@ Hero::Hero(string n, int hp, int lvl, int xp, int d, int g, int is, int equipped
 	inventorySpace = is;
 	selectedWeapon = equipedWeapon;
 	heroWeapons = heroweapons;
+	kills = k;
 	equippedBonusDamage = equippedBonusD;
 	hero_id = h_id;
 }
@@ -47,6 +48,10 @@ int Hero::getGold() {
 
 void Hero::setGold(int g) {
 	gold = g;
+}
+
+int Hero::getKills() {
+	return kills;
 }
 
 int Hero::getRemainingInventorySpace() {
@@ -141,7 +146,7 @@ void Hero::removeWeaponDurability() {
 
 void Hero::deleteEquippedWeapon() {
 	int index = 0;
-	for (size_t i = 0; i < heroWeapons.size(); ++i) 
+	for (size_t i = 0; i < heroWeapons.size(); ++i)
 	{
 		if (selectedWeapon->getName() == heroWeapons[i]->getName())
 		{
@@ -166,4 +171,4 @@ void Hero::setHeroID(int h_id) {
 
 
 
-Hero::~Hero(){}
+Hero::~Hero() {}

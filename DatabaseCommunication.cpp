@@ -24,31 +24,55 @@ bool DatabaseCommunication::open() {
 void DatabaseCommunication::close() {
     if (db.isOpen()) {
         db.close();
+        qDebug() << "Database connection closed.";
     }
-
-    QString connectionName = db.connectionName();
-    db = QSqlDatabase();
-    QSqlDatabase::removeDatabase(connectionName);
-    
-    qDebug() << "Database connection closed.";
 }
 
+
 void DatabaseCommunication::insertHero(Hero& hero) {
-    if (!db.isOpen()) return;
+
+    if (!db.isOpen()) {
+        std::cerr << "insertHero() aborted: database is not open!" << std::endl;
+        return;
+    }
+
+    bool isNewHero = (hero.getHeroID() == -1);
+
+    QString sql;
+
+    if (isNewHero) {
+        // Insert without hero_id (auto-generated)
+        sql = R"(
+            INSERT INTO Hero (
+                name, hp, lvl, xp, damage, gold,
+                inventoryspace, equippedbonusdamage, kills, weapon_id
+            )
+            VALUES (
+                :name, :hp, :lvl, :xp, :damage, :gold,
+                :inventoryspace, :equippedbonusdamage, :kills, :weapon_id
+            )
+        )";
+    }
+    else {
+        // Replace existing hero using hero_id
+        cout << "Replacing old hero with new updated hero" << endl;
+        sql = R"(
+            INSERT OR REPLACE INTO Hero (
+                hero_id, name, hp, lvl, xp, damage, gold,
+                inventoryspace, equippedbonusdamage, kills, weapon_id
+            )
+            VALUES (
+                :hero_id, :name, :hp, :lvl, :xp, :damage, :gold,
+                :inventoryspace, :equippedbonusdamage, :kills, :weapon_id
+            )
+        )";
+    }
 
     QSqlQuery query;
-    query.prepare(R"(
-        INSERT INTO Hero (
-            name, hp, lvl, xp, damage, gold,
-            inventoryspace, equippedbonusdamage,
-            kills, weapon_id
-        )
-        VALUES (
-            :name, :hp, :lvl, :xp, :damage, :gold,
-            :inventoryspace, :equippedbonusdamage,
-            :kills, :weapon_id
-        )
-    )");
+    query.prepare(sql);
+
+    if (!isNewHero)
+        query.bindValue(":hero_id", hero.getHeroID());
 
     query.bindValue(":name", QString::fromStdString(hero.getName()));
     query.bindValue(":hp", hero.getHP());
@@ -58,23 +82,32 @@ void DatabaseCommunication::insertHero(Hero& hero) {
     query.bindValue(":gold", hero.getGold());
     query.bindValue(":inventoryspace", hero.getRemainingInventorySpace());
     query.bindValue(":equippedbonusdamage", hero.getEquippedBonusDamage());
-    query.bindValue(":kills", 0);
+    query.bindValue(":kills", hero.getKills());
 
     int weaponId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
-                   ? hero.getSelectedWeapon()->getWeapon_id()
-                   : -1;
+        ? hero.getSelectedWeapon()->getWeapon_id()
+        : -1;
     if (weaponId == -1)
         query.bindValue(":weapon_id", QVariant(QVariant::Int));  // NULL
     else
         query.bindValue(":weapon_id", weaponId);
 
     if (!query.exec()) {
-        qDebug() << "Failed to insert hero:" << query.lastError().text();
+        qDebug() << "Failed to insert/replace hero:" << query.lastError().text();
         return;
     }
 
-    int hero_id = query.lastInsertId().toInt();
-    hero.setHeroID(hero_id);  // So we can use it for inventory inserts     
+    // If new hero, get the generated ID
+    if (isNewHero) {
+        int newHeroId = query.lastInsertId().toInt();
+        hero.setHeroID(newHeroId);
+    }
+
+    // Handle Inventory: Replace entire inventory for this hero
+    QSqlQuery deleteQuery;
+    deleteQuery.prepare("DELETE FROM Inventory WHERE hero_id = :hero_id");
+    deleteQuery.bindValue(":hero_id", hero.getHeroID());
+    deleteQuery.exec();  // Clean up old inventory if exists
 
     const auto& weapons = hero.getWeapons();
     for (int i = 0; i < weapons.size(); ++i) {
@@ -83,7 +116,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
             INSERT INTO Inventory (hero_id, weapon_id, slot)
             VALUES (:hero_id, :weapon_id, :slot)
         )");
-        invQuery.bindValue(":hero_id", hero_id);
+        invQuery.bindValue(":hero_id", hero.getHeroID());
         invQuery.bindValue(":weapon_id", weapons[i]->getWeapon_id());
         invQuery.bindValue(":slot", i);
         invQuery.exec();
@@ -94,13 +127,18 @@ Hero DatabaseCommunication::loadHero(int heroId) {
     if (!db.isOpen()) return Hero();
 
     QSqlQuery query;
-    query.prepare("SELECT hero_id, name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero WHERE hero_id = :hero_id");
+    query.prepare(R"(
+        SELECT hero_id, name, hp, lvl, xp, damage, gold,
+               inventoryspace, equippedbonusdamage, kills, weapon_id
+        FROM Hero
+        WHERE hero_id = :hero_id
+    )");
     query.bindValue(":hero_id", heroId);
 
     if (!query.exec() || !query.next()) return Hero();
 
     int hero_id = query.value(0).toInt();
-    QString name = query.value(1).toString();
+    QString name = query.value(1).isNull() ? "" : query.value(1).toString();
     int hp = query.value(2).toInt();
     int lvl = query.value(3).toInt();
     int xp = query.value(4).toInt();
@@ -108,8 +146,8 @@ Hero DatabaseCommunication::loadHero(int heroId) {
     int gold = query.value(6).toInt();
     int inventorySpace = query.value(7).toInt();
     int equippedBonus = query.value(8).toInt();
-    int equippedWeaponId = query.value(9).isNull() ? -1 : query.value(9).toInt();
-
+    int kills = query.value(9).toInt();
+    int equippedWeaponId = query.value(10).isNull() ? -1 : query.value(10).toInt();
 
     Weapons* equippedWeapon = nullptr;
     std::vector<Weapons*> heroWeapons;
@@ -143,20 +181,20 @@ Hero DatabaseCommunication::loadHero(int heroId) {
         }
     }
 
-   return Hero(
-    name.toStdString(),
-    hp,
-    lvl,
-    xp,
-    damage,
-    gold,
-    inventorySpace,
-    equippedBonus,
-    heroWeapons,
-    equippedWeapon,
-    hero_id  
-);
-
+    return Hero(
+        name.toStdString(),
+        hp,
+        lvl,
+        xp,
+        damage,
+        gold,
+        inventorySpace,
+        equippedBonus,
+        heroWeapons,
+        kills,
+        equippedWeapon,
+        hero_id
+    );
 }
 
 void DatabaseCommunication::showHeroes() {
@@ -185,15 +223,15 @@ void DatabaseCommunication::showHeroes() {
         int equippedWeaponId = query.value(9).isNull() ? -1 : query.value(9).toInt();
 
         std::cout << "Hero_id: " << hero_id
-                  << " | Name: " << name
-                  << " | HP: " << hp
-                  << " | Level: " << lvl
-                  << " | XP: " << xp
-                  << " | Damage: " << damage
-                  << " | Gold: " << gold
-                  << " | Inventory Space: " << inventorySpace
-                  << " | Equipped Bonus: " << equippedBonus
-                  << " | Weapon ID: " << equippedWeaponId
-                  << "\n";
+            << " | Name: " << name
+            << " | HP: " << hp
+            << " | Level: " << lvl
+            << " | XP: " << xp
+            << " | Damage: " << damage
+            << " | Gold: " << gold
+            << " | Inventory Space: " << inventorySpace
+            << " | Equipped Bonus: " << equippedBonus
+            << " | Weapon ID: " << equippedWeaponId
+            << "\n";
     }
 }

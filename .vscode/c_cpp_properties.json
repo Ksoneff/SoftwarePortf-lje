@@ -1,26 +1,26 @@
 {
-  "configurations": [
+    "configurations": [
     {
-      "name": "Linux",
-      "includePath": [
-    "${workspaceFolder}/**",
-    "/usr/include/x86_64-linux-gnu/qt5",
-    "/usr/include/x86_64-linux-gnu/qt5/QtCore",
-    "/usr/include/x86_64-linux-gnu/qt5/QtSql",    
-    "/usr/include/x86_64-linux-gnu/qt5",
-    "/usr/include/x86_64-linux-gnu/qt5/QtCore",
-    "/usr/include/x86_64-linux-gnu/qt5/QtSql"
-    ],
-    "defines": [
-    "QT_CORE_LIB",
-    "QT_SQL_LIB"
-    ],
-      "compilerPath": "/usr/bin/g++",
-      "cStandard": "c11",
-      "cppStandard": "c++17",
-      "intelliSenseMode": "linux-gcc-x64"
+        "name": "Linux",
+            "includePath" : [
+                "${workspaceFolder}/**",
+                "/usr/include/x86_64-linux-gnu/qt5",
+                "/usr/include/x86_64-linux-gnu/qt5/QtCore",
+                "/usr/include/x86_64-linux-gnu/qt5/QtSql",
+                "/usr/include/x86_64-linux-gnu/qt5",
+                "/usr/include/x86_64-linux-gnu/qt5/QtCore",
+                "/usr/include/x86_64-linux-gnu/qt5/QtSql"
+            ] ,
+            "defines": [
+                "QT_CORE_LIB",
+                "QT_SQL_LIB"
+            ] ,
+            "compilerPath" : "/usr/bin/g++",
+            "cStandard" : "c11",
+            "cppStandard" : "c++17",
+            "intelliSenseMode" : "linux-gcc-x64"
     }
-  ],
-  "version": 4
+    ],
+        "version": 4
 }
 

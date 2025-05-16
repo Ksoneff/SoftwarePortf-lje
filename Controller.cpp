@@ -11,7 +11,7 @@
 #include <cstdlib> // needed for srand() and rand()
 #include "DatabaseCommunication.h"
 
-Controller::Controller(){}
+Controller::Controller() {}
 
 Controller::Controller(string n) {
 	dbc.open();
@@ -45,6 +45,7 @@ Controller::Controller(string n) {
 		cout << "Create new hero, enter name without any spaces: " << endl;
 		cin >> newHero;
 		h = Hero(newHero, 10, 1, 0, 2, 0, 5, 0);
+		h.setHeroID(-1); // So that my database nows that its a new hero
 	}
 
 	if (newGame == '0') {
@@ -64,26 +65,31 @@ Controller::Controller(string n) {
 				cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
 				cout << "Load one of the following heroes: " << endl;
 				Ironman = Hero("Ironman", 8, 1, 0, 6, 0, 10, 0);
+				Ironman.setHeroID(-1);
 				cout << " " << endl;
 				cout << "Ironman: Strengths - Has cool tricks and can damage other oppenents heavily, also has additional inventory space for extra gadgets. Weakness - Has low HP " << endl;
 				cout << "HP: " << Ironman.getHP() << "  Level: " << Ironman.getLevel() << "  XP: " << Ironman.getXP() << "  Damage: " << Ironman.getDamage() << "  Gold: " << Ironman.getGold() << "  Inventory Space: " << Ironman.getRemainingInventorySpace() << endl;
 				cout << " " << endl;
 				Spiderman = Hero("Spiderman", 12, 1, 0, 3, 0, 5, 0);
+				Spiderman.setHeroID(-1);
 				cout << " " << endl;
 				cout << "Spiderman: This is a pretty average choice, no real strengths or weaknesses, just your friendly neighboorhod spiderman " << endl;
 				cout << "HP: " << Spiderman.getHP() << "  Level: " << Spiderman.getLevel() << "  XP: " << Spiderman.getXP() << "  Damage: " << Spiderman.getDamage() << "  Gold: " << Spiderman.getGold() << "  Inventory Space: " << Spiderman.getRemainingInventorySpace() << endl;
 				cout << " " << endl;
 				Deadpool = Hero("Deadpool", 20, 1, 0, 1, 0, 5, 0);
+				Deadpool.setHeroID(-1);
 				cout << " " << endl;
 				cout << "Deadpool: Strength - Regenerates so starts out with double HP, Weakness - doesnt really damage too much " << endl;
 				cout << "HP: " << Deadpool.getHP() << "  Level: " << Deadpool.getLevel() << "  XP: " << Deadpool.getXP() << "  Damage: " << Deadpool.getDamage() << "  Gold: " << Deadpool.getGold() << "  Inventory Space: " << Deadpool.getRemainingInventorySpace() << endl;
 				cout << " " << endl;
 				Batman = Hero("Batman", 10, 1, 0, 2, 500, 10, 0);
+				Batman.setHeroID(-1);
 				cout << " " << endl;
 				cout << "Batman: Strength - HE IS RICH, so you start the game with 500 gold. And like ironman he has room for extra gadgets " << endl;
 				cout << "HP: " << Batman.getHP() << "  Level: " << Batman.getLevel() << "  XP: " << Batman.getXP() << "  Damage: " << Batman.getDamage() << "  Gold: " << Batman.getGold() << "  Inventory Space: " << Batman.getRemainingInventorySpace() << endl;
 				cout << " " << endl;
 				Tester = Hero("Tester", 20, 5, 0, 6, 10000, 5, 0);
+				Tester.setHeroID(-1);
 				cout << " " << endl;
 				cout << "Tester: This hero is mainly for testing, start at level 5, too instantly explore caves, 10000 gold to buy weapons" << endl;
 				cout << "HP: " << Tester.getHP() << "  Level: " << Tester.getLevel() << "  XP: " << Tester.getXP() << "  Damage: " << Tester.getDamage() << "  Gold: " << Tester.getGold() << "  Inventory Space: " << Tester.getRemainingInventorySpace() << endl;
@@ -126,7 +132,7 @@ Controller::Controller(string n) {
 	cout << "" << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 	cout << "Current hero stats are: " << endl;
-	cout << "HP: " << h.getHP() << "  Level: " << h.getLevel() << "  XP: " << h.getXP() << "  Damage: " << h.getDamage() << "  Gold: " << h.getGold() << "  Inventory Space: " << h.getRemainingInventorySpace() << endl;
+	cout << "HP: " << h.getHP() << "  Level: " << h.getLevel() << "  XP: " << h.getXP() << "  Damage: " << h.getDamage() << "  Gold: " << h.getGold() << "  Inventory Space: " << h.getRemainingInventorySpace() << "  Kills:  " << h.getKills() << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 
 	this_thread::sleep_for(chrono::seconds(5));
@@ -229,7 +235,7 @@ Controller::Controller(string n) {
 			cout << " " << endl;
 			bool inArmory = true;
 
-			while (inArmory) 
+			while (inArmory)
 			{
 				cout << "Choose weapon to buy by index (e.g., 0, 1, 2), or press - to exit: "
 					<< "        Hero Gold : " << h.getGold() << endl;
@@ -301,7 +307,7 @@ Controller::Controller(string n) {
 			cout << " " << endl;
 			cout << "Choose a monster to fight by index: " << endl;
 			cin >> monsterChoice;
-			
+
 			h = fightMonster(monsterChoice, h, enemies);
 			if (h.hasWeaponEquipped()) {
 				h.removeWeaponDurability();
@@ -337,7 +343,7 @@ Controller::Controller(string n) {
 			h.showInventory();
 
 
-			while (!correctWeaponChoice) 
+			while (!correctWeaponChoice)
 			{
 				int herosWeaponsLength = h.getWeapons().size();
 				cin >> weaponChoice;
@@ -374,7 +380,7 @@ Controller::Controller(string n) {
 		else if (action == '0') {
 			cout << "Thank you for playing!" << endl;
 			cout << "Game saving..." << endl;
-			saveGame(h); // Uses save game function to save game to save.txt file
+			saveGame(h); // Uses save game function to save game to database
 			cout << "Game saved succesfully!" << endl;
 			quitGame = true;
 		}
@@ -411,9 +417,15 @@ void Controller::showRules() {
 
 // saveGame function saves the game when user quits
 void Controller::saveGame(Hero h) {
+	if (!dbc.open()) {
+		std::cerr << "Failed to open database during save!" << std::endl;
+		return;
+	}
+
 	dbc.insertHero(h);
 	dbc.close();
 }
+
 
 // loadGame function used to load previously saved heroes, to continue quest
 Hero Controller::loadGame(int hero_id) {
@@ -470,6 +482,8 @@ Hero Controller::updateLevel(int xp, Hero h) {
 
 	heroXP += xp;
 
+	int heroKills = h.getKills() + 1;
+
 	int remainder = heroXP - (heroLevel * 1000);
 
 	if (heroXP >= heroLevel * 1000) {
@@ -479,7 +493,7 @@ Hero Controller::updateLevel(int xp, Hero h) {
 		heroHP += 2;
 	}
 
-	Hero updatedHero(h.getName(), heroHP, heroLevel, heroXP, heroDamage, gold, inventorySpace, equippedBonusDamage, h.getWeapons(), h.getSelectedWeapon());
+	Hero updatedHero(h.getName(), heroHP, heroLevel, heroXP, heroDamage, gold, inventorySpace, equippedBonusDamage, h.getWeapons(), heroKills, h.getSelectedWeapon(), h.getHeroID());
 	return updatedHero;
 }
 
@@ -524,43 +538,42 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 		}
 	}
 
-	if (updatedHero.getLevel() < 5) {
-		int heroGold = updatedHero.getGold() + 100;
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage());
-		cout << "Congrats you have defeated the cave and receive 100 gold" << endl;
-		return h;
-	}
 
-	else if (updatedHero.getLevel() < 7) {
+
+	if (updatedHero.getLevel() < 7) {
 		int heroGold = updatedHero.getGold() + 250;
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage());
+
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 2, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 250 gold" << endl;
 		return h;
 	}
 
 	else if (updatedHero.getLevel() < 9) {
 		int heroGold = updatedHero.getGold() + 500;
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage());
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 4, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 500 gold" << endl;
 		return h;
 	}
 
 	else if (updatedHero.getLevel() < 11) {
 		int heroGold = updatedHero.getGold() + 1000;
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage());
+
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 5, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 1000 gold" << endl;
 		return h;
 	}
 
 	else if (updatedHero.getLevel() < 15) {
 		int heroGold = updatedHero.getGold() + 2000;
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage());
+
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 6, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 2000 gold" << endl;
 		return h;
 	}
 	else {
 		int heroGold = updatedHero.getGold() + 10000;
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage());
+
+		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 6, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 10000 gold" << endl;
 		return h;
 	}
@@ -642,5 +655,5 @@ void Controller::buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons,
 
 
 
-Controller::~Controller(){}
+Controller::~Controller() {}
 
