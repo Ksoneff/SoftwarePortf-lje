@@ -19,9 +19,6 @@ public:
     void insertHero(Hero& hero);
     Hero loadHero(int heroId);
 
-    void insertWeapon(Weapons& weapon);
-    std::vector<Weapons*> loadWeaponsForHero(int heroId);
-
 private:
     QSqlDatabase db;
 };
