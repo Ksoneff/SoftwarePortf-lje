@@ -332,7 +332,7 @@ Controller::Controller(string n) {
 			cout << "By equiping a weapon your heroes damage will be affected." << endl;
 			cout << "When equiping a weapon, the previously equiped weapon will be unequiped" << endl;
 			cout << " " << endl;
-			cout << "Choose by index which of your weapons you wish to equip or choose 'q' to unequip current weapon: " << endl;
+			cout << "Choose by index which of your weapons you wish to equip or choose 'q' to unequip current weapon. If you wish to return to main menu (x): " << endl;
 			h.showInventory();
 
 
@@ -348,6 +348,9 @@ Controller::Controller(string n) {
 				}
 				else if (weaponChoice == 'q') {
 					h.unequipWeapon();
+					correctWeaponChoice == true;
+				}
+				else if (weaponChoice == 'x') {
 					correctWeaponChoice == true;
 				}
 				else {
