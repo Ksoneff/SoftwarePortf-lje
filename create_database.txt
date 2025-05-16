@@ -1,5 +1,5 @@
 create table hero (
-  hero_id int not null,
+  hero_id integer primary key autoincrement,
   name char(25) not null,
   hp int not null,
   lvl int not null,
@@ -9,8 +9,7 @@ create table hero (
   inventoryspace int,
   equippedbonusdamage int default 0,
   kills int default 0,
-  weapon_id int not null,
-  primary key (hero_id),
+  weapon_id int,
   foreign key (weapon_id) references Weapon(weapon_id)
 );
 

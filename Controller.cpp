@@ -49,7 +49,8 @@ Controller::Controller(string n) {
 
 	if (newGame == '0') {
 		int hero_id;
-		cout << "Enter hero name to load: " << endl;
+		cout << "Enter hero_id to load: " << endl;
+		dbc.showHeroes();
 		cin >> hero_id;
 		h = loadGame(hero_id);
 	}
@@ -416,8 +417,9 @@ void Controller::saveGame(Hero h) {
 
 // loadGame function used to load previously saved heroes, to continue quest
 Hero Controller::loadGame(int hero_id) {
-	dbc.loadHero(hero_id);
+	Hero h = dbc.loadHero(hero_id);
 	dbc.close();
+	return h;
 }
 
 // fightMonster function, handles hero vs monster battles

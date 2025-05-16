@@ -11,7 +11,7 @@ class Hero
 {
 public:
 	Hero();
-	Hero(string, int, int, int, int, int, int, int equippedBonusDamage, vector<Weapons*> heroWeapons = {}, Weapons* equipedWeapon = nullptr, int hero_id);
+	Hero(string, int, int, int, int, int, int, int equippedBonusDamage, vector<Weapons*> heroWeapons = {}, Weapons* equipedWeapon = nullptr, int hero_id = 0);
 	int getHeroID();
 	string getName();
 	int getLevel();

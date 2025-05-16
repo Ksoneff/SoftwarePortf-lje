@@ -5,6 +5,7 @@
 #include <QSqlQuery>
 #include <QVariant>
 #include <QDebug>
+#include <iostream>
 
 DatabaseCommunication::DatabaseCommunication(const QString& path) {
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -23,41 +24,40 @@ bool DatabaseCommunication::open() {
 void DatabaseCommunication::close() {
     if (db.isOpen()) {
         db.close();
-        QSqlDatabase::removeDatabase(QSqlDatabase::defaultConnection);
-        qDebug() << "Database connection closed.";
     }
+
+    QString connectionName = db.connectionName();
+    db = QSqlDatabase();
+    QSqlDatabase::removeDatabase(connectionName);
+    
+    qDebug() << "Database connection closed.";
 }
 
 void DatabaseCommunication::insertHero(Hero& hero) {
     if (!db.isOpen()) return;
 
-    Hero h;
-    hero.setHeroID(rand());
-    int hero_id = hero.getHeroID();
-    h = Hero(hero.getName(), hero.getHP(), hero.getLevel(), hero.getXP(), hero.getDamage(), hero.getGold(), hero.getRemainingInventorySpace(), hero.getEquippedBonusDamage(), hero.getWeapons(), hero.getSelectedWeapon(), hero_id);
     QSqlQuery query;
     query.prepare(R"(
         INSERT INTO Hero (
-            hero_id, name, hp, lvl, xp, damage, gold,
+            name, hp, lvl, xp, damage, gold,
             inventoryspace, equippedbonusdamage,
             kills, weapon_id
         )
         VALUES (
-            :hero_id, :name, :hp, :lvl, :xp, :damage, :gold,
+            :name, :hp, :lvl, :xp, :damage, :gold,
             :inventoryspace, :equippedbonusdamage,
             :kills, :weapon_id
         )
     )");
 
-    query.bindValue(":hero_id", hero_id);
-    query.bindValue(":name", QString::fromStdString(h.getName()));
-    query.bindValue(":hp", h.getHP());
-    query.bindValue(":lvl", h.getLevel());
-    query.bindValue(":xp", h.getXP());
-    query.bindValue(":damage", h.getDamage());
-    query.bindValue(":gold", h.getGold());
-    query.bindValue(":inventoryspace", h.getRemainingInventorySpace());
-    query.bindValue(":equippedbonusdamage", h.getEquippedBonusDamage());
+    query.bindValue(":name", QString::fromStdString(hero.getName()));
+    query.bindValue(":hp", hero.getHP());
+    query.bindValue(":lvl", hero.getLevel());
+    query.bindValue(":xp", hero.getXP());
+    query.bindValue(":damage", hero.getDamage());
+    query.bindValue(":gold", hero.getGold());
+    query.bindValue(":inventoryspace", hero.getRemainingInventorySpace());
+    query.bindValue(":equippedbonusdamage", hero.getEquippedBonusDamage());
     query.bindValue(":kills", 0);
 
     int weaponId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
@@ -72,6 +72,9 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         qDebug() << "Failed to insert hero:" << query.lastError().text();
         return;
     }
+
+    int hero_id = query.lastInsertId().toInt();
+    hero.setHeroID(hero_id);  // So we can use it for inventory inserts     
 
     const auto& weapons = hero.getWeapons();
     for (int i = 0; i < weapons.size(); ++i) {
@@ -96,16 +99,17 @@ Hero DatabaseCommunication::loadHero(int heroId) {
 
     if (!query.exec() || !query.next()) return Hero();
 
-    int hero_id;
-    QString name = query.value(0).toString();
-    int hp = query.value(1).toInt();
-    int lvl = query.value(2).toInt();
-    int xp = query.value(3).toInt();
-    int damage = query.value(4).toInt();
-    int gold = query.value(5).toInt();
-    int inventorySpace = query.value(6).toInt();
-    int equippedBonus = query.value(7).toInt();
-    int equippedWeaponId = query.value(8).isNull() ? -1 : query.value(8).toInt();
+    int hero_id = query.value(0).toInt();
+    QString name = query.value(1).toString();
+    int hp = query.value(2).toInt();
+    int lvl = query.value(3).toInt();
+    int xp = query.value(4).toInt();
+    int damage = query.value(5).toInt();
+    int gold = query.value(6).toInt();
+    int inventorySpace = query.value(7).toInt();
+    int equippedBonus = query.value(8).toInt();
+    int equippedWeaponId = query.value(9).isNull() ? -1 : query.value(9).toInt();
+
 
     Weapons* equippedWeapon = nullptr;
     std::vector<Weapons*> heroWeapons;
@@ -139,16 +143,57 @@ Hero DatabaseCommunication::loadHero(int heroId) {
         }
     }
 
-    return Hero(
-        name.toStdString(),
-        lvl,
-        xp,
-        hp,
-        damage,
-        gold,
-        inventorySpace,
-        equippedBonus,
-        heroWeapons,
-        equippedWeapon
-    );
+   return Hero(
+    name.toStdString(),
+    hp,
+    lvl,
+    xp,
+    damage,
+    gold,
+    inventorySpace,
+    equippedBonus,
+    heroWeapons,
+    equippedWeapon,
+    hero_id  
+);
+
+}
+
+void DatabaseCommunication::showHeroes() {
+    if (!db.isOpen()) {
+        qDebug() << "Database not open!";
+        return;
+    }
+
+    QSqlQuery query;
+    if (!query.exec("SELECT hero_id, name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero")) {
+        qDebug() << "Failed to retrieve heroes:" << query.lastError().text();
+        return;
+    }
+
+    while (query.next()) {
+        int hero_id = query.value(0).toInt();
+        QString qname = query.value(1).toString();
+        std::string name = qname.toStdString();
+        int hp = query.value(2).toInt();
+        int lvl = query.value(3).toInt();
+        int xp = query.value(4).toInt();
+        int damage = query.value(5).toInt();
+        int gold = query.value(6).toInt();
+        int inventorySpace = query.value(7).toInt();
+        int equippedBonus = query.value(8).toInt();
+        int equippedWeaponId = query.value(9).isNull() ? -1 : query.value(9).toInt();
+
+        std::cout << "Hero_id: " << hero_id
+                  << " | Name: " << name
+                  << " | HP: " << hp
+                  << " | Level: " << lvl
+                  << " | XP: " << xp
+                  << " | Damage: " << damage
+                  << " | Gold: " << gold
+                  << " | Inventory Space: " << inventorySpace
+                  << " | Equipped Bonus: " << equippedBonus
+                  << " | Weapon ID: " << equippedWeaponId
+                  << "\n";
+    }
 }

@@ -18,7 +18,8 @@ public:
 
     void insertHero(Hero& hero);
     Hero loadHero(int heroId);
-
+    void showHeroes();
+    
 private:
     QSqlDatabase db;
 };
