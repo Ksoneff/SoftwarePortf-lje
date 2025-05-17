@@ -583,14 +583,14 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 vector<Weapons*> Controller::createArmory() {
 	vector<Weapons*> weapons;
 
-	weapons.push_back(new Weapons(12345, "Wooden Sword", 2, 0, 10, 100, 0));
-	weapons.push_back(new Weapons(23456, "Bronze Sword", 2, 2, 10, 200, 0));
-	weapons.push_back(new Weapons(34567, "Iron Sword", 4, 2, 15, 500, 0));
-	weapons.push_back(new Weapons(45678, "Gold Sword", 8, 2, 6, 750, 0));
-	weapons.push_back(new Weapons(56789, "Emerald Sword", 5, 2, 20, 1000, 0));
-	weapons.push_back(new Weapons(67890, "Diamond Sword", 5, 3, 20, 5000, 0));
-	weapons.push_back(new Weapons(78901, "Netherite Sword", 6, 3, 30, 10000, 0));
-	weapons.push_back(new Weapons(89012, "The Almighty God Slayer", 20, 5, 100, 50000, 0));
+	weapons.push_back(new Weapons(0, "Wooden Sword", 2, 0, 10, 100, 0));
+	weapons.push_back(new Weapons(1, "Bronze Sword", 2, 2, 10, 200, 0));
+	weapons.push_back(new Weapons(2, "Iron Sword", 4, 2, 15, 500, 0));
+	weapons.push_back(new Weapons(3, "Gold Sword", 8, 2, 6, 750, 0));
+	weapons.push_back(new Weapons(4, "Emerald Sword", 5, 2, 20, 1000, 0));
+	weapons.push_back(new Weapons(5, "Diamond Sword", 5, 3, 20, 5000, 0));
+	weapons.push_back(new Weapons(6, "Netherite Sword", 6, 3, 30, 10000, 0));
+	weapons.push_back(new Weapons(7, "The Almighty God Slayer", 20, 5, 100, 50000, 0));
 
 	return weapons;
 }

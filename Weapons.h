@@ -9,9 +9,9 @@ using namespace std;
 class Weapons
 {
 public:
-	Weapons(int weapon_id, string name, int skade, int styrkemodifier, int holdbarhed, int price, int kills);
+	Weapons(int type_id, string name, int skade, int styrkemodifier, int holdbarhed, int price, int kills);
 	~Weapons();
-	int getWeapon_id();
+	int getType_id();
 	string getName();
 	int getSkade();
 	int getStyrkemodifier();
@@ -20,7 +20,7 @@ public:
 	int getKills();
 	void setHoldbarhed(int newHoldbarhed);
 private:
-	int weapon_id;
+	int type_id;
 	string name;
 	int skade;
 	int styrkemodifier;

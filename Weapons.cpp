@@ -1,7 +1,7 @@
 #include "Weapons.h"
 
-Weapons::Weapons(int w_id, string n, int s, int sm, int h, int p, int k) {
-	weapon_id = w_id;
+Weapons::Weapons(int t_id, string n, int s, int sm, int h, int p, int k) {
+	type_id = t_id;
 	name = n;
 	skade = s;
 	styrkemodifier = sm;
@@ -10,8 +10,8 @@ Weapons::Weapons(int w_id, string n, int s, int sm, int h, int p, int k) {
 	kills = k;
 }
 
-int Weapons::getWeapon_id() {
-	return weapon_id;
+int Weapons::getType_id() {
+	return type_id;
 }
 
 int Weapons::getHoldbarhed() {
