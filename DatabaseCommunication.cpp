@@ -7,12 +7,15 @@
 #include <QDebug>
 #include <iostream>
 
+// Constructer that initiates the database communication
 DatabaseCommunication::DatabaseCommunication(const QString& path) {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(path);
 }
 
+// Used to open the database which was initialized in the constructer
 bool DatabaseCommunication::open() {
+    // Error check to see if database was openned correctly
     if (!db.open()) {
         qDebug() << "Failed to open database:" << db.lastError().text();
         return false;
@@ -21,6 +24,7 @@ bool DatabaseCommunication::open() {
     return true;
 }
 
+// Closes connection to database
 void DatabaseCommunication::close() {
     if (db.isOpen()) {
         db.close();
@@ -28,7 +32,7 @@ void DatabaseCommunication::close() {
     }
 }
 
-
+// Function used to insert hero aswell as heroes inventory/weapons
 void DatabaseCommunication::insertHero(Hero& hero) {
 
     if (!db.isOpen()) {
@@ -170,6 +174,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
     }
 }
 
+// Function used to load hero from the database
 Hero DatabaseCommunication::loadHero(int heroId) {
     // Check if database is open
     if (!db.isOpen()) return Hero();
@@ -201,20 +206,22 @@ Hero DatabaseCommunication::loadHero(int heroId) {
     int kills = heroQuery.value(9).toInt();
     int equippedWeaponId = heroQuery.value(10).isNull() ? -1 : heroQuery.value(10).toInt();
 
-    // These still neww to be returned correctly
-    // ------
+    // Variables created to insert into hero object
     Weapons* equippedWeapon = nullptr;
     vector<Weapons*> heroWeapons;
-    // ------
 
-
+    // Initiates weaponsQuery to extract weapons that go along with selected hero
     QSqlQuery weaponsQuery;
-    weaponsQuery.prepare("SELECT weapon_id FROM Weapons WHERE hero_id = :hero_id ORDER BY slot ASC"); // I dont understand this line yet
+    weaponsQuery.prepare("SELECT type_id, weapon_id FROM Weapons WHERE hero_id = :hero_id ORDER BY inventorySlot ASC");
     weaponsQuery.bindValue(":hero_id", heroId);
 
+    // If execution is succesful
     if (weaponsQuery.exec()) {
+        // Loop through every weapon in the database
         while (weaponsQuery.next()) {
             int typeId = weaponsQuery.value(0).toInt();
+            int weaponId = weaponsQuery.value(1).toInt();
+            int weaponKills = weaponsQuery.value(3).toInt();
 
             QSqlQuery weaponTypeQuery;
             weaponTypeQuery.prepare("SELECT name, skade, styrkemodifier, holbarhed, price FROM weaponType WHERE type_id = :type_id");
@@ -222,16 +229,17 @@ Hero DatabaseCommunication::loadHero(int heroId) {
 
             if (weaponTypeQuery.exec() && weaponTypeQuery.next()) {
                 Weapons* w = new Weapons(
+                    weaponId,
                     typeId,
                     weaponTypeQuery.value(0).toString().toStdString(),
                     weaponTypeQuery.value(1).toInt(),
                     weaponTypeQuery.value(2).toInt(),
                     weaponTypeQuery.value(3).toInt(),
                     weaponTypeQuery.value(4).toInt(),
-                    weaponTypeQuery.value(5).toInt()
+                    weaponKills
                 );
                 heroWeapons.push_back(w);
-                if (typeId == equippedWeaponId)
+                if (weaponId == equippedWeaponId)
                     equippedWeapon = w;
             }
         }
@@ -253,31 +261,39 @@ Hero DatabaseCommunication::loadHero(int heroId) {
     );
 }
 
-// Show heroes also needs some work
+// showHeroes intended use is displaying hero - and stats, weapons etc. so that the user can make an informed decision when choosing a hero
 void DatabaseCommunication::showHeroes() {
+    // Checks to ensure the database is open
     if (!db.isOpen()) {
         qDebug() << "Database not open!";
         return;
     }
 
-    QSqlQuery query;
-    if (!query.exec("SELECT hero_id, name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero")) {
-        qDebug() << "Failed to retrieve heroes:" << query.lastError().text();
+
+    QSqlQuery heroQuery;
+    QSqlQuery heroWeaponsQuery;
+    if (!heroQuery.exec("SELECT hero_id, name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero")) {
+        qDebug() << "Failed to retrieve heroes:" << heroQuery.lastError().text();
         return;
     }
 
-    while (query.next()) {
-        int hero_id = query.value(0).toInt();
-        QString qname = query.value(1).toString();
+    if (!heroWeaponsQuery.exec("SELECT weapon_id, type_id, name, skade, styrkemodifier, holdbarhed, price FROM Weapon WHERE hero_id = :hero_id")) {
+        qDebug() << "Failed to retrieve hero weapons:" << heroWeaponsQuery.lastError().text();
+        return;
+    }
+
+    while (heroQuery.next()) {
+        int hero_id = heroQuery.value(0).toInt();
+        QString qname = heroQuery.value(1).toString();
         std::string name = qname.toStdString();
-        int hp = query.value(2).toInt();
-        int lvl = query.value(3).toInt();
-        int xp = query.value(4).toInt();
-        int damage = query.value(5).toInt();
-        int gold = query.value(6).toInt();
-        int inventorySpace = query.value(7).toInt();
-        int equippedBonus = query.value(8).toInt();
-        int equippedWeaponId = query.value(9).isNull() ? -1 : query.value(9).toInt();
+        int hp = heroQuery.value(2).toInt();
+        int lvl = heroQuery.value(3).toInt();
+        int xp = heroQuery.value(4).toInt();
+        int damage = heroQuery.value(5).toInt();
+        int gold = heroQuery.value(6).toInt();
+        int inventorySpace = heroQuery.value(7).toInt();
+        int equippedBonus = heroQuery.value(8).toInt();
+        int equippedWeaponId = heroQuery.value(9).isNull() ? -1 : heroQuery.value(9).toInt();
 
         std::cout << "Hero_id: " << hero_id
             << " | Name: " << name
