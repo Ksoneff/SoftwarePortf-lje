@@ -1,15 +1,15 @@
 {
-	"BUILD_DIR" : "/home/sammy/SoftwarePortf-lje/build/RPGGame_autogen",
-	"CMAKE_BINARY_DIR" : "/home/sammy/SoftwarePortf-lje/build",
-	"CMAKE_CURRENT_BINARY_DIR" : "/home/sammy/SoftwarePortf-lje/build",
-	"CMAKE_CURRENT_SOURCE_DIR" : "/home/sammy/SoftwarePortf-lje",
+	"BUILD_DIR" : "/home/sammy/CleanRPGGame/build/RPGGame_autogen",
+	"CMAKE_BINARY_DIR" : "/home/sammy/CleanRPGGame/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/sammy/CleanRPGGame/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/sammy/CleanRPGGame",
 	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
 	"CMAKE_LIST_FILES" : 
 	[
-		"/home/sammy/SoftwarePortf-lje/CMakeLists.txt",
+		"/home/sammy/CleanRPGGame/CMakeLists.txt",
 		"/usr/share/cmake-3.22/Modules/CMakeDetermineSystem.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeSystem.cmake.in",
-		"/home/sammy/SoftwarePortf-lje/build/CMakeFiles/3.22.1/CMakeSystem.cmake",
+		"/home/sammy/CleanRPGGame/build/CMakeFiles/3.22.1/CMakeSystem.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeUnixFindMake.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeDetermineCCompiler.cmake",
@@ -58,7 +58,7 @@
 		"/usr/share/cmake-3.22/Modules/CMakeFindBinUtils.cmake",
 		"/usr/share/cmake-3.22/Modules/Compiler/GNU-FindBinUtils.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeCCompiler.cmake.in",
-		"/home/sammy/SoftwarePortf-lje/build/CMakeFiles/3.22.1/CMakeCCompiler.cmake",
+		"/home/sammy/CleanRPGGame/build/CMakeFiles/3.22.1/CMakeCCompiler.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeDetermineCompiler.cmake",
 		"/usr/share/cmake-3.22/Modules/Platform/Linux-Determine-CXX.cmake",
@@ -104,7 +104,7 @@
 		"/usr/share/cmake-3.22/Modules/CMakeFindBinUtils.cmake",
 		"/usr/share/cmake-3.22/Modules/Compiler/GNU-FindBinUtils.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeCXXCompiler.cmake.in",
-		"/home/sammy/SoftwarePortf-lje/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake",
+		"/home/sammy/CleanRPGGame/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeGenericSystem.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake",
@@ -129,7 +129,7 @@
 		"/usr/share/cmake-3.22/Modules/CMakeDetermineCompileFeatures.cmake",
 		"/usr/share/cmake-3.22/Modules/Internal/FeatureTesting.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeCCompiler.cmake.in",
-		"/home/sammy/SoftwarePortf-lje/build/CMakeFiles/3.22.1/CMakeCCompiler.cmake",
+		"/home/sammy/CleanRPGGame/build/CMakeFiles/3.22.1/CMakeCCompiler.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeCXXInformation.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake",
 		"/usr/share/cmake-3.22/Modules/Compiler/GNU-CXX.cmake",
@@ -148,7 +148,7 @@
 		"/usr/share/cmake-3.22/Modules/CMakeDetermineCompileFeatures.cmake",
 		"/usr/share/cmake-3.22/Modules/Internal/FeatureTesting.cmake",
 		"/usr/share/cmake-3.22/Modules/CMakeCXXCompiler.cmake.in",
-		"/home/sammy/SoftwarePortf-lje/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake",
+		"/home/sammy/CleanRPGGame/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake",
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5ConfigVersion.cmake",
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5Config.cmake",
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5ModuleLocation.cmake",
@@ -161,63 +161,63 @@
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Sql/Qt5SqlConfigVersion.cmake",
 		"/usr/lib/x86_64-linux-gnu/cmake/Qt5Sql/Qt5SqlConfig.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "/home/sammy/SoftwarePortf-lje",
+	"CMAKE_SOURCE_DIR" : "/home/sammy/CleanRPGGame",
 	"DEP_FILE" : "",
 	"DEP_FILE_RULE_NAME" : "",
 	"HEADERS" : 
 	[
 		[
-			"/home/sammy/SoftwarePortf-lje/CaveFactory.h",
+			"/home/sammy/CleanRPGGame/CaveFactory.h",
 			"Mu",
 			"EWIEGA46WW/moc_CaveFactory.cpp",
 			null
 		],
 		[
-			"/home/sammy/SoftwarePortf-lje/Controller.h",
+			"/home/sammy/CleanRPGGame/Controller.h",
 			"Mu",
 			"EWIEGA46WW/moc_Controller.cpp",
 			null
 		],
 		[
-			"/home/sammy/SoftwarePortf-lje/DatabaseCommunication.h",
+			"/home/sammy/CleanRPGGame/DatabaseCommunication.h",
 			"Mu",
 			"EWIEGA46WW/moc_DatabaseCommunication.cpp",
 			null
 		],
 		[
-			"/home/sammy/SoftwarePortf-lje/Hero.h",
+			"/home/sammy/CleanRPGGame/Hero.h",
 			"Mu",
 			"EWIEGA46WW/moc_Hero.cpp",
 			null
 		],
 		[
-			"/home/sammy/SoftwarePortf-lje/Monster.h",
+			"/home/sammy/CleanRPGGame/Monster.h",
 			"Mu",
 			"EWIEGA46WW/moc_Monster.cpp",
 			null
 		],
 		[
-			"/home/sammy/SoftwarePortf-lje/MonsterFactory.h",
+			"/home/sammy/CleanRPGGame/MonsterFactory.h",
 			"Mu",
 			"EWIEGA46WW/moc_MonsterFactory.cpp",
 			null
 		],
 		[
-			"/home/sammy/SoftwarePortf-lje/MonsterType.h",
+			"/home/sammy/CleanRPGGame/MonsterType.h",
 			"Mu",
 			"EWIEGA46WW/moc_MonsterType.cpp",
 			null
 		],
 		[
-			"/home/sammy/SoftwarePortf-lje/Weapons.h",
+			"/home/sammy/CleanRPGGame/Weapons.h",
 			"Mu",
 			"EWIEGA46WW/moc_Weapons.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/home/sammy/SoftwarePortf-lje/build/RPGGame_autogen/include",
-	"MOC_COMPILATION_FILE" : "/home/sammy/SoftwarePortf-lje/build/RPGGame_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/home/sammy/CleanRPGGame/build/RPGGame_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/sammy/CleanRPGGame/build/RPGGame_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_NO_DEBUG", "QT_SQL_LIB" ],
 	"MOC_DEPEND_FILTERS" : 
 	[
@@ -251,27 +251,27 @@
 		"-c",
 		"/usr/share/cmake-3.22/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/home/sammy/SoftwarePortf-lje/build/RPGGame_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/home/sammy/CleanRPGGame/build/RPGGame_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 1,
-	"PARSE_CACHE_FILE" : "/home/sammy/SoftwarePortf-lje/build/CMakeFiles/RPGGame_autogen.dir/ParseCache.txt",
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/sammy/CleanRPGGame/build/CMakeFiles/RPGGame_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
 	"QT_UIC_EXECUTABLE" : "",
 	"QT_VERSION_MAJOR" : 5,
 	"QT_VERSION_MINOR" : 15,
-	"SETTINGS_FILE" : "/home/sammy/SoftwarePortf-lje/build/CMakeFiles/RPGGame_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/home/sammy/CleanRPGGame/build/CMakeFiles/RPGGame_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "/home/sammy/SoftwarePortf-lje/CaveFactory.cpp", "Mu", null ],
-		[ "/home/sammy/SoftwarePortf-lje/Controller.cpp", "Mu", null ],
-		[ "/home/sammy/SoftwarePortf-lje/DatabaseCommunication.cpp", "Mu", null ],
-		[ "/home/sammy/SoftwarePortf-lje/Hero.cpp", "Mu", null ],
-		[ "/home/sammy/SoftwarePortf-lje/Monster.cpp", "Mu", null ],
-		[ "/home/sammy/SoftwarePortf-lje/MonsterFactory.cpp", "Mu", null ],
-		[ "/home/sammy/SoftwarePortf-lje/Weapons.cpp", "Mu", null ],
-		[ "/home/sammy/SoftwarePortf-lje/main.cpp", "Mu", null ]
+		[ "/home/sammy/CleanRPGGame/CaveFactory.cpp", "Mu", null ],
+		[ "/home/sammy/CleanRPGGame/Controller.cpp", "Mu", null ],
+		[ "/home/sammy/CleanRPGGame/DatabaseCommunication.cpp", "Mu", null ],
+		[ "/home/sammy/CleanRPGGame/Hero.cpp", "Mu", null ],
+		[ "/home/sammy/CleanRPGGame/Monster.cpp", "Mu", null ],
+		[ "/home/sammy/CleanRPGGame/MonsterFactory.cpp", "Mu", null ],
+		[ "/home/sammy/CleanRPGGame/Weapons.cpp", "Mu", null ],
+		[ "/home/sammy/CleanRPGGame/main.cpp", "Mu", null ]
 	],
 	"VERBOSITY" : 0
 }

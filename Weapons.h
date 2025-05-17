@@ -9,7 +9,7 @@ using namespace std;
 class Weapons
 {
 public:
-	Weapons(int w_id, int type_id, string name, int skade, int styrkemodifier, int holdbarhed, int price, int kills);
+	Weapons(int type_id, string name, int skade, int styrkemodifier, int holdbarhed, int price, int kills, int w_id = -1);
 	~Weapons();
 	int getType_id();
 	int getWeapon_id();
@@ -22,7 +22,7 @@ public:
 	void setWeapon_id(int);
 	void setHoldbarhed(int newHoldbarhed);
 private:
-	int weapon_id;
+	int weapon_id = -1;
 	int type_id;
 	string name;
 	int skade;
