@@ -36,7 +36,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         return;
     }
 
-    bool isNewHero = (hero.getHeroID() == -1);
+    bool isNewHero = (hero.getHeroID() == -1); // For tracking wether or not a hero is already in the database
 
     QString sql;
 
@@ -67,12 +67,17 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         )";
     }
 
+    // New query for inserting into database hero table
     QSqlQuery heroQuery;
     heroQuery.prepare(sql);
 
+    // Only get hero id from hero object if hero is already in the database
     if (!isNewHero)
+    {
         heroQuery.bindValue(":hero_id", hero.getHeroID());
+    }
 
+    // Insert hero values
     heroQuery.bindValue(":name", QString::fromStdString(hero.getName()));
     heroQuery.bindValue(":hp", hero.getHP());
     heroQuery.bindValue(":lvl", hero.getLevel());
@@ -83,13 +88,19 @@ void DatabaseCommunication::insertHero(Hero& hero) {
     heroQuery.bindValue(":equippedbonusdamage", hero.getEquippedBonusDamage());
     heroQuery.bindValue(":kills", hero.getKills());
 
-    int weaponId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
-        ? hero.getSelectedWeapon()->getWeapon_id()
+
+    // Get equipped weapon type id
+    int weaponTypeId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
+        ? hero.getSelectedWeapon()->getType_id()
         : -1;
-    if (weaponId == -1)
+
+    // No weapon equipped
+    if (weaponTypeId == -1)
         heroQuery.bindValue(":weapon_id", QVariant(QVariant::Int));  // NULL
+
+    // Hero has weapon equipped
     else
-        heroQuery.bindValue(":weapon_id", weaponId);
+        heroQuery.bindValue(":weapon_id", weaponTypeId);
 
     if (!heroQuery.exec()) {
         qDebug() << "Failed to insert/replace hero:" << heroQuery.lastError().text();
@@ -102,31 +113,68 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         hero.setHeroID(newHeroId);
     }
 
-    // Handle Inventory: Replace entire inventory for this hero
+    // Handle Weapons: Replace all previous weapons for this hero, with new weapons
     QSqlQuery deleteQuery;
-    deleteQuery.prepare("DELETE FROM Inventory WHERE hero_id = :hero_id");
+    deleteQuery.prepare("DELETE FROM Weapons WHERE hero_id = :hero_id");
     deleteQuery.bindValue(":hero_id", hero.getHeroID());
     deleteQuery.exec();  // Clean up old inventory if exists
 
+
+
+    // Add hero weapons to weapon table
     const auto& weapons = hero.getWeapons();
     for (int i = 0; i < weapons.size(); ++i) {
+        // For handling if a weapon is new or not
+        bool isNewWeapon = (weapons[i]->getWeapon_id() == -1); 
+        QString sqlW;
+
+        // Inserting without weapon_id will be auto generated later
+        if (isNewWeapon)
+        {
+            sqlW = R"(
+                INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills)
+                VALUES (:hero_id, :type_id, :inventorySlot, :kills)
+            )";
+        }
+        // Insert with old weapon_id
+        else 
+        {
+            sqlW = R"(
+                INSERT INTO Weapon (weapon_id, hero_id, type_id, inventorySlot, kills)
+                VALUES (:weapon_id, :hero_id, :type_id, :inventorySlot, :kills)
+            )";
+        }
+
         QSqlQuery weaponsQuery;
-        weaponsQuery.prepare(R"(
-            INSERT INTO Weapon (weapon_id, hero_id, type_id, inventorySlot, kills)
-            VALUES (:weapon_id, :hero_id, :type_id, :inventorySlot, :kills)
-        )");
-        weaponsQuery.bindValue(":weapon_id", weapons[i]->getWeapon_id());
+        weaponsQuery.prepare(sqlW);
+        
+        // Only if its an old weapon with updated kills or inventory stats
+        if (!isNewWeapon) 
+        {
+            weaponsQuery.bindValue(":weapon_id", weapons[i]->getWeapon_id());
+        }
+
+        // Always do
         weaponsQuery.bindValue(":hero_id", hero.getHeroID());
-        weaponsQuery.bindValue(".type_id", weapons[i]->getType_id());
+        weaponsQuery.bindValue(":type_id", weapons[i]->getType_id());
         weaponsQuery.bindValue(":inventorySlot", i);
         weaponsQuery.bindValue(":kills", weapons[i]->getKills());
         weaponsQuery.exec();
+
+        // Create new weaponID
+        if (isNewWeapon) 
+        {
+            int newWeaponId = weaponsQuery.lastInsertId().toInt();
+            weapons[i]->setWeapon_id(newWeaponId);
+        }
     }
 }
 
 Hero DatabaseCommunication::loadHero(int heroId) {
+    // Check if database is open
     if (!db.isOpen()) return Hero();
 
+    // Initiate the hero query
     QSqlQuery heroQuery;
     heroQuery.prepare(R"(
         SELECT hero_id, name, hp, lvl, xp, damage, gold,
@@ -134,10 +182,13 @@ Hero DatabaseCommunication::loadHero(int heroId) {
         FROM Hero
         WHERE hero_id = :hero_id
     )");
+
     heroQuery.bindValue(":hero_id", heroId);
+
 
     if (!heroQuery.exec() || !heroQuery.next()) return Hero();
 
+    // Extracts nescisarry information and adds it to variables
     int hero_id = heroQuery.value(0).toInt();
     QString name = heroQuery.value(1).isNull() ? "" : heroQuery.value(1).toString();
     int hp = heroQuery.value(2).toInt();
@@ -150,16 +201,20 @@ Hero DatabaseCommunication::loadHero(int heroId) {
     int kills = heroQuery.value(9).toInt();
     int equippedWeaponId = heroQuery.value(10).isNull() ? -1 : heroQuery.value(10).toInt();
 
+    // These still neww to be returned correctly
+    // ------
     Weapons* equippedWeapon = nullptr;
-    std::vector<Weapons*> heroWeapons;
+    vector<Weapons*> heroWeapons;
+    // ------
 
-    QSqlQuery inventoryQuery;
-    inventoryQuery.prepare("SELECT weapon_id FROM Weapons WHERE hero_id = :hero_id ORDER BY slot ASC");
-    inventoryQuery.bindValue(":hero_id", heroId);
 
-    if (inventoryQuery.exec()) {
-        while (inventoryQuery.next()) {
-            int typeId = inventoryQuery.value(0).toInt();
+    QSqlQuery weaponsQuery;
+    weaponsQuery.prepare("SELECT weapon_id FROM Weapons WHERE hero_id = :hero_id ORDER BY slot ASC"); // I dont understand this line yet
+    weaponsQuery.bindValue(":hero_id", heroId);
+
+    if (weaponsQuery.exec()) {
+        while (weaponsQuery.next()) {
+            int typeId = weaponsQuery.value(0).toInt();
 
             QSqlQuery weaponTypeQuery;
             weaponTypeQuery.prepare("SELECT name, skade, styrkemodifier, holbarhed, price FROM weaponType WHERE type_id = :type_id");

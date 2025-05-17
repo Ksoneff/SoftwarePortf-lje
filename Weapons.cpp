@@ -1,6 +1,7 @@
 #include "Weapons.h"
 
-Weapons::Weapons(int t_id, string n, int s, int sm, int h, int p, int k) {
+Weapons::Weapons(int w_id, int t_id, string n, int s, int sm, int h, int p, int k) {
+	weapon_id = w_id;
 	type_id = t_id;
 	name = n;
 	skade = s;
@@ -12,6 +13,10 @@ Weapons::Weapons(int t_id, string n, int s, int sm, int h, int p, int k) {
 
 int Weapons::getType_id() {
 	return type_id;
+}
+
+int Weapons::getWeapon_id() {
+	return weapon_id;
 }
 
 int Weapons::getHoldbarhed() {
@@ -36,6 +41,10 @@ int Weapons::getPrice() {
 
 int Weapons::getKills() {
 	return kills;
+}
+
+void Weapons::setWeapon_id(int w_id) {
+	weapon_id = w_id;
 }
 
 void Weapons::setHoldbarhed(int newHoldbarhed) {
