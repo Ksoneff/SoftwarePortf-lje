@@ -146,7 +146,7 @@ Controller::Controller(string n) {
 		cout << "1. To fight a wild monster (W)" << endl;
 		cout << "	2. To search nearby terrain for caves (C)" << endl;
 		cout << "		3. To enter the armory (A)" << endl;
-		cout << "			4. To manage equiped weapons (E) " << endl;
+		cout << "			4. To manage equiped weapons and see hero inventory (E) " << endl;
 		cout << "				5. To save and exit (0) " << endl;
 
 		CaveFactory cave1;
@@ -331,7 +331,6 @@ Controller::Controller(string n) {
 		}
 
 		else if (action == 'E') {
-			char weaponChoice;
 			bool correctWeaponChoice = false;
 			cout << " " << endl;
 			cout << "????????????????????????????????????????????????????????????????????" << endl;
@@ -340,11 +339,14 @@ Controller::Controller(string n) {
 			cout << "When equiping a weapon, the previously equiped weapon will be unequiped" << endl;
 			cout << " " << endl;
 			cout << "Choose by index which of your weapons you wish to equip or choose 'q' to unequip current weapon. If you wish to return to main menu (x): " << endl;
+			cout << " " << endl;
+			
 			h.showInventory();
 
 
 			while (!correctWeaponChoice)
 			{
+				char weaponChoice;
 				int herosWeaponsLength = h.getWeapons().size();
 				cin >> weaponChoice;
 
@@ -355,10 +357,10 @@ Controller::Controller(string n) {
 				}
 				else if (weaponChoice == 'q') {
 					h.unequipWeapon();
-					correctWeaponChoice == true;
+					correctWeaponChoice = true;
 				}
 				else if (weaponChoice == 'x') {
-					correctWeaponChoice == true;
+					correctWeaponChoice = true;
 				}
 				else {
 					cout << "ERROR: Invalid weapon choice" << endl;

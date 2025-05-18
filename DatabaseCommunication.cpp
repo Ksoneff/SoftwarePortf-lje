@@ -264,17 +264,20 @@ Hero DatabaseCommunication::loadHero(int heroId) {
 
 // This functions intended use is showcasing hero along with its weapons so that the user can make an informed decision when choosing to load a hero
 void DatabaseCommunication::showHeroes() {
+    // Checks if database is open
     if (!db.isOpen()) {
         qDebug() << "Database not open!";
         return;
     }
 
+    // Initiates a new query
     QSqlQuery heroQuery;
     if (!heroQuery.exec("SELECT hero_id, name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero")) {
         qDebug() << "Failed to retrieve heroes:" << heroQuery.lastError().text();
         return;
     }
 
+    // Iterates through the hero table in the database retrieving relevant info
     while (heroQuery.next()) {
         int hero_id = heroQuery.value(0).toInt();
         QString hero_qname = heroQuery.value(1).toString();
@@ -288,6 +291,7 @@ void DatabaseCommunication::showHeroes() {
         int equippedBonus = heroQuery.value(8).toInt();
         int equippedWeaponId = heroQuery.value(9).isNull() ? -1 : heroQuery.value(9).toInt();
 
+        // Prints hero to terminal
         cout << " " << endl;
         cout << "Hero_id: " << hero_id << " | Name: " << hero_name
              << " | HP: " << hp << " | Level: " << lvl << " | XP: " << xp
@@ -297,6 +301,7 @@ void DatabaseCommunication::showHeroes() {
              << " | Weapon ID: " << equippedWeaponId << endl;
         cout << "Weapons currently in heroes inventory: " << endl;
 
+        // Initiates new query to display hero weapons
         QSqlQuery heroWeaponsQuery1;
         heroWeaponsQuery1.prepare("SELECT weapon_id, type_id FROM Weapon WHERE hero_id = :hero_id");
         heroWeaponsQuery1.bindValue(":hero_id", hero_id);
@@ -306,6 +311,7 @@ void DatabaseCommunication::showHeroes() {
             continue;
         }
 
+        // Iterates through all weapons retrieving weapon_id and type_id for the heroes weapons
         while (heroWeaponsQuery1.next()) {
             int weapon_id = heroWeaponsQuery1.value(0).toInt();
             int type_id = heroWeaponsQuery1.value(1).toInt();
@@ -313,16 +319,18 @@ void DatabaseCommunication::showHeroes() {
             cout << "-> Weapon_id: " << weapon_id
             << " | type_id: " << type_id << endl;
 
+            // Uses the weaponType table because all weapons with same type_id share the same stats
             QSqlQuery weaponTypesQuery;
             weaponTypesQuery.prepare("SELECT name, skade, styrkemodifier, holbarhed FROM weaponType WHERE type_id = :type_id");
             weaponTypesQuery.bindValue(":type_id", type_id);
 
+            // Prints the weapons with matching type_id, or like prints their stats
             if (weaponTypesQuery.exec() && weaponTypesQuery.next()) {
-                QString weapon_qname = weaponTypesQuery.value(1).toString();
+                QString weapon_qname = weaponTypesQuery.value(0).toString();
                 string weapon_name = weapon_qname.toStdString();
-                int skade = weaponTypesQuery.value(2).toInt();
-                int styrkemodifier = weaponTypesQuery.value(3).toInt();
-                int holdbarhed = weaponTypesQuery.value(4).toInt();
+                int skade = weaponTypesQuery.value(1).toInt();
+                int styrkemodifier = weaponTypesQuery.value(2).toInt();
+                int holdbarhed = weaponTypesQuery.value(3).toInt();
                 cout << " | Name: " << weapon_name << " | Skade: " << skade << " | Styrkemodifier: " << styrkemodifier << " | Holdbarhed: " << holdbarhed << endl;
             }
         }
