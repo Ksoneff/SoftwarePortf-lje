@@ -391,6 +391,24 @@ void DatabaseCommunication::showHeroKills() {
         qDebug() << "Database not open!";
         return;
     }
+
+    // Prepare the heroKillsQuery, with the correct statement to select all heroes and their kills
+    QSqlQuery heroKillsQuery;
+    if (!heroKillsQuery.exec("SELECT hero_id, name, kills FROM Hero ORDER BY kills DESC")) {
+        qDebug() << "Failed to retrieve heroes:" << heroKillsQuery.lastError().text();
+        return;
+    }
+
+    while (heroKillsQuery.next()) 
+    {
+        int hero_id = heroKillsQuery.value(0).toInt();
+        QString hero_qname = heroKillsQuery.value(1).toString();
+        string hero_name = hero_qname.toStdString();
+        int kills = heroKillsQuery.value(2).toInt();
+
+        cout << " " << endl;
+        cout << "Hero_id: " << hero_id << " | Name: " << hero_name << " | Kills: " << kills << endl;
+    }   
 }
 
 // Call this function to show how many kills every weapon has for a given hero

@@ -602,6 +602,7 @@ void Controller::buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons,
 	h.showInventory();
 }
 
+// Function used to analyze the games database
 void Controller::analyzeGame() {
 	bool analyze = true;
 	while (analyze) 
