@@ -413,6 +413,11 @@ void DatabaseCommunication::showHeroKills() {
 
 // Call this function to show how many kills every weapon has for a given hero
 bool DatabaseCommunication::showHeroWeaponKills(char hero_id) {
+    if (!db.isOpen()) {
+        qDebug() << "Database not open!";
+        return false;
+    }
+
     return true;
 }
 
@@ -423,4 +428,23 @@ void DatabaseCommunication::showWeaponTypeKillsLeader() {
         qDebug() << "Database not open!";
         return;
     }
+
+    // Prepare the weaponTypeKillsLeaderQuery 
+    QSqlQuery weaponTypeKillsLeaderQuery;
+    if (!weaponTypeKillsLeaderQuery.exec("SELECT h.hero_id, h.name, w.kills, w.type_id FROM weapon w JOIN hero h ON h.hero_id = w.hero_id ORDER BY w.type_id, w.kills DESC")) {
+        qDebug() << "Failed to retrieve heroes:" << weaponTypeKillsLeaderQuery.lastError().text();
+        return;
+    }
+
+    while (weaponTypeKillsLeaderQuery.next()) 
+    {
+        int hero_id = weaponTypeKillsLeaderQuery.value(0).toInt();
+        QString hero_qname = weaponTypeKillsLeaderQuery.value(1).toString();
+        string hero_name = hero_qname.toStdString();
+        int kills = weaponTypeKillsLeaderQuery.value(2).toInt();
+        int type_id = weaponTypeKillsLeaderQuery.value(3).toInt();
+
+        cout << " " << endl;
+        cout << "WeaponType_id: "<< type_id << " |Hero_id: " << hero_id << " | Name: " << hero_name << " | Kills: " << kills << endl;
+    }   
 }
