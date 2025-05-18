@@ -44,3 +44,11 @@ VALUES
   (6, 'Netherite Sword', 6, 3, 30, 10000),
   (7, 'The Almighty God Slayer', 20, 5, 100, 50000);
 
+
+INSERT INTO hero (name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, kills, weapon_id)
+VALUES
+  ('Ironman', 8, 1, 0, 5, 1000, 5, 0, 0, NULL),
+  ('Spiderman', 14, 1, 0, 2, 0, 5, 0, 0, NULL),
+  ('Deadpool', 20, 1, 0, 1, 0, 5, 0, 0, NULL),
+  ('Batman', 10, 1, 0, 3, 500, 10, 0, 0, NULL),
+  ('Admin', 20, 5, 0, 8, 100000, 10, 0, 0, NULL);

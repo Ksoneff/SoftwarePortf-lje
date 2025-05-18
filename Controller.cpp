@@ -32,7 +32,7 @@ Controller::Controller(string n) {
 
 	while (!correctInput) { // While loop checking for icorrect user input
 		cin >> newGame;
-		if (newGame == '0' || newGame == '1' || newGame == '2') {
+		if (newGame == '0' || newGame == '1') {
 			correctInput = true;
 		}
 		else {
@@ -55,74 +55,6 @@ Controller::Controller(string n) {
 		cin >> hero_id;
 		h = loadGame(hero_id);
 	}
-
-	if (newGame != '0' && newGame != '1') {
-		correctInput = false;
-		while (!correctInput) {
-			if (newGame == '2') {
-				string heroChoice;
-				cout << " " << endl;
-				cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
-				cout << "Load one of the following heroes: " << endl;
-				Ironman = Hero("Ironman", 8, 1, 0, 6, 0, 10, 0);
-				Ironman.setHeroID(-1);
-				cout << " " << endl;
-				cout << "Ironman: Strengths - Has cool tricks and can damage other oppenents heavily, also has additional inventory space for extra gadgets. Weakness - Has low HP " << endl;
-				cout << "HP: " << Ironman.getHP() << "  Level: " << Ironman.getLevel() << "  XP: " << Ironman.getXP() << "  Damage: " << Ironman.getDamage() << "  Gold: " << Ironman.getGold() << "  Inventory Space: " << Ironman.getRemainingInventorySpace() << endl;
-				cout << " " << endl;
-				Spiderman = Hero("Spiderman", 12, 1, 0, 3, 0, 5, 0);
-				Spiderman.setHeroID(-1);
-				cout << " " << endl;
-				cout << "Spiderman: This is a pretty average choice, no real strengths or weaknesses, just your friendly neighboorhod spiderman " << endl;
-				cout << "HP: " << Spiderman.getHP() << "  Level: " << Spiderman.getLevel() << "  XP: " << Spiderman.getXP() << "  Damage: " << Spiderman.getDamage() << "  Gold: " << Spiderman.getGold() << "  Inventory Space: " << Spiderman.getRemainingInventorySpace() << endl;
-				cout << " " << endl;
-				Deadpool = Hero("Deadpool", 20, 1, 0, 1, 0, 5, 0);
-				Deadpool.setHeroID(-1);
-				cout << " " << endl;
-				cout << "Deadpool: Strength - Regenerates so starts out with double HP, Weakness - doesnt really damage too much " << endl;
-				cout << "HP: " << Deadpool.getHP() << "  Level: " << Deadpool.getLevel() << "  XP: " << Deadpool.getXP() << "  Damage: " << Deadpool.getDamage() << "  Gold: " << Deadpool.getGold() << "  Inventory Space: " << Deadpool.getRemainingInventorySpace() << endl;
-				cout << " " << endl;
-				Batman = Hero("Batman", 10, 1, 0, 2, 500, 10, 0);
-				Batman.setHeroID(-1);
-				cout << " " << endl;
-				cout << "Batman: Strength - HE IS RICH, so you start the game with 500 gold. And like ironman he has room for extra gadgets " << endl;
-				cout << "HP: " << Batman.getHP() << "  Level: " << Batman.getLevel() << "  XP: " << Batman.getXP() << "  Damage: " << Batman.getDamage() << "  Gold: " << Batman.getGold() << "  Inventory Space: " << Batman.getRemainingInventorySpace() << endl;
-				cout << " " << endl;
-				Tester = Hero("Tester", 20, 5, 0, 6, 10000, 5, 0);
-				Tester.setHeroID(-1);
-				cout << " " << endl;
-				cout << "Tester: This hero is mainly for testing, start at level 5, too instantly explore caves, 10000 gold to buy weapons" << endl;
-				cout << "HP: " << Tester.getHP() << "  Level: " << Tester.getLevel() << "  XP: " << Tester.getXP() << "  Damage: " << Tester.getDamage() << "  Gold: " << Tester.getGold() << "  Inventory Space: " << Tester.getRemainingInventorySpace() << endl;
-				cout << " " << endl;
-				cout << "§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§" << endl;
-				cin >> heroChoice;
-				if (heroChoice == Ironman.getName()) {
-					h = Ironman;
-					correctInput = true;
-				}
-				else if (heroChoice == Spiderman.getName()) {
-					h = Spiderman;
-					correctInput = true;
-				}
-				else if (heroChoice == Deadpool.getName()) {
-					h = Deadpool;
-					correctInput = true;
-				}
-				else if (heroChoice == Batman.getName()) {
-					h = Batman;
-					correctInput = true;
-				}
-				else if (heroChoice == Tester.getName()) {
-					h = Tester;
-					correctInput = true;
-				}
-				else {
-					cout << "Incorrect user input, please choose a hero by writing the correct name: " << endl;
-				}
-			}
-		}
-	}
-
 
 	// Uses showRules() function to show rules
 	showRules();
