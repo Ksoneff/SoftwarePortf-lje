@@ -24,6 +24,7 @@ public:
 	vector<Weapons*> createArmory();
 	void seeWeaponsInArmory(vector<Weapons*> weapons);
 	void buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons, Hero& h);
+	void analyzeGame();
 	~Controller();
 
 private:

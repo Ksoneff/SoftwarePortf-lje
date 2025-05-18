@@ -28,33 +28,48 @@ Controller::Controller(string n) {
 	bool correctInput = false;
 
 	// The flow of the game starts here
-	cout << "(0) Load Game (1) New Game (2) Load Premade Hero: " << endl;
+	bool running = true;
 
-	while (!correctInput) { // While loop checking for icorrect user input
-		cin >> newGame;
-		if (newGame == '0' || newGame == '1') {
-			correctInput = true;
+	while (running) {
+		cout << "(0) Load Game (1) New Game (2) Analyze Game Statistics" << endl;
+
+		char newGame;
+		bool correctInput = false;
+
+		while (!correctInput) {
+			cin >> newGame;
+
+			if (newGame == '0' || newGame == '1' || newGame == '2') {
+				correctInput = true;
+			}
+			else {
+				cout << "Error: Incorrect user input. Please enter 0, 1, 2 or q to quit." << endl;
+			}
 		}
-		else {
-			cout << "Error incorrect user input, please enter either 0, 1 or 2" << endl;
-			correctInput = false;
+
+		if (newGame == '1') {
+			cout << "Create new hero, enter name without any spaces: " << endl;
+			string newHero;
+			cin >> newHero;
+			h = Hero(newHero, 10, 1, 0, 2, 0, 5, 0);
+			h.setHeroID(-1); // Mark as new hero
+			running = false; // Exit after hero creation
+		}
+
+		else if (newGame == '0') {
+			int hero_id;
+			cout << "Enter hero_id to load: " << endl;
+			dbc.showHeroes();
+			cin >> hero_id;
+			h = loadGame(hero_id);
+			running = false; // Exit after loading
+		}
+
+		else if (newGame == '2') {
+			analyzeGame();
 		}
 	}
 
-	if (newGame == '1') {
-		cout << "Create new hero, enter name without any spaces: " << endl;
-		cin >> newHero;
-		h = Hero(newHero, 10, 1, 0, 2, 0, 5, 0);
-		h.setHeroID(-1); // So that my database nows that its a new hero
-	}
-
-	if (newGame == '0') {
-		int hero_id;
-		cout << "Enter hero_id to load: " << endl;
-		dbc.showHeroes();
-		cin >> hero_id;
-		h = loadGame(hero_id);
-	}
 
 	// Uses showRules() function to show rules
 	showRules();
@@ -587,6 +602,72 @@ void Controller::buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons,
 	h.showInventory();
 }
 
+void Controller::analyzeGame() {
+	bool analyze = true;
+	while (analyze) 
+	{
+		cout << " " << endl;
+		cout << "==============================================================================" << endl;
+		cout << "You have chosen to analyze the game. You now have 4 options: " << endl;
+		cout << "1. Display heroes in alphebetical order A - Z " << endl;
+		cout << "	2. Display all heroes along with their kills " << endl;
+		cout << "		3. See how many kills each weapon has for a given hero " << endl;
+		cout << "			4. For each weapontype display which hero has the most kills with it " << endl;
+		cout << "				0. To stop analyzing and return to the main menu " << endl;
+		cout << "==============================================================================" << endl;
+		char analyzeChoice;
+		cin >> analyzeChoice;
+
+		bool correctInput1 = false;
+		while (!correctInput1) 
+		{
+			if (analyzeChoice != '1' && analyzeChoice != '2' && analyzeChoice != '3' && analyzeChoice != '4' && analyzeChoice != '0') {
+				cout << " " << endl;
+				cout << "ERROR: Incorrect user input, please enter a valid index" << endl;
+				correctInput1 = true;
+			}
+
+			else if (analyzeChoice == '1') {
+				dbc.showHeroesABC();
+				correctInput1 = true;
+			}
+			else if (analyzeChoice == '2') {
+				dbc.showHeroKills();
+				correctInput1 = true;
+			}
+			else if (analyzeChoice == '3') {
+				bool correctInput2 = false;
+				while (!correctInput2) 
+				{
+					cout << " " << endl;
+					cout << "You have chosen option (3), please select by hero_id, which hero you would like to examine: " << endl;
+					cout << " " << endl;
+
+					dbc.showHeroes();
+					char hero_id;
+					cin >> hero_id;
+					if (!dbc.showHeroWeaponKills(hero_id))
+					{
+						cout << "ERROR: Incorrect user input, please select a valid hero_id" << endl;
+					}
+					else {
+						dbc.showHeroWeaponKills(hero_id);
+						correctInput2 = true;
+					}
+				}
+				correctInput1 = true;
+			}
+			else if (analyzeChoice == '4'){
+				dbc.showWeaponTypeKillsLeader();
+				correctInput1 = true;
+			}
+			else if (analyzeChoice == '0') {
+				analyze = false;
+				correctInput1 = true;
+			}
+		}
+	}
+}
 
 
 Controller::~Controller() {}

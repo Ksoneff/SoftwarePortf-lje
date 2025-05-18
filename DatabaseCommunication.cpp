@@ -342,3 +342,67 @@ void DatabaseCommunication::showHeroes() {
         }
     }
 }
+
+// Call this function to show heroes in database in alphabetic order
+void DatabaseCommunication::showHeroesABC() {
+    // Check if database is open
+    if (!db.isOpen()) {
+        qDebug() << "Database not open!";
+        return;
+    }
+
+    // Prepare the heroABCQuery in the correct way to display the heroes in ascending alphebetical fasion
+    QSqlQuery heroABCQuery;
+    if (!heroABCQuery.exec("SELECT hero_id, name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero ORDER BY name ASC")) {
+        qDebug() << "Failed to retrieve heroes:" << heroABCQuery.lastError().text();
+        return;
+    }
+
+    // Loops through every hero
+    while (heroABCQuery.next()) 
+    {
+        int hero_id = heroABCQuery.value(0).toInt();
+        QString hero_qname = heroABCQuery.value(1).toString();
+        string hero_name = hero_qname.toStdString();
+        int hp = heroABCQuery.value(2).toInt();
+        int lvl = heroABCQuery.value(3).toInt();
+        int xp = heroABCQuery.value(4).toInt();
+        int damage = heroABCQuery.value(5).toInt();
+        int gold = heroABCQuery.value(6).toInt();
+        int inventorySpace = heroABCQuery.value(7).toInt();
+        int equippedBonus = heroABCQuery.value(8).toInt();
+        int equippedWeaponId = heroABCQuery.value(9).isNull() ? -1 : heroABCQuery.value(9).toInt();
+
+        // Prints hero to terminal
+        cout << " " << endl;
+        cout << "Hero_id: " << hero_id << " | Name: " << hero_name
+                << " | HP: " << hp << " | Level: " << lvl << " | XP: " << xp
+                << " | Damage: " << damage << " | Gold: " << gold
+                << " | Inventory Space: " << inventorySpace
+                << " | Equipped Bonus: " << equippedBonus
+                << " | Weapon ID: " << equippedWeaponId << endl;
+   }
+}
+
+// Call this function to show how many kills each hero has
+void DatabaseCommunication::showHeroKills() {
+    // Check if database is open
+    if (!db.isOpen()) {
+        qDebug() << "Database not open!";
+        return;
+    }
+}
+
+// Call this function to show how many kills every weapon has for a given hero
+bool DatabaseCommunication::showHeroWeaponKills(char hero_id) {
+    return true;
+}
+
+// Call this function to see which hero currently has the most kills for every weapon type
+void DatabaseCommunication::showWeaponTypeKillsLeader() {
+    // Check if database is open
+    if (!db.isOpen()) {
+        qDebug() << "Database not open!";
+        return;
+    }
+}
