@@ -144,8 +144,8 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         else 
         {
             sqlW = R"(
-                INSERT INTO Weapon (weapon_id, hero_id, type_id, inventorySlot, kills)
-                VALUES (:weapon_id, :hero_id, :type_id, :inventorySlot, :kills)
+                INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills, weapon_id)
+                VALUES (:hero_id, :type_id, :inventorySlot, :kills, :weapon_id)
             )";
         }
 
@@ -229,14 +229,14 @@ Hero DatabaseCommunication::loadHero(int heroId) {
 
             if (weaponTypeQuery.exec() && weaponTypeQuery.next()) {
                 Weapons* w = new Weapons(
-                    weaponId,
                     typeId,
                     weaponTypeQuery.value(0).toString().toStdString(),
                     weaponTypeQuery.value(1).toInt(),
                     weaponTypeQuery.value(2).toInt(),
                     weaponTypeQuery.value(3).toInt(),
                     weaponTypeQuery.value(4).toInt(),
-                    weaponKills
+                    weaponKills,
+                    weaponId
                 );
                 heroWeapons.push_back(w);
                 if (weaponId == equippedWeaponId)
@@ -245,6 +245,7 @@ Hero DatabaseCommunication::loadHero(int heroId) {
         }
     }
 
+    // Return reconstructed hero
     return Hero(
         name.toStdString(),
         hp,
@@ -261,24 +262,20 @@ Hero DatabaseCommunication::loadHero(int heroId) {
     );
 }
 
-// Intended use of this function is to display hero stats aswell as heroes weapons
+// This functions intended use is showcasing hero along with its weapons so that the user can make an informed decision when choosing to load a hero
 void DatabaseCommunication::showHeroes() {
-    // Checks if the database is open
     if (!db.isOpen()) {
         qDebug() << "Database not open!";
         return;
     }
 
-    // Initiates a hero query
     QSqlQuery heroQuery;
     if (!heroQuery.exec("SELECT hero_id, name, hp, lvl, xp, damage, gold, inventoryspace, equippedbonusdamage, weapon_id FROM Hero")) {
         qDebug() << "Failed to retrieve heroes:" << heroQuery.lastError().text();
         return;
     }
 
-    // Runs for every hero in hero table 
     while (heroQuery.next()) {
-        // Initiates variables that can be displayed
         int hero_id = heroQuery.value(0).toInt();
         QString hero_qname = heroQuery.value(1).toString();
         string hero_name = hero_qname.toStdString();
@@ -291,42 +288,43 @@ void DatabaseCommunication::showHeroes() {
         int equippedBonus = heroQuery.value(8).toInt();
         int equippedWeaponId = heroQuery.value(9).isNull() ? -1 : heroQuery.value(9).toInt();
 
+        cout << " " << endl;
         cout << "Hero_id: " << hero_id << " | Name: " << hero_name
              << " | HP: " << hp << " | Level: " << lvl << " | XP: " << xp
              << " | Damage: " << damage << " | Gold: " << gold
              << " | Inventory Space: " << inventorySpace
              << " | Equipped Bonus: " << equippedBonus
              << " | Weapon ID: " << equippedWeaponId << endl;
+        cout << "Weapons currently in heroes inventory: " << endl;
 
-        // Now fetch weapons for this specific hero
-        QSqlQuery heroWeaponsQuery;
-        heroWeaponsQuery.prepare("SELECT weapon_id, type_id, name, skade, styrkemodifier, holdbarhed FROM Weapon WHERE hero_id = :hero_id");
-        heroWeaponsQuery.bindValue(":hero_id", hero_id);
+        QSqlQuery heroWeaponsQuery1;
+        heroWeaponsQuery1.prepare("SELECT weapon_id, type_id FROM Weapon WHERE hero_id = :hero_id");
+        heroWeaponsQuery1.bindValue(":hero_id", hero_id);
 
-        // Checks if the execution failed
-        if (!heroWeaponsQuery.exec()) {
-            qDebug() << "Failed to retrieve weapons for hero_id" << hero_id << ":" << heroWeaponsQuery.lastError().text();
+        if (!heroWeaponsQuery1.exec()) {
+            qDebug() << "Failed to retrieve weapons for hero_id" << hero_id << ":" << heroWeaponsQuery1.lastError().text();
             continue;
         }
 
-        // If it didnt, then go through every weapon in the weapon table where shown hero id matches hero_id corresponding to weapon
-        while (heroWeaponsQuery.next()) {
-            int weapon_id = heroWeaponsQuery.value(0).toInt();
-            int type_id = heroWeaponsQuery.value(1).toInt();
-            QString weapon_qname = heroWeaponsQuery.value(2).toString();
-            string weapon_name = weapon_qname.toStdString();
-            int skade = heroWeaponsQuery.value(3).toInt();
-            int styrkemodifier = heroWeaponsQuery.value(4).toInt();
-            int holdbarhed = heroWeaponsQuery.value(5).toInt();
+        while (heroWeaponsQuery1.next()) {
+            int weapon_id = heroWeaponsQuery1.value(0).toInt();
+            int type_id = heroWeaponsQuery1.value(1).toInt();
 
-            cout << "    -> Weapon_id: " << weapon_id
-                 << " | type_id: " << type_id
-                 << " | Name: " << weapon_name
-                 << " | Skade: " << skade
-                 << " | Styrkemodifier: " << styrkemodifier
-                 << " | Holdbarhed: " << holdbarhed << endl;
+            cout << "-> Weapon_id: " << weapon_id
+            << " | type_id: " << type_id << endl;
+
+            QSqlQuery weaponTypesQuery;
+            weaponTypesQuery.prepare("SELECT name, skade, styrkemodifier, holbarhed FROM weaponType WHERE type_id = :type_id");
+            weaponTypesQuery.bindValue(":type_id", type_id);
+
+            if (weaponTypesQuery.exec() && weaponTypesQuery.next()) {
+                QString weapon_qname = weaponTypesQuery.value(1).toString();
+                string weapon_name = weapon_qname.toStdString();
+                int skade = weaponTypesQuery.value(2).toInt();
+                int styrkemodifier = weaponTypesQuery.value(3).toInt();
+                int holdbarhed = weaponTypesQuery.value(4).toInt();
+                cout << " | Name: " << weapon_name << " | Skade: " << skade << " | Styrkemodifier: " << styrkemodifier << " | Holdbarhed: " << holdbarhed << endl;
+            }
         }
-
-        cout << endl;
     }
 }

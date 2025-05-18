@@ -33,7 +33,7 @@ create table weapon (
   foreign key (type_id) references weaponType(type_id)
 );
 
-INSERT INTO WeaponType (type_id, name, skade, styrkemodifier, holbarhed, price)
+INSERT INTO weaponType (type_id, name, skade, styrkemodifier, holbarhed, price)
 VALUES
   (0, 'Wooden Sword', 2, 0, 10, 100),
   (1, 'Bronze Sword', 2, 2, 10, 200),

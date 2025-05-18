@@ -29,7 +29,7 @@ public:
 private:
 	string hero;
 	string monster;
-	DatabaseCommunication dbc = DatabaseCommunication("/home/sammy/SoftwarePortf-lje/game.db"); // set path here
+	DatabaseCommunication dbc = DatabaseCommunication("/home/sammy/CleanRPGGame/game.db"); // set path here
 
 };
 
