@@ -647,12 +647,10 @@ void Controller::analyzeGame() {
 					dbc.showHeroes();
 					char hero_id;
 					cin >> hero_id;
-					if (!dbc.showHeroWeaponKills(hero_id))
-					{
+					bool success = dbc.showHeroWeaponKills(hero_id);
+					if (!success) {
 						cout << "ERROR: Incorrect user input, please select a valid hero_id" << endl;
-					}
-					else {
-						dbc.showHeroWeaponKills(hero_id);
+					} else {
 						correctInput2 = true;
 					}
 				}

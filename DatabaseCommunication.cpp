@@ -412,10 +412,52 @@ void DatabaseCommunication::showHeroKills() {
 }
 
 // Call this function to show how many kills every weapon has for a given hero
-bool DatabaseCommunication::showHeroWeaponKills(char hero_id) {
+bool DatabaseCommunication::showHeroWeaponKills(char hID) {
     if (!db.isOpen()) {
         qDebug() << "Database not open!";
         return false;
+    }
+
+    int hero_id = hID - '0';
+
+    // Check if the hero exists
+    QSqlQuery checkHeroQuery;
+    checkHeroQuery.prepare("SELECT name FROM hero WHERE hero_id = :hero_id");
+    checkHeroQuery.bindValue(":hero_id", hero_id);
+
+    // Return false if incorrect hero id was chosen, or if exec failed
+    if (!checkHeroQuery.exec() || !checkHeroQuery.next()) {
+        qDebug() << "Hero ID" << hero_id << "does not exist.";
+        return false;
+    }
+
+
+    QString heroName = checkHeroQuery.value(0).toString();
+    cout << "Hero: " << heroName.toStdString() << endl;
+
+    // Get all weapons for the hero along with kills and weapon type name
+    QSqlQuery weaponKillsQuery;
+    weaponKillsQuery.prepare(R"(SELECT wt.name, w.kills FROM weapon w JOIN weaponType wt ON w.type_id = wt.type_id WHERE w.hero_id = :hero_id ORDER BY w.kills DESC)");
+    weaponKillsQuery.bindValue(":hero_id", hero_id);
+
+    if (!weaponKillsQuery.exec()) {
+        qDebug() << "Failed to retrieve weapons for hero_id" << hero_id << ":" << weaponKillsQuery.lastError().text();
+        return false;
+    }
+
+    // Display all weapons
+    bool hasWeapons = false;
+    while (weaponKillsQuery.next()) {
+        hasWeapons = true;
+        QString weaponName = weaponKillsQuery.value(0).toString();
+        int kills = weaponKillsQuery.value(1).toInt();
+
+        cout << "  -> Weapon: " << weaponName.toStdString()
+             << " | Kills: " << kills << endl;
+    }
+
+    if (!hasWeapons) {
+        cout << "This hero has no weapons." << endl;
     }
 
     return true;
