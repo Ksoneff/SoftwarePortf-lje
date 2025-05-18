@@ -19,6 +19,7 @@ public:
 	int getHoldbarhed();
 	int getPrice();
 	int getKills();
+	void incrementKills();
 	void setWeapon_id(int);
 	void setHoldbarhed(int newHoldbarhed);
 private:

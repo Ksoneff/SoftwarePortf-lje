@@ -51,4 +51,8 @@ void Weapons::setHoldbarhed(int newHoldbarhed) {
 	holdbarhed = newHoldbarhed;
 }
 
+void Weapons::incrementKills() {
+	kills = getKills() + 1;
+}
+
 Weapons::~Weapons() {}

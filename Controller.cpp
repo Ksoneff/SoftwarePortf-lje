@@ -433,6 +433,11 @@ Hero Controller::updateLevel(int xp, Hero h) {
 
 	int heroKills = h.getKills() + 1;
 
+	if (h.hasWeaponEquipped()) {
+		Weapons* equippedWeapon = h.getSelectedWeapon();
+		equippedWeapon->incrementKills();
+	}
+
 	int remainder = heroXP - (heroLevel * 1000);
 
 	if (heroXP >= heroLevel * 1000) {
