@@ -212,8 +212,14 @@ Hero DatabaseCommunication::loadHero(int heroId) {
 
     // Initiates weaponsQuery to extract weapons that go along with selected hero
     QSqlQuery weaponsQuery;
-    weaponsQuery.prepare("SELECT type_id, weapon_id FROM Weapons WHERE hero_id = :hero_id ORDER BY inventorySlot ASC");
-    weaponsQuery.bindValue(":hero_id", heroId);
+    weaponsQuery.prepare("SELECT type_id, weapon_id, kills FROM weapon WHERE hero_id = :hero_id ORDER BY inventoryslot ASC");
+    weaponsQuery.bindValue(":hero_id", hero_id);
+
+    // Debugging start
+    if (!weaponsQuery.exec()) {
+    qDebug() << "weaponsQuery failed:" << weaponsQuery.lastError().text();
+    }
+    // Debugging end
 
     // If execution is succesful
     if (weaponsQuery.exec()) {
@@ -221,7 +227,7 @@ Hero DatabaseCommunication::loadHero(int heroId) {
         while (weaponsQuery.next()) {
             int typeId = weaponsQuery.value(0).toInt();
             int weaponId = weaponsQuery.value(1).toInt();
-            int weaponKills = weaponsQuery.value(3).toInt();
+            int weaponKills = weaponsQuery.value(2).toInt();
 
             QSqlQuery weaponTypeQuery;
             weaponTypeQuery.prepare("SELECT name, skade, styrkemodifier, holbarhed, price FROM weaponType WHERE type_id = :type_id");
