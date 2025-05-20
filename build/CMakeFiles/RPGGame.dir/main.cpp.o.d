@@ -1,6 +1,6 @@
 CMakeFiles/RPGGame.dir/main.cpp.o: /home/sammy/CleanRPGGame/main.cpp \
- /usr/include/stdc-predef.h /home/sammy/CleanRPGGame/Hero.h \
- /usr/include/c++/11/string \
+ /usr/include/stdc-predef.h /home/sammy/CleanRPGGame/Controller.h \
+ /home/sammy/CleanRPGGame/Hero.h /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -132,7 +132,7 @@ CMakeFiles/RPGGame.dir/main.cpp.o: /home/sammy/CleanRPGGame/main.cpp \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc /home/sammy/CleanRPGGame/Weapons.h \
- /home/sammy/CleanRPGGame/Controller.h /home/sammy/CleanRPGGame/Monster.h \
+ /home/sammy/CleanRPGGame/Monster.h \
  /home/sammy/CleanRPGGame/DatabaseCommunication.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \

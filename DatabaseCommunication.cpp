@@ -95,7 +95,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
 
     // Get equipped weapon type id
     int weaponTypeId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
-        ? hero.getSelectedWeapon()->getType_id()
+        ? hero.getSelectedWeapon()->getWeapon_id()
         : -1;
 
     // No weapon equipped

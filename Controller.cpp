@@ -398,7 +398,7 @@ void Controller::showRules() {
 }
 
 // saveGame function saves the game when user quits
-void Controller::saveGame(Hero h) {
+void Controller::saveGame(Hero& h) {
 	// Checks if the database is open
 	if (!dbc.open()) {
 		std::cerr << "Failed to open database during save!" << std::endl;

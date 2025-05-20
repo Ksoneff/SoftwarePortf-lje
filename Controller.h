@@ -20,7 +20,7 @@ public:
 
 	// Basic functions
 	void showRules();
-	void saveGame(Hero);
+	void saveGame(Hero& h);
 	Hero loadGame(int);
 
 	// Functions used in battles

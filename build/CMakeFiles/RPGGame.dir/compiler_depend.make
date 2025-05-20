@@ -1457,6 +1457,7 @@ CMakeFiles/RPGGame.dir/Weapons.cpp.o: ../Weapons.cpp \
 
 CMakeFiles/RPGGame.dir/main.cpp.o: ../main.cpp \
   /usr/include/stdc-predef.h \
+  ../Controller.h \
   ../Hero.h \
   /usr/include/c++/11/string \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
@@ -1613,7 +1614,6 @@ CMakeFiles/RPGGame.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
   ../Weapons.h \
-  ../Controller.h \
   ../Monster.h \
   ../DatabaseCommunication.h \
   /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
