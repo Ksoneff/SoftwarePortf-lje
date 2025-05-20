@@ -2,6 +2,8 @@
 #define MONSTERFACTORY_H
 
 #include <string>
+
+// Uses monsterTpye and Monster class in create method
 #include "MonsterType.h"
 #include "Monster.h"
 

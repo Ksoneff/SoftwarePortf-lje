@@ -14,32 +14,26 @@
 Controller::Controller() {}
 
 Controller::Controller(string n) {
+	// Open database
 	dbc.open();
-	Hero h;
-	Hero Ironman;
-	Hero Spiderman;
-	Hero Deadpool;
-	Hero Batman;
-	Hero Tester;
-	char newGame;
-	char action;
-	string newHero;
-	string oldHero;
-	bool correctInput = false;
 
 	// The flow of the game starts here
 	bool running = true;
 
+	// Loops while running is true
 	while (running) {
 		cout << "(0) Load Game (1) New Game (2) Analyze Game Statistics" << endl;
 
-		char newGame;
+		// First choice the player makes is tracked with this char: gameChoice
+		char gameChoice;
+
+		// A boolean used to track wether or not the user input is correct
 		bool correctInput = false;
 
 		while (!correctInput) {
-			cin >> newGame;
+			cin >> gameChoice;
 
-			if (newGame == '0' || newGame == '1' || newGame == '2') {
+			if (gameChoice == '0' || gameChoice == '1' || gameChoice == '2' || gameChoice == 'q') {
 				correctInput = true;
 			}
 			else {
@@ -47,7 +41,7 @@ Controller::Controller(string n) {
 			}
 		}
 
-		if (newGame == '1') {
+		if (gameChoice == '1') {
 			cout << "Create new hero, enter name without any spaces: " << endl;
 			string newHero;
 			cin >> newHero;
@@ -56,7 +50,7 @@ Controller::Controller(string n) {
 			running = false; // Exit after hero creation
 		}
 
-		else if (newGame == '0') {
+		else if (gameChoice == '0') {
 			int hero_id;
 			cout << "Enter hero_id to load: " << endl;
 			dbc.showHeroes();
@@ -65,29 +59,35 @@ Controller::Controller(string n) {
 			running = false; // Exit after loading
 		}
 
-		else if (newGame == '2') {
+		else if (gameChoice == '2') {
 			analyzeGame();
+		}
+		
+		else if (gameChoice == 'q') {
+			exit(0);
 		}
 	}
 
 
 	// Uses showRules() function to show rules
 	showRules();
-	this_thread::sleep_for(chrono::seconds(1)); // For pausing to read rules, taken from chatGBT, i mean found chrono and stuff there:)
+	this_thread::sleep_for(chrono::seconds(20)); // For pausing to read rules
 
-	cout << "" << endl;
 	cout << "" << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 	cout << "Current hero stats are: " << endl;
 	cout << "HP: " << h.getHP() << "  Level: " << h.getLevel() << "  XP: " << h.getXP() << "  Damage: " << h.getDamage() << "  Gold: " << h.getGold() << "  Inventory Space: " << h.getRemainingInventorySpace() << "  Kills:  " << h.getKills() << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 
-	this_thread::sleep_for(chrono::seconds(5));
+	this_thread::sleep_for(chrono::seconds(2));
 
+	// Boolean value that is used to track the main part of the game
 	bool quitGame = false;
 
 	// While loop that runs indefinetly so that the player can battle as many foes as they want, ends when player writes 0 (to quit)
 	while (!quitGame) {
+
+		// First screen the player seen after having either started a new game or loaded an old one
 		cout << " " << endl;
 		cout << "Choose one of the following options: " << endl;
 		cout << "1. To fight a wild monster (W)" << endl;
@@ -96,13 +96,17 @@ Controller::Controller(string n) {
 		cout << "			4. To manage equiped weapons and see hero inventory (E) " << endl;
 		cout << "				5. To save and exit (0) " << endl;
 
+		// Create object of the cave factory class, and initialize a vector of monsters (a cave)
 		CaveFactory cave1;
 		CaveFactory cave2;
 		vector<Monster*> cave1Monsters;
 		vector<Monster*> cave2Monsters;
 
+		// Action tracks the players action
+		char action;
 		cin >> action;
 
+		// Action 'C' Lead to fighting a cave, only accesible if hero level is <= 5
 		if (action == 'C' && h.getLevel() >= 5) {
 			cout << " " << endl;
 			cout << "<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>" << endl;
@@ -142,21 +146,27 @@ Controller::Controller(string n) {
 			while (!inputOK)
 			{
 				cin >> action;
+				// Choice of action again leads to three scenarios
 				if (action != '1' && action != '2' && action != '3')
 				{
 					cout << "ERROR: incorrect user input" << endl;
 				}
 
+				// Battle cave 1
 				else if (action == '1')
 				{
-					h = battleCave(h.getLevel(), h, cave1Monsters);
+					h = battleCave(h.getLevel(), cave1Monsters);
 					inputOK = true;
 				}
+
+				// Battle cave 2
 				else if (action == '2')
 				{
-					h = battleCave(h.getLevel(), h, cave2Monsters);
+					h = battleCave(h.getLevel(), cave2Monsters);
 					inputOK = true;
 				}
+
+				// Leave caves and return to main menu
 				else if (action == '3')
 				{
 					inputOK = true;
@@ -164,12 +174,14 @@ Controller::Controller(string n) {
 			}
 		}
 
+		// Handles incorrect user choice, when hero level is too low to fight caves
 		else if (action == 'C' && h.getLevel() < 5) {
 			cout << " " << endl;
 			cout << "ERROR: Your hero level is too low to explore caves. Fight more wild monsters to level up and unlock caves" << endl;
 			cout << " " << endl;
 		}
 
+		// Action 'A' leads to armory
 		else if (action == 'A') {
 			char weaponChoice;
 			cout << " " << endl;
@@ -177,11 +189,13 @@ Controller::Controller(string n) {
 			cout << "Welcome to the armory, here you can buy various weapons, which will help you on your quest" << endl;
 			cout << " " << endl;
 			cout << "Weapons in the armory are: " << endl;
+			// Uses createArmory to initialize the armory
 			vector<Weapons*> weaponsInArmory = createArmory();
 			seeWeaponsInArmory(weaponsInArmory);
 			cout << " " << endl;
 			bool inArmory = true;
 
+			// While loop that runs while player remains in the armory
 			while (inArmory)
 			{
 				cout << "Choose weapon to buy by index (e.g., 0, 1, 2), or press - to exit: "
@@ -195,13 +209,14 @@ Controller::Controller(string n) {
 				}
 				else if (weaponChoice >= '0' && weaponChoice < '0' + weaponsInArmory.size()) {
 					int index = weaponChoice - '0';
-					buyWeapon(index, h.getGold(), weaponsInArmory, h);
+					buyWeapon(index, h.getGold(), weaponsInArmory);
 				}
 				else {
 					cout << "ERROR: Invalid input. Please enter a valid index digit or '-' to exit." << endl;
 				}
 			}
 
+			// To avoid any pointer issues, the armory is then swiftly deleted
 			for (Weapons* w : weaponsInArmory)
 			{
 				delete w;
@@ -209,6 +224,7 @@ Controller::Controller(string n) {
 			cout << "x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>x<>" << endl;
 		}
 
+		// If action is 'W' the player has chosen to fight wild monsters
 		else if (action == 'W') {
 
 			char monsterChoice;
@@ -234,6 +250,7 @@ Controller::Controller(string n) {
 			enemies.push_back(&u);
 			enemies.push_back(&d);
 
+			// Show all monsters
 			cout << " " << endl;
 			cout << "Monster stats are: " << endl;
 			cout << "1. Hest:                 5. The Strongest Goblin:" << endl;
@@ -255,13 +272,17 @@ Controller::Controller(string n) {
 			cout << "Choose a monster to fight by index: " << endl;
 			cin >> monsterChoice;
 
-			h = fightMonster(monsterChoice, h, enemies);
+			// fightMonster returns an updated hero after the fight is done
+			h = fightMonster(monsterChoice, enemies);
+
+			// If the hero has a weapon equipped, a certain amount of durability is removed
 			if (h.hasWeaponEquipped()) {
 				h.removeWeaponDurability();
 			}
 
-			this_thread::sleep_for(chrono::seconds(2));
+			this_thread::sleep_for(chrono::seconds(1));
 
+			// Displayes heroes new stats, after the battle
 			cout << "" << endl;
 			cout << "--------------------------------------------------------------------" << endl;
 			cout << "The battle is over, and your heros stats now are: " << endl;
@@ -277,8 +298,12 @@ Controller::Controller(string n) {
 			cout << "" << endl;
 		}
 
+		// Action 'E' means equip/unequip
 		else if (action == 'E') {
+
+			// Boolean used to ensure correct user selection
 			bool correctWeaponChoice = false;
+
 			cout << " " << endl;
 			cout << "????????????????????????????????????????????????????????????????????" << endl;
 			cout << "Here you may equip/unequip purchased weapons." << endl;
@@ -288,6 +313,7 @@ Controller::Controller(string n) {
 			cout << "Choose by index which of your weapons you wish to equip or choose 'q' to unequip current weapon. If you wish to return to main menu (x): " << endl;
 			cout << " " << endl;
 			
+			// Shows heroes current inventory
 			h.showInventory();
 
 
@@ -297,15 +323,20 @@ Controller::Controller(string n) {
 				int herosWeaponsLength = h.getWeapons().size();
 				cin >> weaponChoice;
 
+				// Equips the weapon which the user has selected
 				if (weaponChoice >= '0' && weaponChoice < '0' + herosWeaponsLength) {
 					int index = weaponChoice - '0';
 					h.equipWeapon(index);
 					correctWeaponChoice = true;
 				}
+
+				// Unequips current weapon
 				else if (weaponChoice == 'q') {
 					h.unequipWeapon();
 					correctWeaponChoice = true;
 				}
+
+				// Exits the loop without doing anything
 				else if (weaponChoice == 'x') {
 					correctWeaponChoice = true;
 				}
@@ -314,6 +345,7 @@ Controller::Controller(string n) {
 				}
 			}
 
+			// Shows new and updated hero stats
 			cout << " " << endl;
 			cout << "Your hero stats now are: " << endl;
 			cout << "Name:     " << h.getName() << endl;
@@ -326,6 +358,7 @@ Controller::Controller(string n) {
 			cout << "" << endl;
 		}
 
+		// Lastly the game is saved if the action is 0
 		else if (action == '0') {
 			cout << "Thank you for playing!" << endl;
 			cout << "Game saving..." << endl;
@@ -366,46 +399,55 @@ void Controller::showRules() {
 
 // saveGame function saves the game when user quits
 void Controller::saveGame(Hero h) {
+	// Checks if the database is open
 	if (!dbc.open()) {
 		std::cerr << "Failed to open database during save!" << std::endl;
 		return;
 	}
 
+	// Uses insert hero function from the database communication class and close function to close the database
 	dbc.insertHero(h);
 	dbc.close();
 }
 
-
 // loadGame function used to load previously saved heroes, to continue quest
 Hero Controller::loadGame(int hero_id) {
-	Hero h = dbc.loadHero(hero_id);
+	// Assigns the chosen hero to the private attribute of the controller class
+	h = dbc.loadHero(hero_id);
 	dbc.close();
-	return h;
+	return h; // Returns the loaded hero
 }
 
 // fightMonster function, handles hero vs monster battles
-Hero Controller::fightMonster(char n, Hero h, vector<Monster*> monsters) {
+Hero Controller::fightMonster(char n, vector<Monster*> monsters) {
 
+	// Iterates over the monsters vector
 	for (int i = 0; i < monsters.size(); i++) {
 
+		// Monster stats
 		int monsterHealth = monsters[i]->getHP();
 		string monsterName = monsters[i]->getName();
 		int monsterXP = monsters[i]->getXP();
+
 		int heroHealth = h.getHP();
 		Hero updatedHero;
 
+		// If n (the monster choice) is equal to i + 1 (because of vector 0 indexing), then fight the selected monster
 		if (n == i + 1 + '0') {
+			// Fight until either the hero or the monster is dead
 			while (monsterHealth > 0 && heroHealth > 0) {
 				heroHealth -= monsters[i]->getDamage();
 				monsterHealth -= h.getDamage();
 				cout << "Hero Health: " << heroHealth << endl;
 				cout << "Monster health: " << monsterHealth << endl;
 			}
+			// Happens if hero wins
 			if (monsterHealth <= 0) {
 				cout << "You have defeated: " << monsterName << " you recieve " << monsterXP << " XP points " << endl;
-				updatedHero = updateLevel(monsterXP, h);
+				updatedHero = updateLevel(monsterXP);
 				return updatedHero;
 			}
+			// Happens if monster wins
 			else {
 				cout << "You have been defeated by the monster" << endl;
 				cout << "Game over :-(" << endl;
@@ -419,7 +461,7 @@ Hero Controller::fightMonster(char n, Hero h, vector<Monster*> monsters) {
 }
 
 // updateLevel function used to update hero level based on experience points gained
-Hero Controller::updateLevel(int xp, Hero h) {
+Hero Controller::updateLevel(int xp) {
 	vector<Weapons*> hWeapons = h.getWeapons();
 	int heroLevel = h.getLevel();
 	int heroXP = h.getXP();
@@ -433,6 +475,7 @@ Hero Controller::updateLevel(int xp, Hero h) {
 
 	int heroKills = h.getKills() + 1;
 
+	// Increments the heroes weapons kills
 	if (h.hasWeaponEquipped()) {
 		Weapons* equippedWeapon = h.getSelectedWeapon();
 		equippedWeapon->incrementKills();
@@ -447,17 +490,19 @@ Hero Controller::updateLevel(int xp, Hero h) {
 		heroHP += 2;
 	}
 
+	// Returns a modified hero to fight monster function which returns it to the main program, which then assigns it to the private attribute h
 	Hero updatedHero(h.getName(), heroHP, heroLevel, heroXP, heroDamage, gold, inventorySpace, equippedBonusDamage, h.getWeapons(), heroKills, h.getSelectedWeapon(), h.getHeroID());
 	return updatedHero;
 }
 
 // This function is used to battle caves
-Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonsters) {
+Hero Controller::battleCave(int heroLvl, vector<Monster*> caveMonsters) {
 
 	CaveFactory c;
 	Hero updatedHero;
 	int heroGold;
 
+	// This ensures that the caves are generated at random for every time the player playes
 	srand(static_cast<unsigned>(time(0)));
 
 	cout << "You have chosen to battle your way through this cave" << endl;
@@ -467,21 +512,24 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 	int index = 0;
 	char action;
 
+	// For loop that iterates thorugh the entire cave
 	for (Monster* monster : caveMonsters) {
 		cout << "\nNext monster appears: " << monster->getName() << endl;
 		cout << "Press 1 to fight or 0 to save and exit: " << endl;
 		bool correctInput = false;
 		while (!correctInput) {
 			cin >> action;
+			// Player can choose to save game and exit
 			if (action == '0') {
-				saveGame(hero);
+				saveGame(h);
 				correctInput = true;
 			}
+			// What happens if choice is to fight the monster
 			else if (action == '1') {
 				vector<Monster*> singleMonster = { monster };
-				updatedHero = fightMonster('1', hero, singleMonster);
-				if (hero.hasWeaponEquipped()) {
-					hero.removeWeaponDurability();
+				updatedHero = fightMonster('1', singleMonster);
+				if (h.hasWeaponEquipped()) {
+					h.removeWeaponDurability();
 				}
 				++index;
 				correctInput = true;
@@ -493,18 +541,18 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 	}
 
 
-
+	// Return an updated hero based on the level of the cave, also give the hero gold
 	if (updatedHero.getLevel() < 7) {
 		int heroGold = updatedHero.getGold() + 250;
 
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 2, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
+		h = Hero(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 2, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 250 gold" << endl;
 		return h;
 	}
 
 	else if (updatedHero.getLevel() < 9) {
 		int heroGold = updatedHero.getGold() + 500;
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 4, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
+		h = Hero(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 4, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 500 gold" << endl;
 		return h;
 	}
@@ -512,7 +560,7 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 	else if (updatedHero.getLevel() < 11) {
 		int heroGold = updatedHero.getGold() + 1000;
 
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 5, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
+		h = Hero(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 5, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 1000 gold" << endl;
 		return h;
 	}
@@ -520,14 +568,14 @@ Hero Controller::battleCave(int heroLvl, Hero hero, vector<Monster*> caveMonster
 	else if (updatedHero.getLevel() < 15) {
 		int heroGold = updatedHero.getGold() + 2000;
 
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 6, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
+		h = Hero(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 6, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 2000 gold" << endl;
 		return h;
 	}
 	else {
 		int heroGold = updatedHero.getGold() + 10000;
 
-		Hero h(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 6, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
+		h = Hero(updatedHero.getName(), updatedHero.getHP(), updatedHero.getLevel(), updatedHero.getXP(), updatedHero.getDamage(), heroGold, updatedHero.getRemainingInventorySpace(), updatedHero.getEquippedBonusDamage(), updatedHero.getWeapons(), updatedHero.getKills() + 6, updatedHero.getSelectedWeapon(), updatedHero.getHeroID());
 		cout << "Congrats you have defeated the cave and receive 10000 gold" << endl;
 		return h;
 	}
@@ -563,31 +611,39 @@ void Controller::seeWeaponsInArmory(vector<Weapons*> weapons) {
 }
 
 // Call this to buy a specific weapon from the armory
-void Controller::buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons, Hero& h) {
+void Controller::buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons) {
+	// Convert weaponchoice to an int
 	int index = choice;
 
+	// The chosen weapon is the index of the given weapons array
 	Weapons* weapon = weapons[index];
 
+	// The hero doesnt have enough gold
 	if (weapon->getPrice() > heroGold) {
 		cout << "You do not have enough gold to purchase this weapon. Battle caves to get more gold and come back later." << endl;
 		return;
 	}
 
+	// Heroes new amount of gold is equal to the amount he had before minus what the weapon cost
 	int newGold = heroGold - weapon->getPrice();
 	h.setGold(newGold);
 
+	// Display weapon choice
 	cout << "\nYou have selected the weapon: " << weapon->getName() << endl;
 
+	// Checks inventory space
 	if (h.getRemainingInventorySpace() <= 0) {
 		int action;
 		cout << "You do not have enough inventory space. Choose a weapon to discard (by index) or select (-1) to cancel purchase: " << endl;
 		h.showInventory();
 		cin >> action;
+		// Choice is to replace purchased weapon with one in the heroes inventory
 		if (action != -1) {
 			h.deleteInventorySlot(action);
 			h.addWeaponToInventory(weapon);
 			cout << weapon->getName() << " has been added to your hero's inventory." << endl;
 		}
+		// Purchase cancelled
 		else {
 			cout << "Purchase canceled." << endl;
 			int refund = weapon->getPrice();
@@ -602,6 +658,7 @@ void Controller::buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons,
 		cout << "Thank you for your purchace! " << endl;
 	}
 
+	// Display remaining inventory space
 	cout << "Remaining inventory space: " << h.getRemainingInventorySpace() << endl;
 	cout << "Current hero inventory: " << endl;
 	h.showInventory();
@@ -610,6 +667,8 @@ void Controller::buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons,
 // Function used to analyze the games database
 void Controller::analyzeGame() {
 	bool analyze = true;
+
+	// Runs as long as choice isnt 0
 	while (analyze) 
 	{
 		cout << " " << endl;
@@ -625,6 +684,8 @@ void Controller::analyzeGame() {
 		cin >> analyzeChoice;
 
 		bool correctInput1 = false;
+
+		// While correctInput1 is true. This part is a bit tricky because there are quite a few choices within choices
 		while (!correctInput1) 
 		{
 			if (analyzeChoice != '1' && analyzeChoice != '2' && analyzeChoice != '3' && analyzeChoice != '4' && analyzeChoice != '0') {
@@ -633,14 +694,17 @@ void Controller::analyzeGame() {
 				correctInput1 = true;
 			}
 
+			// First option for game anlyzing
 			else if (analyzeChoice == '1') {
 				dbc.showHeroesABC();
 				correctInput1 = true;
 			}
+			// Second option
 			else if (analyzeChoice == '2') {
 				dbc.showHeroKills();
 				correctInput1 = true;
 			}
+			// Third option
 			else if (analyzeChoice == '3') {
 				bool correctInput2 = false;
 				while (!correctInput2) 
@@ -661,10 +725,12 @@ void Controller::analyzeGame() {
 				}
 				correctInput1 = true;
 			}
+			// Fourth option
 			else if (analyzeChoice == '4'){
 				dbc.showWeaponTypeKillsLeader();
 				correctInput1 = true;
 			}
+			// User has chosen to exit analyze section
 			else if (analyzeChoice == '0') {
 				analyze = false;
 				correctInput1 = true;

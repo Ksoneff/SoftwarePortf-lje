@@ -13,25 +13,35 @@ using namespace std;
 class Controller
 {
 public:
+	// Standard constructers and destructer
 	Controller();
+	~Controller();
 	Controller(string n);
+
+	// Basic functions
 	void showRules();
 	void saveGame(Hero);
 	Hero loadGame(int);
-	Hero fightMonster(char, Hero, vector<Monster*>);
-	Hero updateLevel(int, Hero);
-	Hero battleCave(int heroLvl, Hero h, vector<Monster*> caveMonsters);
+
+	// Functions used in battles
+	Hero fightMonster(char, vector<Monster*>);
+	Hero updateLevel(int);
+	Hero battleCave(int heroLvl, vector<Monster*> caveMonsters);
+
+	// Functions for weapon handling
 	vector<Weapons*> createArmory();
 	void seeWeaponsInArmory(vector<Weapons*> weapons);
-	void buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons, Hero& h);
+	void buyWeapon(char choice, int heroGold, vector<Weapons*>& weapons);
+
+	// Function used to analyze the game
 	void analyzeGame();
-	~Controller();
 
 private:
-	string hero;
+	Hero h;
 	string monster;
-	DatabaseCommunication dbc = DatabaseCommunication("/home/sammy/CleanRPGGame/game.db"); // set path here
 
+	// Object of the database communication class, which takes a path to where the database is located
+	DatabaseCommunication dbc = DatabaseCommunication("/home/sammy/CleanRPGGame/game.db"); // set path here
 };
 
 #endif

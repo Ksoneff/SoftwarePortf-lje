@@ -2,15 +2,21 @@
 
 
 Monster* MonsterFactory::create(Type t) {
+	// Initialize values
 	int hp, damage, xp;
 
+	// initiate xp = 0
 	xp = 0;
 
+	// Initiate a switch case, which based on input runs 1 of 8 commands
 	switch (t) 
 	{
 	case HEST:
+		// Randomly assign monster health and damage
 		hp = 4 + rand() % 5; // 4 - 8
 		damage = 1 + rand() % 3; // 1 - 4
+
+		// A series of if statements that cause the given xp to vary
 		if (hp == 8 && damage == 4) {
 			xp == 1500;
 			return new Monster("The most INSANE Hest EVER", hp, damage, xp);
@@ -23,6 +29,7 @@ Monster* MonsterFactory::create(Type t) {
 			return new Monster("Hest", hp, damage, xp);
 		}
 
+	// Same logic for all other cases
 	case WEAKGOBLIN:
 		hp = 2 + rand() % 5; // 2 - 6
 		damage = 2 + rand() % 3; // 2 - 5

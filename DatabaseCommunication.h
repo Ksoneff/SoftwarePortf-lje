@@ -1,10 +1,12 @@
 #ifndef DATABASECOMMUNICATION_H
 #define DATABASECOMMUNICATION_H
 
+// Query libraries for communicating with sql database
 #include <QString>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+
 #include <vector>
 #include "Hero.h"
 #include "Weapons.h"
@@ -32,4 +34,4 @@ private:
     QSqlDatabase db;
 };
 
-#endif // DATABASECOMMUNICATION_H
+#endif

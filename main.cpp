@@ -1,6 +1,4 @@
-#include "Hero.h"
 #include "Controller.h"
-#include "Monster.h"
 
 #include <string>
 #include <vector>
@@ -10,6 +8,7 @@ using namespace std;
 
 int main() {
 
+	// Create object of controller: game to start the new game
 	Controller game("New Game");
 
 }

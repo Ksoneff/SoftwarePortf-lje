@@ -7,15 +7,18 @@ using namespace std;
 class Monster
 {
 public:
+    // Constructer and destructer
     Monster();
-    Monster(string, int, int, int);
-    virtual string getName();
-    virtual int getHP();
-    virtual int getDamage();
-    virtual int getXP();
     ~Monster();
+    Monster(string, int, int, int);
 
-protected:
+    // Get methods for viewing private attributes
+    string getName();
+    int getHP();
+    int getDamage();
+    int getXP();
+
+private:
     string name;
     int HP;
     int damage;
