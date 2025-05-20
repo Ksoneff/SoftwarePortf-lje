@@ -404,6 +404,10 @@ void Controller::saveGame(Hero& h) {
 		std::cerr << "Failed to open database during save!" << std::endl;
 		return;
 	}
+	
+	Weapons* equippedWeapon = h.getSelectedWeapon();
+
+	cout << "Hero equipped weapon_id: " << equippedWeapon->getWeapon_id() << endl;
 
 	// Uses insert hero function from the database communication class and close function to close the database
 	dbc.insertHero(h);

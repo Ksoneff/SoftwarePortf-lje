@@ -40,94 +40,18 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         return;
     }
 
-    bool isNewHero = (hero.getHeroID() == -1); // For tracking wether or not a hero is already in the database
-
-    QString sql;
-
-    if (isNewHero) {
-        // Insert without hero_id (auto-generated)
-        sql = R"(
-            INSERT INTO Hero (
-                name, hp, lvl, xp, damage, gold,
-                inventoryspace, equippedbonusdamage, kills, weapon_id
-            )
-            VALUES (
-                :name, :hp, :lvl, :xp, :damage, :gold,
-                :inventoryspace, :equippedbonusdamage, :kills, :weapon_id
-            )
-        )";
-    }
-    else {
-        // Replace existing hero using hero_id
-        sql = R"(
-            INSERT OR REPLACE INTO Hero (
-                hero_id, name, hp, lvl, xp, damage, gold,
-                inventoryspace, equippedbonusdamage, kills, weapon_id
-            )
-            VALUES (
-                :hero_id, :name, :hp, :lvl, :xp, :damage, :gold,
-                :inventoryspace, :equippedbonusdamage, :kills, :weapon_id
-            )
-        )";
-    }
-
-    // New query for inserting into database hero table
-    QSqlQuery heroQuery;
-    heroQuery.prepare(sql);
-
-    // Only get hero id from hero object if hero is already in the database
-    if (!isNewHero)
-    {
-        heroQuery.bindValue(":hero_id", hero.getHeroID());
-    }
-
-    // Insert hero values
-    heroQuery.bindValue(":name", QString::fromStdString(hero.getName()));
-    heroQuery.bindValue(":hp", hero.getHP());
-    heroQuery.bindValue(":lvl", hero.getLevel());
-    heroQuery.bindValue(":xp", hero.getXP());
-    heroQuery.bindValue(":damage", hero.getDamage());
-    heroQuery.bindValue(":gold", hero.getGold());
-    heroQuery.bindValue(":inventoryspace", hero.getRemainingInventorySpace());
-    heroQuery.bindValue(":equippedbonusdamage", hero.getEquippedBonusDamage());
-    heroQuery.bindValue(":kills", hero.getKills());
-
-
-    // Get equipped weapon type id
-    int weaponTypeId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
-        ? hero.getSelectedWeapon()->getWeapon_id()
-        : -1;
-
-    // No weapon equipped
-    if (weaponTypeId == -1)
-        heroQuery.bindValue(":weapon_id", QVariant(QVariant::Int));  // NULL
-
-    // Hero has weapon equipped
-    else
-        heroQuery.bindValue(":weapon_id", weaponTypeId);
-
-    if (!heroQuery.exec()) {
-        qDebug() << "Failed to insert/replace hero:" << heroQuery.lastError().text();
-        return;
-    }
-
-    // If new hero, get the generated ID
-    if (isNewHero) {
-        int newHeroId = heroQuery.lastInsertId().toInt();
-        hero.setHeroID(newHeroId);
-    }
-
     // Handle Weapons: Replace all previous weapons for this hero, with new weapons
     QSqlQuery deleteQuery;
     deleteQuery.prepare("DELETE FROM Weapons WHERE hero_id = :hero_id");
     deleteQuery.bindValue(":hero_id", hero.getHeroID());
     deleteQuery.exec();  // Clean up old inventory if exists
 
-
+    int equippedWeaponId = -1;
 
     // Add hero weapons to weapon table
     const auto& weapons = hero.getWeapons();
-    for (int i = 0; i < weapons.size(); ++i) {
+    for (int i = 0; i < weapons.size(); ++i) 
+    {
         // For handling if a weapon is new or not
         bool isNewWeapon = (weapons[i]->getWeapon_id() == -1); 
         QString sqlW;
@@ -170,8 +94,96 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         {
             int newWeaponId = weaponsQuery.lastInsertId().toInt();
             weapons[i]->setWeapon_id(newWeaponId);
+
+            if (hero.getSelectedWeapon() == weapons[i]) {
+                equippedWeaponId = newWeaponId;
+            }
+        } 
+
+        else if (hero.getSelectedWeapon() == weapons[i]) 
+        {
+            equippedWeaponId = weapons[i]->getWeapon_id();
         }
     }
+
+    bool isNewHero = (hero.getHeroID() == -1); // For tracking wether or not a hero is already in the database
+
+    QString sql;
+
+    if (isNewHero) {
+        // Insert without hero_id (auto-generated)
+        sql = R"(
+            INSERT INTO Hero (
+                name, hp, lvl, xp, damage, gold,
+                inventoryspace, equippedbonusdamage, kills, weapon_id
+            )
+            VALUES (
+                :name, :hp, :lvl, :xp, :damage, :gold,
+                :inventoryspace, :equippedbonusdamage, :kills, :weapon_id
+            )
+        )";
+    }
+    else {
+        // Replace existing hero using hero_id
+        cout << "Replacing existing hero" << endl;
+        sql = R"(
+            INSERT OR REPLACE INTO Hero (
+                hero_id, name, hp, lvl, xp, damage, gold,
+                inventoryspace, equippedbonusdamage, kills, weapon_id
+            )
+            VALUES (
+                :hero_id, :name, :hp, :lvl, :xp, :damage, :gold,
+                :inventoryspace, :equippedbonusdamage, :kills, :weapon_id
+            )
+        )";
+    }
+
+    // New query for inserting into database hero table
+    QSqlQuery heroQuery;
+    heroQuery.prepare(sql);
+
+    // Only get hero id from hero object if hero is already in the database
+    if (!isNewHero)
+    {
+        heroQuery.bindValue(":hero_id", hero.getHeroID());
+    }
+
+    // Insert hero values
+    heroQuery.bindValue(":name", QString::fromStdString(hero.getName()));
+    heroQuery.bindValue(":hp", hero.getHP());
+    heroQuery.bindValue(":lvl", hero.getLevel());
+    heroQuery.bindValue(":xp", hero.getXP());
+    heroQuery.bindValue(":damage", hero.getDamage());
+    heroQuery.bindValue(":gold", hero.getGold());
+    heroQuery.bindValue(":inventoryspace", hero.getRemainingInventorySpace());
+    heroQuery.bindValue(":equippedbonusdamage", hero.getEquippedBonusDamage());
+    heroQuery.bindValue(":kills", hero.getKills());
+
+
+    // Get equipped weapon type id
+    int weaponId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
+        ? equippedWeaponId
+        : -1;
+
+    // No weapon equipped
+    if (weaponId == -1)
+        heroQuery.bindValue(":weapon_id", QVariant(QVariant::Int));  // NULL
+
+    // Hero has weapon equipped
+    else
+        heroQuery.bindValue(":weapon_id", weaponId);
+
+    if (!heroQuery.exec()) {
+        qDebug() << "Failed to insert/replace hero:" << heroQuery.lastError().text();
+        return;
+    }
+
+    // If new hero, get the generated ID
+    if (isNewHero) {
+        int newHeroId = heroQuery.lastInsertId().toInt();
+        hero.setHeroID(newHeroId);
+    }
+
 }
 
 // Function used to load hero from the database
