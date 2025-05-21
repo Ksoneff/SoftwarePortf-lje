@@ -128,12 +128,43 @@ void DatabaseCommunication::unequipWeapon(Hero& hero) {
 // Inserts heroes weapon when program terminates
 void DatabaseCommunication::insertHeroWeapons(vector<Weapons*> heroWeapons, Hero& hero) {
     if (!db.isOpen()) {
-        std::cerr << "insrtHeroWeapons() aborted: database is not open!" << std::endl;
+        std::cerr << "insertHeroWeapons() aborted: database is not open!" << std::endl;
         return;
     }
 
+    for (int i = 0; i < heroWeapons.size(); ++i) {
+        Weapons* w = heroWeapons[i];
+        QSqlQuery weaponsQuery;
 
+        if (w->getWeapon_id() == -1) {
+            weaponsQuery.prepare(R"(
+                INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills)
+                VALUES (:hero_id, :type_id, :inventorySlot, :kills)
+            )");
+        } else {
+            weaponsQuery.prepare(R"(
+                INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills, weapon_id)
+                VALUES (:hero_id, :type_id, :inventorySlot, :kills, :weapon_id)
+            )");
+            weaponsQuery.bindValue(":weapon_id", w->getWeapon_id());
+        }
 
+        weaponsQuery.bindValue(":hero_id", hero.getHeroID());
+        weaponsQuery.bindValue(":type_id", w->getType_id());
+        weaponsQuery.bindValue(":inventorySlot", i);
+        weaponsQuery.bindValue(":kills", w->getKills());
+
+        if (!weaponsQuery.exec()) {
+            qDebug() << "Failed to insert weapon:" << weaponsQuery.lastError().text();
+            continue;
+        }
+
+        // Store new weapon_id if created
+        if (w->getWeapon_id() == -1) {
+            int newId = weaponsQuery.lastInsertId().toInt();
+            w->setWeapon_id(newId);
+        }
+    }
 }
 
 // Function used to insert hero
@@ -163,7 +194,6 @@ void DatabaseCommunication::insertHero(Hero& hero) {
     }
     else {
         // Replace existing hero using hero_id
-        cout << "Replacing existing hero" << endl;
         sql = R"(
             INSERT OR REPLACE INTO Hero (
                 hero_id, name, hp, lvl, xp, damage, gold,
@@ -200,7 +230,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
 
     // Get equipped weapon type id
     int weaponId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
-        ? hero.getSelectedWeapon()
+        ? hero.getSelectedWeapon()->getWeapon_id()
         : -1;
 
     // No weapon equipped
@@ -221,7 +251,6 @@ void DatabaseCommunication::insertHero(Hero& hero) {
         int newHeroId = heroQuery.lastInsertId().toInt();
         hero.setHeroID(newHeroId);
     }
-
 }
 
 // Function used to load hero from the database

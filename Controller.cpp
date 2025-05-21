@@ -326,13 +326,31 @@ Controller::Controller(string n) {
 				// Equips the weapon which the user has selected
 				if (weaponChoice >= '0' && weaponChoice < '0' + herosWeaponsLength) {
 					int index = weaponChoice - '0';
-					h.equipWeapon(index);
-					correctWeaponChoice = true;
+
+				dbc.open();
+
+				// If a weapon is currently equipped, remove it from DB
+				if (h.hasWeaponEquipped()) {
+					dbc.unequipWeapon(h);
+				}
+
+				// Equip new weapon in memory
+				h.equipWeapon(index);
+
+				// Update DB with newly equipped weapon
+				dbc.equipWeapon(h.getSelectedWeapon(), h);
+
+				dbc.close();
+
+				correctWeaponChoice = true;
 				}
 
 				// Unequips current weapon
 				else if (weaponChoice == 'q') {
+					dbc.open();
 					h.unequipWeapon();
+					dbc.unequipWeapon(h);
+					dbc.close();
 					correctWeaponChoice = true;
 				}
 
@@ -404,12 +422,9 @@ void Controller::saveGame(Hero& h) {
 		std::cerr << "Failed to open database during save!" << std::endl;
 		return;
 	}
-	
-	Weapons* equippedWeapon = h.getSelectedWeapon();
-
-	cout << "Hero equipped weapon_id: " << equippedWeapon->getWeapon_id() << endl;
 
 	// Uses insert hero function from the database communication class and close function to close the database
+	dbc.insertHeroWeapons(h.getWeapons(), h);
 	dbc.insertHero(h);
 	dbc.close();
 }
