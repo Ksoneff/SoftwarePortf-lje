@@ -33,7 +33,7 @@ void DatabaseCommunication::close() {
 }
 
 // Equips weapon in the database dynamically while the game is running
-void DatabaseCommunication::equipWeapon(Weapons * selectedWeapon, Hero& hero) {
+void DatabaseCommunication::equipWeapon(Weapons* selectedWeapon, Hero& hero) {
     if (!db.isOpen()) {
         std::cerr << "equipWeapon() aborted: database is not open!" << std::endl;
         return;
@@ -56,7 +56,7 @@ void DatabaseCommunication::equipWeapon(Weapons * selectedWeapon, Hero& hero) {
         }
     }
 
-        // If new weapon, insert it first to assign a weapon_id
+    // If new weapon, insert it first to assign a weapon_id
     if (selectedWeapon->getWeapon_id() == -1) {
         QSqlQuery insertWeaponQuery;
         insertWeaponQuery.prepare(R"(
@@ -75,7 +75,8 @@ void DatabaseCommunication::equipWeapon(Weapons * selectedWeapon, Hero& hero) {
 
         equippedWeaponId = insertWeaponQuery.lastInsertId().toInt();
         selectedWeapon->setWeapon_id(equippedWeaponId); // Sync back to object
-    } else {
+    }
+    else {
         equippedWeaponId = selectedWeapon->getWeapon_id();
     }
 
@@ -98,9 +99,9 @@ void DatabaseCommunication::equipWeapon(Weapons * selectedWeapon, Hero& hero) {
 // Unequips weapon in database dynamically while the game is running
 void DatabaseCommunication::unequipWeapon(Hero& hero) {
     if (!db.isOpen()) {
-            std::cerr << "unequipWeapon() aborted: database is not open!" << std::endl;
-            return;
-        }
+        std::cerr << "unequipWeapon() aborted: database is not open!" << std::endl;
+        return;
+    }
 
     if (hero.getSelectedWeapon() == nullptr) {
         std::cerr << "unequipWeapon() aborted: hero has no weapon equipped!" << std::endl;
@@ -141,7 +142,8 @@ void DatabaseCommunication::insertHeroWeapons(vector<Weapons*> heroWeapons, Hero
                 INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills)
                 VALUES (:hero_id, :type_id, :inventorySlot, :kills)
             )");
-        } else {
+        }
+        else {
             weaponsQuery.prepare(R"(
                 INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills, weapon_id)
                 VALUES (:hero_id, :type_id, :inventorySlot, :kills, :weapon_id)
@@ -296,7 +298,7 @@ Hero DatabaseCommunication::loadHero(int heroId) {
 
     // Debugging start
     if (!weaponsQuery.exec()) {
-    qDebug() << "weaponsQuery failed:" << weaponsQuery.lastError().text();
+        qDebug() << "weaponsQuery failed:" << weaponsQuery.lastError().text();
     }
     // Debugging end
 
@@ -379,11 +381,11 @@ void DatabaseCommunication::showHeroes() {
         // Prints hero to terminal
         cout << " " << endl;
         cout << "Hero_id: " << hero_id << " | Name: " << hero_name
-             << " | HP: " << hp << " | Level: " << lvl << " | XP: " << xp
-             << " | Damage: " << damage << " | Gold: " << gold
-             << " | Inventory Space: " << inventorySpace
-             << " | Equipped Bonus: " << equippedBonus
-             << " | Weapon ID: " << equippedWeaponId << endl;
+            << " | HP: " << hp << " | Level: " << lvl << " | XP: " << xp
+            << " | Damage: " << damage << " | Gold: " << gold
+            << " | Inventory Space: " << inventorySpace
+            << " | Equipped Bonus: " << equippedBonus
+            << " | Weapon ID: " << equippedWeaponId << endl;
         cout << "Weapons currently in heroes inventory: " << endl;
 
         // Initiates new query to display hero weapons
@@ -402,7 +404,7 @@ void DatabaseCommunication::showHeroes() {
             int type_id = heroWeaponsQuery1.value(1).toInt();
 
             cout << "-> Weapon_id: " << weapon_id
-            << " | type_id: " << type_id << endl;
+                << " | type_id: " << type_id << endl;
 
             // Uses the weaponType table because all weapons with same type_id share the same stats
             QSqlQuery weaponTypesQuery;
@@ -438,7 +440,7 @@ void DatabaseCommunication::showHeroesABC() {
     }
 
     // Loops through every hero
-    while (heroABCQuery.next()) 
+    while (heroABCQuery.next())
     {
         int hero_id = heroABCQuery.value(0).toInt();
         QString hero_qname = heroABCQuery.value(1).toString();
@@ -455,12 +457,12 @@ void DatabaseCommunication::showHeroesABC() {
         // Prints hero to terminal
         cout << " " << endl;
         cout << "Hero_id: " << hero_id << " | Name: " << hero_name
-                << " | HP: " << hp << " | Level: " << lvl << " | XP: " << xp
-                << " | Damage: " << damage << " | Gold: " << gold
-                << " | Inventory Space: " << inventorySpace
-                << " | Equipped Bonus: " << equippedBonus
-                << " | Weapon ID: " << equippedWeaponId << endl;
-   }
+            << " | HP: " << hp << " | Level: " << lvl << " | XP: " << xp
+            << " | Damage: " << damage << " | Gold: " << gold
+            << " | Inventory Space: " << inventorySpace
+            << " | Equipped Bonus: " << equippedBonus
+            << " | Weapon ID: " << equippedWeaponId << endl;
+    }
 }
 
 // Call this function to show how many kills each hero has
@@ -478,7 +480,7 @@ void DatabaseCommunication::showHeroKills() {
         return;
     }
 
-    while (heroKillsQuery.next()) 
+    while (heroKillsQuery.next())
     {
         int hero_id = heroKillsQuery.value(0).toInt();
         QString hero_qname = heroKillsQuery.value(1).toString();
@@ -487,7 +489,7 @@ void DatabaseCommunication::showHeroKills() {
 
         cout << " " << endl;
         cout << "Hero_id: " << hero_id << " | Name: " << hero_name << " | Kills: " << kills << endl;
-    }   
+    }
 }
 
 // Call this function to show how many kills every weapon has for a given hero
@@ -532,7 +534,7 @@ bool DatabaseCommunication::showHeroWeaponKills(char hID) {
         int kills = weaponKillsQuery.value(1).toInt();
 
         cout << "  -> Weapon: " << weaponName.toStdString()
-             << " | Kills: " << kills << endl;
+            << " | Kills: " << kills << endl;
     }
 
     if (!hasWeapons) {
@@ -557,7 +559,7 @@ void DatabaseCommunication::showWeaponTypeKillsLeader() {
         return;
     }
 
-    while (weaponTypeKillsLeaderQuery.next()) 
+    while (weaponTypeKillsLeaderQuery.next())
     {
         int hero_id = weaponTypeKillsLeaderQuery.value(0).toInt();
         QString hero_qname = weaponTypeKillsLeaderQuery.value(1).toString();
@@ -566,6 +568,6 @@ void DatabaseCommunication::showWeaponTypeKillsLeader() {
         int type_id = weaponTypeKillsLeaderQuery.value(3).toInt();
 
         cout << " " << endl;
-        cout << "WeaponType_id: "<< type_id << " |Hero_id: " << hero_id << " | Name: " << hero_name << " | Kills: " << kills << endl;
-    }   
+        cout << "WeaponType_id: " << type_id << " |Hero_id: " << hero_id << " | Name: " << hero_name << " | Kills: " << kills << endl;
+    }
 }

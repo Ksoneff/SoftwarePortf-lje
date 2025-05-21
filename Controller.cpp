@@ -62,7 +62,7 @@ Controller::Controller(string n) {
 		else if (gameChoice == '2') {
 			analyzeGame();
 		}
-		
+
 		else if (gameChoice == 'q') {
 			exit(0);
 		}
@@ -312,7 +312,7 @@ Controller::Controller(string n) {
 			cout << " " << endl;
 			cout << "Choose by index which of your weapons you wish to equip or choose 'q' to unequip current weapon. If you wish to return to main menu (x): " << endl;
 			cout << " " << endl;
-			
+
 			// Shows heroes current inventory
 			h.showInventory();
 
@@ -327,22 +327,22 @@ Controller::Controller(string n) {
 				if (weaponChoice >= '0' && weaponChoice < '0' + herosWeaponsLength) {
 					int index = weaponChoice - '0';
 
-				dbc.open();
+					dbc.open();
 
-				// If a weapon is currently equipped, remove it from DB
-				if (h.hasWeaponEquipped()) {
-					dbc.unequipWeapon(h);
-				}
+					// If a weapon is currently equipped, remove it from DB
+					if (h.hasWeaponEquipped()) {
+						dbc.unequipWeapon(h);
+					}
 
-				// Equip new weapon in memory
-				h.equipWeapon(index);
+					// Equip new weapon in memory
+					h.equipWeapon(index);
 
-				// Update DB with newly equipped weapon
-				dbc.equipWeapon(h.getSelectedWeapon(), h);
+					// Update DB with newly equipped weapon
+					dbc.equipWeapon(h.getSelectedWeapon(), h);
 
-				dbc.close();
+					dbc.close();
 
-				correctWeaponChoice = true;
+					correctWeaponChoice = true;
 				}
 
 				// Unequips current weapon
@@ -688,7 +688,7 @@ void Controller::analyzeGame() {
 	bool analyze = true;
 
 	// Runs as long as choice isnt 0
-	while (analyze) 
+	while (analyze)
 	{
 		cout << " " << endl;
 		cout << "==============================================================================" << endl;
@@ -705,7 +705,7 @@ void Controller::analyzeGame() {
 		bool correctInput1 = false;
 
 		// While correctInput1 is true. This part is a bit tricky because there are quite a few choices within choices
-		while (!correctInput1) 
+		while (!correctInput1)
 		{
 			if (analyzeChoice != '1' && analyzeChoice != '2' && analyzeChoice != '3' && analyzeChoice != '4' && analyzeChoice != '0') {
 				cout << " " << endl;
@@ -726,7 +726,7 @@ void Controller::analyzeGame() {
 			// Third option
 			else if (analyzeChoice == '3') {
 				bool correctInput2 = false;
-				while (!correctInput2) 
+				while (!correctInput2)
 				{
 					cout << " " << endl;
 					cout << "You have chosen option (3), please select by hero_id, which hero you would like to examine: " << endl;
@@ -738,14 +738,15 @@ void Controller::analyzeGame() {
 					bool success = dbc.showHeroWeaponKills(hero_id);
 					if (!success) {
 						cout << "ERROR: Incorrect user input, please select a valid hero_id" << endl;
-					} else {
+					}
+					else {
 						correctInput2 = true;
 					}
 				}
 				correctInput1 = true;
 			}
 			// Fourth option
-			else if (analyzeChoice == '4'){
+			else if (analyzeChoice == '4') {
 				dbc.showWeaponTypeKillsLeader();
 				correctInput1 = true;
 			}
