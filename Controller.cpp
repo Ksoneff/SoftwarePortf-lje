@@ -372,7 +372,7 @@ Controller::Controller(string n) {
 			cout << "XP:       " << h.getXP() << endl;
 			cout << "Damage:   " << h.getDamage() << endl;
 			cout << "Gold:     " << h.getGold() << endl;
-			cout << "Inventory:" << h.showRemaingInventorySpace() << endl;
+			cout << "Inventory:" << h.getRemainingInventorySpace() << endl;
 			cout << "" << endl;
 		}
 

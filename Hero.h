@@ -53,7 +53,7 @@ private:
 	int Level;
 	int XP;
 	int gold;
-	int inventorySpace = 6;
+	int inventorySpace;
 	int equippedBonusDamage;
 	int kills = 0;
 	Weapons* selectedWeapon;

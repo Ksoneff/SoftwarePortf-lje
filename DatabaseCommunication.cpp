@@ -324,9 +324,11 @@ Hero DatabaseCommunication::loadHero(int heroId) {
                     weaponKills,
                     weaponId
                 );
-                heroWeapons.push_back(w);
-                if (weaponId == equippedWeaponId)
+                if (weaponId == equippedWeaponId) {
                     equippedWeapon = w;
+                } else {
+                    heroWeapons.push_back(w);
+                }
             }
         }
     }
