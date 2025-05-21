@@ -130,8 +130,6 @@ void Hero::unequipWeapon() {
 		return;
 	}
 
-	selectedWeapon->setWeapon_id(-1);
-
 	// Removes previously applied damage. This is also why hero has a private attribute: equippedBonusDamage
 	cout << "Unequipping weapon: " << selectedWeapon->getName() << endl;
 	cout << "Removing bonus damage: " << equippedBonusDamage << endl;
