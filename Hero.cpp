@@ -58,6 +58,10 @@ int Hero::getRemainingInventorySpace() {
 	return inventorySpace - heroWeapons.size();
 }
 
+int Hero::showRemaingInventorySpace() {
+	return inventorySpace;
+}
+
 // Displays heroes inventory
 void Hero::showInventory() {
 	// For every weapon in the heroes inventory, displays it or if there are none, doesnt display any

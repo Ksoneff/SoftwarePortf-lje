@@ -22,7 +22,7 @@ Controller::Controller(string n) {
 
 	// Loops while running is true
 	while (running) {
-		cout << "(0) Load Game (1) New Game (2) Analyze Game Statistics" << endl;
+		cout << "(0) Load Game (1) New Game (2) Analyze Game Statistics (q) to quit" << endl;
 
 		// First choice the player makes is tracked with this char: gameChoice
 		char gameChoice;
@@ -76,7 +76,7 @@ Controller::Controller(string n) {
 	cout << "" << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 	cout << "Current hero stats are: " << endl;
-	cout << "HP: " << h.getHP() << "  Level: " << h.getLevel() << "  XP: " << h.getXP() << "  Damage: " << h.getDamage() << "  Gold: " << h.getGold() << "  Inventory Space: " << h.getRemainingInventorySpace() << "  Kills:  " << h.getKills() << endl;
+	cout << "HP: " << h.getHP() << "  Level: " << h.getLevel() << "  XP: " << h.getXP() << "  Damage: " << h.getDamage() << "  Gold: " << h.getGold() << "  Inventory Space: " << h.showRemaingInventorySpace() << "  Kills:  " << h.getKills() << endl;
 	cout << "--------------------------------------------------------------------" << endl;
 
 	this_thread::sleep_for(chrono::seconds(2));
@@ -372,7 +372,7 @@ Controller::Controller(string n) {
 			cout << "XP:       " << h.getXP() << endl;
 			cout << "Damage:   " << h.getDamage() << endl;
 			cout << "Gold:     " << h.getGold() << endl;
-			cout << "Inventory:" << h.getRemainingInventorySpace() << endl;
+			cout << "Inventory:" << h.showRemaingInventorySpace() << endl;
 			cout << "" << endl;
 		}
 

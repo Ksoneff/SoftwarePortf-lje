@@ -1,5 +1,5 @@
-CMakeFiles/RPGGame.dir/Hero.cpp.o: /home/sammy/CleanRPGGame/Hero.cpp \
- /usr/include/stdc-predef.h /home/sammy/CleanRPGGame/Hero.h \
+CMakeFiles/RPGGame.dir/Hero.cpp.o: /home/sammy/SoftwarePortf-lje/Hero.cpp \
+ /usr/include/stdc-predef.h /home/sammy/SoftwarePortf-lje/Hero.h \
  /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -131,10 +131,10 @@ CMakeFiles/RPGGame.dir/Hero.cpp.o: /home/sammy/CleanRPGGame/Hero.cpp \
  /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /home/sammy/CleanRPGGame/Weapons.h \
- /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
- /usr/include/c++/11/ios /usr/include/c++/11/exception \
- /usr/include/c++/11/bits/exception_ptr.h \
+ /usr/include/c++/11/bits/vector.tcc \
+ /home/sammy/SoftwarePortf-lje/Weapons.h /usr/include/c++/11/iostream \
+ /usr/include/c++/11/ostream /usr/include/c++/11/ios \
+ /usr/include/c++/11/exception /usr/include/c++/11/bits/exception_ptr.h \
  /usr/include/c++/11/bits/cxxabi_init_exception.h \
  /usr/include/c++/11/typeinfo /usr/include/c++/11/bits/nested_exception.h \
  /usr/include/c++/11/bits/ios_base.h \

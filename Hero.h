@@ -37,6 +37,7 @@ public:
 	void showInventory();
 	void deleteInventorySlot(int choice);
 	void addWeaponToInventory(Weapons* weapon);
+	int showRemaingInventorySpace();
 
 	// Handling equipped weapon
 	void equipWeapon(int weaponChoice);

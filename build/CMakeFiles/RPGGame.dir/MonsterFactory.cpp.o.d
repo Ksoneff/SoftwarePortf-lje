@@ -1,6 +1,8 @@
 CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o: \
- /home/sammy/CleanRPGGame/MonsterFactory.cpp /usr/include/stdc-predef.h \
- /home/sammy/CleanRPGGame/MonsterFactory.h /usr/include/c++/11/string \
+ /home/sammy/SoftwarePortf-lje/MonsterFactory.cpp \
+ /usr/include/stdc-predef.h \
+ /home/sammy/SoftwarePortf-lje/MonsterFactory.h \
+ /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -128,5 +130,5 @@ CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/sammy/CleanRPGGame/MonsterType.h \
- /home/sammy/CleanRPGGame/Monster.h
+ /home/sammy/SoftwarePortf-lje/MonsterType.h \
+ /home/sammy/SoftwarePortf-lje/Monster.h

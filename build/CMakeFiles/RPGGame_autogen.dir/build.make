@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sammy/CleanRPGGame
+CMAKE_SOURCE_DIR = /home/sammy/SoftwarePortf-lje
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sammy/CleanRPGGame/build
+CMAKE_BINARY_DIR = /home/sammy/SoftwarePortf-lje/build
 
 # Utility rule file for RPGGame_autogen.
 
@@ -67,8 +67,8 @@ include CMakeFiles/RPGGame_autogen.dir/compiler_depend.make
 include CMakeFiles/RPGGame_autogen.dir/progress.make
 
 CMakeFiles/RPGGame_autogen:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC for target RPGGame"
-	/usr/bin/cmake -E cmake_autogen /home/sammy/CleanRPGGame/build/CMakeFiles/RPGGame_autogen.dir/AutogenInfo.json ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC for target RPGGame"
+	/usr/bin/cmake -E cmake_autogen /home/sammy/SoftwarePortf-lje/build/CMakeFiles/RPGGame_autogen.dir/AutogenInfo.json ""
 
 RPGGame_autogen: CMakeFiles/RPGGame_autogen
 RPGGame_autogen: CMakeFiles/RPGGame_autogen.dir/build.make
@@ -83,6 +83,6 @@ CMakeFiles/RPGGame_autogen.dir/clean:
 .PHONY : CMakeFiles/RPGGame_autogen.dir/clean
 
 CMakeFiles/RPGGame_autogen.dir/depend:
-	cd /home/sammy/CleanRPGGame/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sammy/CleanRPGGame /home/sammy/CleanRPGGame /home/sammy/CleanRPGGame/build /home/sammy/CleanRPGGame/build /home/sammy/CleanRPGGame/build/CMakeFiles/RPGGame_autogen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sammy/SoftwarePortf-lje/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sammy/SoftwarePortf-lje /home/sammy/SoftwarePortf-lje /home/sammy/SoftwarePortf-lje/build /home/sammy/SoftwarePortf-lje/build /home/sammy/SoftwarePortf-lje/build/CMakeFiles/RPGGame_autogen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/RPGGame_autogen.dir/depend
 

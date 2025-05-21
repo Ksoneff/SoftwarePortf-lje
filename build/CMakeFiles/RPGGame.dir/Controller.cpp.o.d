@@ -1,7 +1,7 @@
 CMakeFiles/RPGGame.dir/Controller.cpp.o: \
- /home/sammy/CleanRPGGame/Controller.cpp /usr/include/stdc-predef.h \
- /home/sammy/CleanRPGGame/Controller.h /home/sammy/CleanRPGGame/Hero.h \
- /usr/include/c++/11/string \
+ /home/sammy/SoftwarePortf-lje/Controller.cpp /usr/include/stdc-predef.h \
+ /home/sammy/SoftwarePortf-lje/Controller.h \
+ /home/sammy/SoftwarePortf-lje/Hero.h /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -132,9 +132,10 @@ CMakeFiles/RPGGame.dir/Controller.cpp.o: \
  /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /home/sammy/CleanRPGGame/Weapons.h \
- /home/sammy/CleanRPGGame/Monster.h \
- /home/sammy/CleanRPGGame/DatabaseCommunication.h \
+ /usr/include/c++/11/bits/vector.tcc \
+ /home/sammy/SoftwarePortf-lje/Weapons.h \
+ /home/sammy/SoftwarePortf-lje/Monster.h \
+ /home/sammy/SoftwarePortf-lje/DatabaseCommunication.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qchar.h \
@@ -209,11 +210,11 @@ CMakeFiles/RPGGame.dir/Controller.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqldatabase.h \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlError \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqlerror.h \
- /home/sammy/CleanRPGGame/CaveFactory.h \
- /home/sammy/CleanRPGGame/MonsterType.h \
- /home/sammy/CleanRPGGame/MonsterFactory.h /usr/include/c++/11/iostream \
- /usr/include/c++/11/ostream /usr/include/c++/11/ios \
- /usr/include/c++/11/bits/basic_ios.h \
+ /home/sammy/SoftwarePortf-lje/CaveFactory.h \
+ /home/sammy/SoftwarePortf-lje/MonsterType.h \
+ /home/sammy/SoftwarePortf-lje/MonsterFactory.h \
+ /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
+ /usr/include/c++/11/ios /usr/include/c++/11/bits/basic_ios.h \
  /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
  /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h \

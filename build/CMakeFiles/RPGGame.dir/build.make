@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sammy/CleanRPGGame
+CMAKE_SOURCE_DIR = /home/sammy/SoftwarePortf-lje
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sammy/CleanRPGGame/build
+CMAKE_BINARY_DIR = /home/sammy/SoftwarePortf-lje/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/RPGGame.dir/depend.make
@@ -72,128 +72,128 @@ include CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o: RPGGame_autogen/mocs_compilation.cpp
 CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o -MF CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o -c /home/sammy/CleanRPGGame/build/RPGGame_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o -MF CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.o -c /home/sammy/SoftwarePortf-lje/build/RPGGame_autogen/mocs_compilation.cpp
 
 CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/build/RPGGame_autogen/mocs_compilation.cpp > CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/build/RPGGame_autogen/mocs_compilation.cpp > CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.i
 
 CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/build/RPGGame_autogen/mocs_compilation.cpp -o CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/build/RPGGame_autogen/mocs_compilation.cpp -o CMakeFiles/RPGGame.dir/RPGGame_autogen/mocs_compilation.cpp.s
 
 CMakeFiles/RPGGame.dir/main.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/main.cpp.o: ../main.cpp
 CMakeFiles/RPGGame.dir/main.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RPGGame.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/main.cpp.o -MF CMakeFiles/RPGGame.dir/main.cpp.o.d -o CMakeFiles/RPGGame.dir/main.cpp.o -c /home/sammy/CleanRPGGame/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RPGGame.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/main.cpp.o -MF CMakeFiles/RPGGame.dir/main.cpp.o.d -o CMakeFiles/RPGGame.dir/main.cpp.o -c /home/sammy/SoftwarePortf-lje/main.cpp
 
 CMakeFiles/RPGGame.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/main.cpp > CMakeFiles/RPGGame.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/main.cpp > CMakeFiles/RPGGame.dir/main.cpp.i
 
 CMakeFiles/RPGGame.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/main.cpp -o CMakeFiles/RPGGame.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/main.cpp -o CMakeFiles/RPGGame.dir/main.cpp.s
 
 CMakeFiles/RPGGame.dir/Controller.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/Controller.cpp.o: ../Controller.cpp
 CMakeFiles/RPGGame.dir/Controller.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RPGGame.dir/Controller.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/Controller.cpp.o -MF CMakeFiles/RPGGame.dir/Controller.cpp.o.d -o CMakeFiles/RPGGame.dir/Controller.cpp.o -c /home/sammy/CleanRPGGame/Controller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RPGGame.dir/Controller.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/Controller.cpp.o -MF CMakeFiles/RPGGame.dir/Controller.cpp.o.d -o CMakeFiles/RPGGame.dir/Controller.cpp.o -c /home/sammy/SoftwarePortf-lje/Controller.cpp
 
 CMakeFiles/RPGGame.dir/Controller.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/Controller.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/Controller.cpp > CMakeFiles/RPGGame.dir/Controller.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/Controller.cpp > CMakeFiles/RPGGame.dir/Controller.cpp.i
 
 CMakeFiles/RPGGame.dir/Controller.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/Controller.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/Controller.cpp -o CMakeFiles/RPGGame.dir/Controller.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/Controller.cpp -o CMakeFiles/RPGGame.dir/Controller.cpp.s
 
 CMakeFiles/RPGGame.dir/CaveFactory.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/CaveFactory.cpp.o: ../CaveFactory.cpp
 CMakeFiles/RPGGame.dir/CaveFactory.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RPGGame.dir/CaveFactory.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/CaveFactory.cpp.o -MF CMakeFiles/RPGGame.dir/CaveFactory.cpp.o.d -o CMakeFiles/RPGGame.dir/CaveFactory.cpp.o -c /home/sammy/CleanRPGGame/CaveFactory.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RPGGame.dir/CaveFactory.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/CaveFactory.cpp.o -MF CMakeFiles/RPGGame.dir/CaveFactory.cpp.o.d -o CMakeFiles/RPGGame.dir/CaveFactory.cpp.o -c /home/sammy/SoftwarePortf-lje/CaveFactory.cpp
 
 CMakeFiles/RPGGame.dir/CaveFactory.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/CaveFactory.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/CaveFactory.cpp > CMakeFiles/RPGGame.dir/CaveFactory.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/CaveFactory.cpp > CMakeFiles/RPGGame.dir/CaveFactory.cpp.i
 
 CMakeFiles/RPGGame.dir/CaveFactory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/CaveFactory.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/CaveFactory.cpp -o CMakeFiles/RPGGame.dir/CaveFactory.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/CaveFactory.cpp -o CMakeFiles/RPGGame.dir/CaveFactory.cpp.s
 
 CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o: ../MonsterFactory.cpp
 CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o -MF CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o.d -o CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o -c /home/sammy/CleanRPGGame/MonsterFactory.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o -MF CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o.d -o CMakeFiles/RPGGame.dir/MonsterFactory.cpp.o -c /home/sammy/SoftwarePortf-lje/MonsterFactory.cpp
 
 CMakeFiles/RPGGame.dir/MonsterFactory.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/MonsterFactory.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/MonsterFactory.cpp > CMakeFiles/RPGGame.dir/MonsterFactory.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/MonsterFactory.cpp > CMakeFiles/RPGGame.dir/MonsterFactory.cpp.i
 
 CMakeFiles/RPGGame.dir/MonsterFactory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/MonsterFactory.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/MonsterFactory.cpp -o CMakeFiles/RPGGame.dir/MonsterFactory.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/MonsterFactory.cpp -o CMakeFiles/RPGGame.dir/MonsterFactory.cpp.s
 
 CMakeFiles/RPGGame.dir/Weapons.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/Weapons.cpp.o: ../Weapons.cpp
 CMakeFiles/RPGGame.dir/Weapons.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RPGGame.dir/Weapons.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/Weapons.cpp.o -MF CMakeFiles/RPGGame.dir/Weapons.cpp.o.d -o CMakeFiles/RPGGame.dir/Weapons.cpp.o -c /home/sammy/CleanRPGGame/Weapons.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RPGGame.dir/Weapons.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/Weapons.cpp.o -MF CMakeFiles/RPGGame.dir/Weapons.cpp.o.d -o CMakeFiles/RPGGame.dir/Weapons.cpp.o -c /home/sammy/SoftwarePortf-lje/Weapons.cpp
 
 CMakeFiles/RPGGame.dir/Weapons.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/Weapons.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/Weapons.cpp > CMakeFiles/RPGGame.dir/Weapons.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/Weapons.cpp > CMakeFiles/RPGGame.dir/Weapons.cpp.i
 
 CMakeFiles/RPGGame.dir/Weapons.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/Weapons.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/Weapons.cpp -o CMakeFiles/RPGGame.dir/Weapons.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/Weapons.cpp -o CMakeFiles/RPGGame.dir/Weapons.cpp.s
 
 CMakeFiles/RPGGame.dir/Hero.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/Hero.cpp.o: ../Hero.cpp
 CMakeFiles/RPGGame.dir/Hero.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RPGGame.dir/Hero.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/Hero.cpp.o -MF CMakeFiles/RPGGame.dir/Hero.cpp.o.d -o CMakeFiles/RPGGame.dir/Hero.cpp.o -c /home/sammy/CleanRPGGame/Hero.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RPGGame.dir/Hero.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/Hero.cpp.o -MF CMakeFiles/RPGGame.dir/Hero.cpp.o.d -o CMakeFiles/RPGGame.dir/Hero.cpp.o -c /home/sammy/SoftwarePortf-lje/Hero.cpp
 
 CMakeFiles/RPGGame.dir/Hero.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/Hero.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/Hero.cpp > CMakeFiles/RPGGame.dir/Hero.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/Hero.cpp > CMakeFiles/RPGGame.dir/Hero.cpp.i
 
 CMakeFiles/RPGGame.dir/Hero.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/Hero.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/Hero.cpp -o CMakeFiles/RPGGame.dir/Hero.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/Hero.cpp -o CMakeFiles/RPGGame.dir/Hero.cpp.s
 
 CMakeFiles/RPGGame.dir/Monster.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/Monster.cpp.o: ../Monster.cpp
 CMakeFiles/RPGGame.dir/Monster.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/RPGGame.dir/Monster.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/Monster.cpp.o -MF CMakeFiles/RPGGame.dir/Monster.cpp.o.d -o CMakeFiles/RPGGame.dir/Monster.cpp.o -c /home/sammy/CleanRPGGame/Monster.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/RPGGame.dir/Monster.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/Monster.cpp.o -MF CMakeFiles/RPGGame.dir/Monster.cpp.o.d -o CMakeFiles/RPGGame.dir/Monster.cpp.o -c /home/sammy/SoftwarePortf-lje/Monster.cpp
 
 CMakeFiles/RPGGame.dir/Monster.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/Monster.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/Monster.cpp > CMakeFiles/RPGGame.dir/Monster.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/Monster.cpp > CMakeFiles/RPGGame.dir/Monster.cpp.i
 
 CMakeFiles/RPGGame.dir/Monster.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/Monster.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/Monster.cpp -o CMakeFiles/RPGGame.dir/Monster.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/Monster.cpp -o CMakeFiles/RPGGame.dir/Monster.cpp.s
 
 CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o: CMakeFiles/RPGGame.dir/flags.make
 CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o: ../DatabaseCommunication.cpp
 CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o: CMakeFiles/RPGGame.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o -MF CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o.d -o CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o -c /home/sammy/CleanRPGGame/DatabaseCommunication.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o -MF CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o.d -o CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o -c /home/sammy/SoftwarePortf-lje/DatabaseCommunication.cpp
 
 CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/CleanRPGGame/DatabaseCommunication.cpp > CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sammy/SoftwarePortf-lje/DatabaseCommunication.cpp > CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.i
 
 CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/CleanRPGGame/DatabaseCommunication.cpp -o CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sammy/SoftwarePortf-lje/DatabaseCommunication.cpp -o CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.s
 
 # Object files for target RPGGame
 RPGGame_OBJECTS = \
@@ -223,7 +223,7 @@ RPGGame: CMakeFiles/RPGGame.dir/build.make
 RPGGame: /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5.15.3
 RPGGame: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3
 RPGGame: CMakeFiles/RPGGame.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sammy/CleanRPGGame/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable RPGGame"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sammy/SoftwarePortf-lje/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable RPGGame"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RPGGame.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -235,6 +235,6 @@ CMakeFiles/RPGGame.dir/clean:
 .PHONY : CMakeFiles/RPGGame.dir/clean
 
 CMakeFiles/RPGGame.dir/depend:
-	cd /home/sammy/CleanRPGGame/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sammy/CleanRPGGame /home/sammy/CleanRPGGame /home/sammy/CleanRPGGame/build /home/sammy/CleanRPGGame/build /home/sammy/CleanRPGGame/build/CMakeFiles/RPGGame.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sammy/SoftwarePortf-lje/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sammy/SoftwarePortf-lje /home/sammy/SoftwarePortf-lje /home/sammy/SoftwarePortf-lje/build /home/sammy/SoftwarePortf-lje/build /home/sammy/SoftwarePortf-lje/build/CMakeFiles/RPGGame.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/RPGGame.dir/depend
 

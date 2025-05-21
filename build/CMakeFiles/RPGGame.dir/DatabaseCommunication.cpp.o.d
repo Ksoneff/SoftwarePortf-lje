@@ -1,7 +1,7 @@
 CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o: \
- /home/sammy/CleanRPGGame/DatabaseCommunication.cpp \
+ /home/sammy/SoftwarePortf-lje/DatabaseCommunication.cpp \
  /usr/include/stdc-predef.h \
- /home/sammy/CleanRPGGame/DatabaseCommunication.h \
+ /home/sammy/SoftwarePortf-lje/DatabaseCommunication.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qchar.h \
@@ -203,7 +203,8 @@ CMakeFiles/RPGGame.dir/DatabaseCommunication.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqldatabase.h \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlError \
  /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqlerror.h \
- /home/sammy/CleanRPGGame/Hero.h /home/sammy/CleanRPGGame/Weapons.h \
+ /home/sammy/SoftwarePortf-lje/Hero.h \
+ /home/sammy/SoftwarePortf-lje/Weapons.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h \
  /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
