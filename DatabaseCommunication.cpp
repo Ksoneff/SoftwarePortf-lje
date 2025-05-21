@@ -126,18 +126,21 @@ void DatabaseCommunication::unequipWeapon(Hero& hero) {
 
 }
 
+// Inserts heroes weapons
 void DatabaseCommunication::insertHeroWeapons(vector<Weapons*> heroWeapons, Hero& hero) {
     if (!db.isOpen()) {
         std::cerr << "insertHeroWeapons() aborted: database is not open!" << std::endl;
         return;
     }
 
+    // Iterates over all weapons in heroes inventory
     for (int i = 0; i < heroWeapons.size(); ++i) {
         Weapons* w = heroWeapons[i];
         QSqlQuery weaponsQuery;
 
         bool isNew = (w->getWeapon_id() == -1);
 
+        // Alternate way of inserting weapon based on if its new or not
         if (isNew) {
             weaponsQuery.prepare(R"(
                 INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills)
@@ -151,6 +154,7 @@ void DatabaseCommunication::insertHeroWeapons(vector<Weapons*> heroWeapons, Hero
             weaponsQuery.bindValue(":weapon_id", w->getWeapon_id());
         }
 
+        // Always does this
         weaponsQuery.bindValue(":hero_id", hero.getHeroID());
         weaponsQuery.bindValue(":type_id", w->getType_id());
         weaponsQuery.bindValue(":inventorySlot", i);
@@ -161,6 +165,7 @@ void DatabaseCommunication::insertHeroWeapons(vector<Weapons*> heroWeapons, Hero
             continue;
         }
 
+        // If its a new weapon also gives it a new weapon id
         if (isNew) {
             int newId = weaponsQuery.lastInsertId().toInt();
             w->setWeapon_id(newId);

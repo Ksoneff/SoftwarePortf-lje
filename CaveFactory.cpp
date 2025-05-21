@@ -1,10 +1,12 @@
 #include "CaveFactory.h"
 #include <iostream>
 
+// Create method
 vector<Monster*> CaveFactory::createCave(int heroLvl) {
     vector<Monster*> cave;
     MonsterFactory factory;
 
+    // By design the hero cant battle caves until level 5 (as a teacher testing, when you load game choose admin hes already level 5 ;))
     if (heroLvl < 5) {
         cout << "You are not ready to explore the vast caves of moria yet. Reach level 5 first." << endl;
         return cave;

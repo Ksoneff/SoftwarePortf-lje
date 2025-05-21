@@ -19,12 +19,14 @@ public:
     bool open();
     void close();
 
-    // For inserting, loading etc.
+    // For inserting, loading, equipping, unequipping etc.
     void equipWeapon(Weapons* selectedWeapon, Hero& hero);
     void unequipWeapon(Hero& hero);
     void insertHeroWeapons(vector<Weapons*> heroWeapons, Hero& hero);
     void insertHero(Hero& hero);
     Hero loadHero(int heroId);
+
+    // Shows heroes
     void showHeroes();
 
     // For analyzing game
