@@ -20,6 +20,9 @@ public:
     void close();
 
     // For inserting, loading etc.
+    void equipWeapon(Weapons* selectedWeapon, Hero& hero);
+    void unequipWeapon(Hero& hero);
+    void insertHeroWeapons(vector<Weapons*> heroWeapons, Hero& hero);
     void insertHero(Hero& hero);
     Hero loadHero(int heroId);
     void showHeroes();

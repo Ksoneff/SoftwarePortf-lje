@@ -32,78 +32,116 @@ void DatabaseCommunication::close() {
     }
 }
 
-// Function used to insert hero aswell as heroes inventory/weapons
+// Equips weapon in the database dynamically while the game is running
+void DatabaseCommunication::equipWeapon(Weapons * selectedWeapon, Hero& hero) {
+    if (!db.isOpen()) {
+        std::cerr << "equipWeapon() aborted: database is not open!" << std::endl;
+        return;
+    }
+
+    if (selectedWeapon == nullptr) {
+        std::cerr << "equipWeapon() aborted: selected weapon is null!" << std::endl;
+        return;
+    }
+
+    int equippedWeaponId = -1;
+
+    // Find the inventory index of selectedWeapon
+    int inventorySlot = -1;
+    const auto& weapons = hero.getWeapons();
+    for (int i = 0; i < weapons.size(); ++i) {
+        if (weapons[i] == selectedWeapon) {
+            inventorySlot = i;
+            break;
+        }
+    }
+
+        // If new weapon, insert it first to assign a weapon_id
+    if (selectedWeapon->getWeapon_id() == -1) {
+        QSqlQuery insertWeaponQuery;
+        insertWeaponQuery.prepare(R"(
+            INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills)
+            VALUES (:hero_id, :type_id, :inventorySlot, :kills)
+        )");
+        insertWeaponQuery.bindValue(":hero_id", hero.getHeroID());
+        insertWeaponQuery.bindValue(":type_id", selectedWeapon->getType_id());
+        insertWeaponQuery.bindValue(":inventorySlot", inventorySlot);
+        insertWeaponQuery.bindValue(":kills", selectedWeapon->getKills());
+
+        if (!insertWeaponQuery.exec()) {
+            qDebug() << "Failed to insert weapon:" << insertWeaponQuery.lastError().text();
+            return;
+        }
+
+        equippedWeaponId = insertWeaponQuery.lastInsertId().toInt();
+        selectedWeapon->setWeapon_id(equippedWeaponId); // Sync back to object
+    } else {
+        equippedWeaponId = selectedWeapon->getWeapon_id();
+    }
+
+    // Update the Hero table with the equipped weapon
+    QSqlQuery updateHeroQuery;
+    updateHeroQuery.prepare(R"(
+        UPDATE Hero SET weapon_id = :weapon_id WHERE hero_id = :hero_id
+    )");
+    updateHeroQuery.bindValue(":weapon_id", equippedWeaponId);
+    updateHeroQuery.bindValue(":hero_id", hero.getHeroID());
+
+    if (!updateHeroQuery.exec()) {
+        qDebug() << "Failed to update hero's equipped weapon:" << updateHeroQuery.lastError().text();
+        return;
+    }
+
+    qDebug() << "Weapon equipped successfully with weapon_id:" << equippedWeaponId;
+}
+
+// Unequips weapon in database dynamically while the game is running
+void DatabaseCommunication::unequipWeapon(Hero& hero) {
+    if (!db.isOpen()) {
+            std::cerr << "unequipWeapon() aborted: database is not open!" << std::endl;
+            return;
+        }
+
+    if (hero.getSelectedWeapon() == nullptr) {
+        std::cerr << "unequipWeapon() aborted: hero has no weapon equipped!" << std::endl;
+        return;
+    }
+
+    // Update the Hero table with the equipped weapon
+    QSqlQuery unequipWeaponQuery;
+
+    unequipWeaponQuery.prepare(R"(
+        UPDATE Hero SET weapon_id = :weapon_id WHERE hero_id = :hero_id
+    )");
+    unequipWeaponQuery.bindValue(":weapon_id", QVariant(QVariant::Int));
+    unequipWeaponQuery.bindValue(":hero_id", hero.getHeroID());
+
+    if (!unequipWeaponQuery.exec()) {
+        qDebug() << "Failed to update hero's equipped weapon:" << unequipWeaponQuery.lastError().text();
+        return;
+    }
+
+    qDebug() << "Weapon unequipped successfully" << endl;
+
+}
+
+// Inserts heroes weapon when program terminates
+void DatabaseCommunication::insertHeroWeapons(vector<Weapons*> heroWeapons, Hero& hero) {
+    if (!db.isOpen()) {
+        std::cerr << "insrtHeroWeapons() aborted: database is not open!" << std::endl;
+        return;
+    }
+
+
+
+}
+
+// Function used to insert hero
 void DatabaseCommunication::insertHero(Hero& hero) {
 
     if (!db.isOpen()) {
         std::cerr << "insertHero() aborted: database is not open!" << std::endl;
         return;
-    }
-
-    // Handle Weapons: Replace all previous weapons for this hero, with new weapons
-    QSqlQuery deleteQuery;
-    deleteQuery.prepare("DELETE FROM Weapons WHERE hero_id = :hero_id");
-    deleteQuery.bindValue(":hero_id", hero.getHeroID());
-    deleteQuery.exec();  // Clean up old inventory if exists
-
-    int equippedWeaponId = -1;
-
-    // Add hero weapons to weapon table
-    const auto& weapons = hero.getWeapons();
-    for (int i = 0; i < weapons.size(); ++i) 
-    {
-        // For handling if a weapon is new or not
-        bool isNewWeapon = (weapons[i]->getWeapon_id() == -1); 
-        QString sqlW;
-
-        // Inserting without weapon_id will be auto generated later
-        if (isNewWeapon)
-        {
-            sqlW = R"(
-                INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills)
-                VALUES (:hero_id, :type_id, :inventorySlot, :kills)
-            )";
-        }
-        // Insert with old weapon_id
-        else 
-        {
-            sqlW = R"(
-                INSERT INTO Weapon (hero_id, type_id, inventorySlot, kills, weapon_id)
-                VALUES (:hero_id, :type_id, :inventorySlot, :kills, :weapon_id)
-            )";
-        }
-
-        QSqlQuery weaponsQuery;
-        weaponsQuery.prepare(sqlW);
-        
-        // Only if its an old weapon with updated kills or inventory stats
-        if (!isNewWeapon) 
-        {
-            weaponsQuery.bindValue(":weapon_id", weapons[i]->getWeapon_id());
-        }
-
-        // Always do
-        weaponsQuery.bindValue(":hero_id", hero.getHeroID());
-        weaponsQuery.bindValue(":type_id", weapons[i]->getType_id());
-        weaponsQuery.bindValue(":inventorySlot", i);
-        weaponsQuery.bindValue(":kills", weapons[i]->getKills());
-        weaponsQuery.exec();
-
-        // Create new weaponID
-        if (isNewWeapon) 
-        {
-            int newWeaponId = weaponsQuery.lastInsertId().toInt();
-            weapons[i]->setWeapon_id(newWeaponId);
-
-            if (hero.getSelectedWeapon() == weapons[i]) {
-                equippedWeaponId = newWeaponId;
-            }
-        } 
-
-        else if (hero.getSelectedWeapon() == weapons[i]) 
-        {
-            equippedWeaponId = weapons[i]->getWeapon_id();
-        }
     }
 
     bool isNewHero = (hero.getHeroID() == -1); // For tracking wether or not a hero is already in the database
@@ -162,7 +200,7 @@ void DatabaseCommunication::insertHero(Hero& hero) {
 
     // Get equipped weapon type id
     int weaponId = hero.hasWeaponEquipped() && hero.getSelectedWeapon()
-        ? equippedWeaponId
+        ? hero.getSelectedWeapon()
         : -1;
 
     // No weapon equipped
