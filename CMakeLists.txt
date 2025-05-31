@@ -3,13 +3,10 @@ project(RPGGame)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Use Qt5 or Qt6 (adjust if needed)
 find_package(Qt5 REQUIRED COMPONENTS Core Sql)
 
-# If you use Qt signals/slots or Q_OBJECT macros, enable automoc
 set(CMAKE_AUTOMOC ON)
 
-# Add source files
 set(SOURCES
     main.cpp
     Controller.cpp
@@ -34,6 +31,5 @@ set(HEADERS
 
 add_executable(RPGGame ${SOURCES} ${HEADERS})
 
-# Link with Qt
 target_link_libraries(RPGGame Qt5::Core Qt5::Sql)
 

@@ -1,0 +1,419 @@
+commit 95279c5efe007c27386c7e52f5cfbc1c2549c238
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 21 21:06:57 2025 +0200
+
+    Last commit. Code finished
+
+commit cb83b1f9c89ccc3b70cc9860ce0af22f0d41c888
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 21 20:40:10 2025 +0200
+
+    Inventory is handled correctly now
+
+commit a8617bf3d224792b866fe24876287d7c4d4c2244
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 21 20:17:17 2025 +0200
+
+    Now heroes are not added twice to the weapon table in the database
+
+commit e871674909deb2c74d1fa7be1367127963277110
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 21 17:52:06 2025 +0200
+
+    Another interim commit (local save)
+
+commit 56651add441a3f4cb475aaf070ec10a89f430371
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 21 17:19:10 2025 +0200
+
+    Fixed how heros equipped weapon is handled in the program and in connection with the database
+
+commit dd7a0b58bc2bd97f181d3a75888dad96e1c2116b
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 21 13:02:02 2025 +0200
+
+    Interim commit
+
+commit 251c221b5691ce9ba24725f7d816cbf0d3e9c73d
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 21 09:33:57 2025 +0200
+
+    Added additional equip and unequip weapon functions which are intended to dynamically updtate the heroes inventory while the game runs
+
+commit 9decb0c23237174d5f6ff66be0d9025525c1da79
+Author: Karl Soneff <karl@soneff.com>
+Date:   Tue May 20 22:25:40 2025 +0200
+
+    Relized that there was a bunch of issues with the way that i save weapons, just a save commit.
+
+commit 47e9cd4650d2134f6c2c9e9438468bb1a720a9da
+Author: Karl Soneff <karl@soneff.com>
+Date:   Tue May 20 19:29:55 2025 +0200
+
+    Encountered a new problem, not loading the weapon id for equipped weapon correctly, this commit is just like a save. I need to eat food
+
+commit 58995663c504ab188746150d9dd10754a1cae5a4
+Author: Karl Soneff <karl@soneff.com>
+Date:   Tue May 20 18:55:33 2025 +0200
+
+    Cleaned up the code, made it presentable, and added comments, if final testing stage goes well this is the final commit
+
+commit 7dad00ae042953cde72c8085655cfd081eb4ed68
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 17:12:24 2025 +0200
+
+    The core functionallity of the game should be complete. Now only clean up/optimization remains
+
+commit b50325fe6d5fb4c790b2b334e927d11ae993100e
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 16:53:50 2025 +0200
+
+    Analyze game functionality complete, all requirements met
+
+commit e5d1eca6160a4bb12daa39c3b5cbdca88e40b6e3
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 16:24:19 2025 +0200
+
+    Implemented function to see hero with most kills per weapon type, made small changes in create_database.txt file
+
+commit 0d5fde906f8d3c1f275d5ce3b32bce3394b3d13d
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 15:47:56 2025 +0200
+
+    Finished second analyze function: showHeroKills
+
+commit 70d1a05c54e872215fe603b1ed2ea226c52e9e4d
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 15:39:06 2025 +0200
+
+    Started implementing analyze option. Analyze option 1: list heroes in ABC order, finished, and analyze game function has been implemented in controller class
+
+commit 33edee841f14e4ab9d42dd783d5f6ed4afc93a1d
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 14:27:30 2025 +0200
+
+    Removed preloadable heroes from the controller class, and instead updated the create_database.txt file, and insert them direclty from init. Now they are loadable by entering 0 at the start of the game
+
+commit b3cc42aaa097d6bab0b5ce00b231a7591a52eebe
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 14:04:23 2025 +0200
+
+    fixed error: hero wasnt loading with inventory
+
+commit 3d29aab86e4478b1e5fc0b8a2cc9d756d057e352
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 13:09:05 2025 +0200
+
+    Fixed small issue with equipping weapons
+
+commit 47640b3fbfd93054c4f2fc01028fac37ea46de03
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 12:27:58 2025 +0200
+
+    Re wrote all functions in database communication
+
+commit 008fc61fd48dcab1655e50d353e7d053199102d6
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 01:39:04 2025 +0200
+
+    Made optimizations, need to sleep
+
+commit 673351ca709933a22df91895165e40d6a04abe58
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 18 01:06:13 2025 +0200
+
+    Load hero function should work, and should load hero weapons also
+
+commit d3b502df70f98d79c135fbc235c4cbd26acbe7f7
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sat May 17 17:40:42 2025 +0200
+
+    Fixed insertHero function
+
+commit 13e86de76b7fe9b717aa2d5aaaafe0ddf504ca1a
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sat May 17 12:08:15 2025 +0200
+
+    Decided to change database to have three tables: Hero, weaponType, weapon. Started implementation of that
+
+commit 1819efc4b87f4f146f580b41e2a9ba8504166bd4
+Author: Karl Soneff <karl@soneff.com>
+Date:   Fri May 16 15:52:42 2025 +0200
+
+    Added kills to hero, and implemented it in the database
+
+commit b2375afca459f6315a7f817e48cb3dddd68f6bbf
+Author: Karl Soneff <karl@soneff.com>
+Date:   Fri May 16 11:57:58 2025 +0200
+
+    Functionality added: can add heroes and their inventory to database, can use showheroes function to see heroes in database, and lastly can load a hero by hero id
+
+commit 6864f7d940123e60ca9d26c3b8aa453febbf4c18
+Author: Karl Soneff <karl@soneff.com>
+Date:   Fri May 16 08:56:06 2025 +0200
+
+    Messed around with the data communication class
+
+commit 494b4d983ac2154fd04c80537f52434a117c1517
+Author: Karl Soneff <karl@soneff.com>
+Date:   Fri May 16 08:31:27 2025 +0200
+
+    Updated databasecoms class removed two unused function
+
+commit 973ca0813ac6dfcdb43493a2ea3e3da452b0aba5
+Author: Karl Soneff <karl@soneff.com>
+Date:   Fri May 16 08:18:10 2025 +0200
+
+    Fixed another small issue in controller class
+
+commit c4946e678e782748e20fe45818cab13c802c040c
+Author: Karl Soneff <karl@soneff.com>
+Date:   Fri May 16 08:12:03 2025 +0200
+
+    Made small modifications
+
+commit 0979a1c0f254f9942d848874a1bbc2e71772518c
+Author: Karl Soneff <karl@soneff.com>
+Date:   Thu May 15 20:11:51 2025 +0200
+
+    Maybe i can add stuff to a database now not quite sure
+
+commit 7cb9a04e2a5849373a483825f1b7481e62cb15e3
+Author: Karl Soneff <karl@soneff.com>
+Date:   Thu May 15 19:37:37 2025 +0200
+
+    Created the new database based on the new txt create file
+
+commit 357d060b13c9f6440aac5e3a98bba44bcc8a3b57
+Author: Karl Soneff <karl@soneff.com>
+Date:   Thu May 15 19:34:22 2025 +0200
+
+    Started the implementation of database in code, added a database communication class to do so. Realized i needed to expand my database so modified the txt version of the database
+
+commit 440c0f4690a6c4ac774a846faaa031898cd34eee
+Author: Karl Soneff <karl@soneff.com>
+Date:   Thu May 15 13:54:04 2025 +0200
+
+    Created the database file
+
+commit e97c66068784b696fe725745f858a5563cccfbd0
+Author: Karl Soneff <karl@soneff.com>
+Date:   Thu May 15 13:45:33 2025 +0200
+
+    Created create_databse.txt file and added it
+
+commit c7e4518b9d692d9e40dc7e0b91507607694a5b7b
+Author: Karl Soneff <karl@soneff.com>
+Date:   Thu May 15 09:18:47 2025 +0200
+
+    Improved error checking for incorrect user input
+
+commit ec70a8b3946845539b2ed5a5749174025f640b03
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 14 08:39:54 2025 +0200
+
+    Implemented the change of monster creation directly from monster class in to main program
+
+commit b0242e96f22dc69105865175ebcf7d0a7261d3ee
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed May 14 08:37:06 2025 +0200
+
+    Decided to remove all subclasses, didnt feel like they brought any value to the code, had hoped they would be valuable down the line
+
+commit 4ae2d3b8203c70d62349733edcc6c0912af0fb4e
+Author: Karl Soneff <karl@soneff.com>
+Date:   Tue May 13 21:50:28 2025 +0200
+
+    Updated the showRules function in controller class
+
+commit 7d7e4ccb3d6b0dffb51d19d8a6f834cdff1120ea
+Author: Karl Soneff <karl@soneff.com>
+Date:   Tue May 13 21:31:43 2025 +0200
+
+    Weapons now lose durability and are removed from hero inventory when their durability is = 0
+
+commit 8d91ccdaf4b2e929a5c76babf4dea3f11dd353e4
+Author: Karl Soneff <karl@soneff.com>
+Date:   Tue May 13 21:29:35 2025 +0200
+
+    Started implementation of holdbarhed on weapons
+
+commit ca82c6485e95bd671097751d1e653c709f8d3e83
+Author: Karl Soneff <karl@soneff.com>
+Date:   Tue May 13 21:27:03 2025 +0200
+
+    Added set holdbarhed function to weapons class
+
+commit 76f0e77174c8bb50433c8b241b0e71f310e3fba7
+Author: Karl Soneff <karl@soneff.com>
+Date:   Mon May 12 18:05:58 2025 +0200
+
+    Modified controller class with an option to equip a weapon
+
+commit 366c7d1e63f001540dfd08c8c0e9b44b0c44cebd
+Author: Karl Soneff <karl@soneff.com>
+Date:   Mon May 12 18:04:10 2025 +0200
+
+    Modified hero class, so that weapons equiping and unequiping modifies heroes damage
+
+commit 8c4ba264b0ca3eee941cc73d677a1b3413d08413
+Author: Karl Soneff <karl@soneff.com>
+Date:   Mon May 12 15:58:51 2025 +0200
+
+    Made modifications in controller class, both header and cpp. Now handles armory, buying weapons, and adding weapons to hero inventory
+
+commit 4b1f563332f02d5a30c22310fe540ea294d6a62f
+Author: Karl Soneff <karl@soneff.com>
+Date:   Mon May 12 15:56:33 2025 +0200
+
+    Made modifications to hero class to handle inventory and weapons
+
+commit 961ee6c95e738fc95bb5a0e00c3880b5023f5c84
+Author: Karl Soneff <karl@soneff.com>
+Date:   Mon May 12 15:54:40 2025 +0200
+
+    Added weapons class
+
+commit 9c4eaba0f893d33685b7d20d3f6f4a8925f10e83
+Author: Karl Soneff <karl@soneff.com>
+Date:   Thu May 8 18:50:51 2025 +0200
+
+    Made small change in controller header file
+
+commit 491773b31c96668fd9b9be44f2718c13f3e7420d
+Author: Karl Soneff <karl@soneff.com>
+Date:   Thu May 8 18:50:00 2025 +0200
+
+    Added error checking for incorrect user input
+
+commit 63fba37b4de534fc03a7259d991175f248ff02ef
+Author: Karl Soneff <karl@soneff.com>
+Date:   Mon May 5 21:44:34 2025 +0200
+
+    Added loadable heroes: Ironman, Spiderman, Deadpool, and Batman
+
+commit d5d51b89224491f30f067cb62cc6afaa5c2628f7
+Author: Karl Soneff <karl@soneff.com>
+Date:   Mon May 5 13:08:09 2025 +0200
+
+    Made chages in controller class, hanldes caves etc.
+
+commit 4226f5c70ceebed467487ecf339dcbdd411689ca
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 4 21:36:27 2025 +0200
+
+    Made modifications to hero class, constructor now takes gold
+
+commit 6d1bdb185a3d61f859a4642d6753e4b7f0346603
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 4 16:49:33 2025 +0200
+
+    Made modifications to controller class to accomidate changes to monster subclasses
+
+commit ef7141ce384a36f50526da364163903d86c7955b
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 4 16:47:15 2025 +0200
+
+    Cave Factory class added
+
+commit 29c816c2870de1dcc7a54ba20a0728aba247dab0
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 4 16:45:16 2025 +0200
+
+    MonsterType header file added
+
+commit 0033f2507a95f956e75f53435886a46fd75916ec
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 4 16:43:06 2025 +0200
+
+    Modified MonsterFactory class to generate random monsters. In doing so i had to change constructor for all monster subclasses
+
+commit 66679b71f8e36333fa1d4833d7f3492f820751fb
+Author: Karl Soneff <karl@soneff.com>
+Date:   Sun May 4 12:37:04 2025 +0200
+
+    MonsterFactory class added
+
+commit 90465e66fd12c04323106b7da7bd0f96a040c90d
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 20:21:00 2025 +0200
+
+    Made changes to TheStrongestGoblin.cpp
+
+commit cf559d2babf1b4a069ca6949b64fcd7ae26c4d7f
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 20:04:16 2025 +0200
+
+    Main program file has been added
+
+commit e79ad861d201dab7effa32c95317a2b64615973b
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 20:03:25 2025 +0200
+
+    Controller class has been added
+
+commit 49d8a19efb1478bee24243e0c4b1e2932560addb
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 20:01:27 2025 +0200
+
+    New monster (Dragon) class added
+
+commit b2e7d016807cb10f5a1a92247dec40c76ccaabef
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 20:00:10 2025 +0200
+
+    New monster (Unicorn) class added
+
+commit 86fc41a1a3b1638f6599af18580066d84490aa83
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 19:58:31 2025 +0200
+
+    New monster (Ape King) class added
+
+commit 2eca05e609de1b833337cb08a9ed3dd60a6781c6
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 19:57:12 2025 +0200
+
+    New monster (The Strongest Goblin) class added
+
+commit d6dc5635dd8136e5ad0cc1feb9f7572b16b922aa
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 19:55:38 2025 +0200
+
+    New monster (Stronger Goblin) class added
+
+commit a659c79934ad4f89d2c33d6cc57c2adf73148478
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 19:54:02 2025 +0200
+
+    New monster (Strong Goblin) class added
+
+commit f09d0d2f281a8794bd51946baa6fa2fd9aba35d0
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 19:52:40 2025 +0200
+
+    New monster (Weak Goblin) class added
+
+commit dbaf9cb844ed18f403e833d0e105247e467152ca
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 19:51:03 2025 +0200
+
+    New monster (hest) class added
+
+commit b58ace4e2918fd965b5728dcbd7b583ab9bb0fed
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 19:49:16 2025 +0200
+
+    Added Monster.cpp and Monster.h classes
+
+commit 69c82fa49b14c1d0a6a101ebbf22caf9f788052f
+Author: Karl Soneff <karl@soneff.com>
+Date:   Wed Apr 23 19:46:35 2025 +0200
+
+    Added hero.h file
+
+commit 6b1622ad1d6657aafd2daa73323697b66995dfe8
+Author: Ksoneff <Karl@soneff.com>
+Date:   Wed Apr 23 19:24:30 2025 +0200
+
+    Initial commit
